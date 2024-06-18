@@ -10,10 +10,10 @@ import Foundation
 struct TodoItem{
     let id: String
     let text: String
+    let creationDate: Date
+    let isCompleted: Bool
     let priority: Priority
     let deadline: Date?
-    let isCompleted: Bool
-    let creationDate: Date
     let lastChangingDate: Date?
     
     init(id: String = UUID().uuidString,
@@ -103,6 +103,94 @@ extension TodoItem {
         }
 
         let creationDate = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
+        
+        return TodoItem(
+            id: id,
+            text: text,
+            priority: priority,
+            deadline: deadline,
+            isCompleted: isCompleted,
+            creationDate: creationDate,
+            lastChangingDate: lastChangingDate
+        )
+    }
+}
+
+
+
+extension TodoItem {
+    var csv: String {
+        var csvString = "\(self.id),\(self.text),\(Int(self.creationDate.timeIntervalSince1970)),"
+
+        if self.priority != .normal {
+            csvString += "\(self.priority.rawValue),"
+        }else {
+            csvString += ","
+        }
+        if let deadline = self.deadline {
+            csvString += "\(Int(deadline.timeIntervalSince1970)),"
+        } else {
+            csvString += ","
+        }
+        if let lastChangingDate = self.lastChangingDate {
+            csvString += "\(Int(lastChangingDate.timeIntervalSince1970)),"
+        }else {
+            csvString += ","
+        }
+
+        csvString += "\(self.isCompleted)"
+        return csvString
+    }
+    
+    //let id: String
+    //let text: String
+    //let creationDate: Date
+    //let priority: Priority
+    //let deadline: Date?
+    //let lastChangingDate: Date?
+    //let isCompleted: Bool
+    
+    static func parse(csv: String) -> TodoItem? {
+        let csvDataArray = csv.split(separator: ",").compactMap{String($0)}
+        
+        guard csvDataArray.count > 7 else { return nil }
+        
+        let id = csvDataArray[0]
+        let text = csvDataArray[1]
+        
+        guard let creationDateTimeStamp = Int(csvDataArray[2]) else {
+            return nil
+        }
+        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
+        
+        let priority: Priority
+        if csvDataArray[3] != ""{
+            if let priorityValue = Priority(rawValue: csvDataArray[3]) {
+                priority = priorityValue
+            } else {
+                return nil
+            }
+        } else {
+            priority = .normal
+        }
+        
+        let deadline: Date?
+        if let deadlineTimeInterval = Int(csvDataArray[4]) {
+            deadline = Date(timeIntervalSince1970: TimeInterval(deadlineTimeInterval))
+        } else {
+            deadline = nil
+        }
+        
+        let lastChangingDate: Date?
+        if let lastChangingTimeInterval = Int(csvDataArray[5]) {
+            lastChangingDate = Date(timeIntervalSince1970: TimeInterval(lastChangingTimeInterval))
+        } else {
+            lastChangingDate = nil
+        }
+        
+        guard let isCompleted = Bool(csvDataArray[6]) else {
+            return nil
+        }
         
         return TodoItem(
             id: id,
