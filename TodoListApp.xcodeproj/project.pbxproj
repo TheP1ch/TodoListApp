@@ -16,6 +16,7 @@
 		9C441A292C205E3A00CED704 /* TodoListAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C441A282C205E3A00CED704 /* TodoListAppUITestsLaunchTests.swift */; };
 		9C441A372C2060C300CED704 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C441A362C2060C300CED704 /* TodoItem.swift */; };
 		9C441A3A2C20646D00CED704 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C441A392C20646D00CED704 /* FileCache.swift */; };
+		9C441A3D2C21C85000CED704 /* FileManager + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C441A3C2C21C85000CED704 /* FileManager + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		9C441A282C205E3A00CED704 /* TodoListAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9C441A362C2060C300CED704 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		9C441A392C20646D00CED704 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		9C441A3C2C21C85000CED704 /* FileManager + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		9C441A0A2C205E3600CED704 /* TodoListApp */ = {
 			isa = PBXGroup;
 			children = (
+				9C441A3B2C21C83700CED704 /* Extensions */,
 				9C441A382C20645B00CED704 /* Managers */,
 				9C441A352C2060B600CED704 /* Models */,
 				9C441A0B2C205E3600CED704 /* TodoListApp.swift */,
@@ -147,6 +150,14 @@
 				9C441A392C20646D00CED704 /* FileCache.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		9C441A3B2C21C83700CED704 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9C441A3C2C21C85000CED704 /* FileManager + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +294,7 @@
 				9C441A372C2060C300CED704 /* TodoItem.swift in Sources */,
 				9C441A3A2C20646D00CED704 /* FileCache.swift in Sources */,
 				9C441A0C2C205E3600CED704 /* TodoListApp.swift in Sources */,
+				9C441A3D2C21C85000CED704 /* FileManager + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

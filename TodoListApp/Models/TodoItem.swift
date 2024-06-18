@@ -33,7 +33,7 @@ struct TodoItem{
     }
 }
 
-enum Priority: String{
+enum Priority: String {
     case low = "неважная"
     case normal = "обычная"
     case important = "важная"
@@ -65,6 +65,7 @@ extension TodoItem{
 }
 
 extension TodoItem {
+
     static func parse(json: Any) -> TodoItem? {
         guard let json = json as? [String: Any],
               let id = json[TodoItemKeys.id.rawValue] as? String,
@@ -74,12 +75,21 @@ extension TodoItem {
         else {
             return nil
         }
+
+        let deadline: Date?
+
+        if let deadlineTimeInterval = json[TodoItemKeys.deadline.rawValue] as? Int {
+            deadline = Date(timeIntervalSince1970: TimeInterval(deadlineTimeInterval))
+        } else {
+            deadline = nil
+        }
         
-        let deadLineTimeInterval = json[TodoItemKeys.deadline.rawValue] as? Int
-        let deadLine = deadLineTimeInterval != nil ? Date(timeIntervalSince1970: TimeInterval(deadLineTimeInterval!)) : nil
-        
-        let lastChangingTimeInterval = json[TodoItemKeys.lastChangingDate.rawValue] as? Int
-        let lastChangingDate = lastChangingTimeInterval != nil ? Date(timeIntervalSince1970: TimeInterval(lastChangingTimeInterval!)) : nil
+        let lastChangingDate: Date?
+        if let lastChangingTimeInterval = json[TodoItemKeys.lastChangingDate.rawValue] as? Int {
+            lastChangingDate = Date(timeIntervalSince1970: TimeInterval(lastChangingTimeInterval))
+        } else {
+            lastChangingDate = nil
+        }
         
         var priority: Priority
         if let priorityRawValue = json[TodoItemKeys.priority.rawValue] as? String{
@@ -92,15 +102,15 @@ extension TodoItem {
             priority = .normal
         }
 
-        
+        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
         
         return TodoItem(
             id: id,
             text: text,
             priority: priority,
-            deadline: deadLine,
+            deadline: deadline,
             isCompleted: isCompleted,
-            creationDate: Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp)),
+            creationDate: creationDate,
             lastChangingDate: lastChangingDate
         )
     }

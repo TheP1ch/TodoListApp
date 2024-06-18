@@ -8,16 +8,24 @@
 import Foundation
 
 enum FileError: Error{
+    case invalidFileURL
     case fileNotFound
-    case saveToFileFailed
-    case downloadFromFIleFailed
-    case parseFailed
+    case loadFileFailed
+    case saveFileFailed
+    case invalidJson
+    case invalidJsonParse
 }
 
-struct FileCache {
+protocol FileManaging{
+    var todoItems: [TodoItem] {get}
+    func add(todoItem: TodoItem)
+    func removeItem(by id: String)
+}
+
+final class FileCache: FileManaging {
     private(set) var todoItems: [TodoItem] = []
 
-    mutating func addTodoItem(todoItem: TodoItem) {
+    func add(todoItem: TodoItem) { // Нейминг
         for i in 0..<todoItems.count {
             if todoItems[i].id == todoItem.id{
                 todoItems[i] = todoItem
@@ -27,7 +35,7 @@ struct FileCache {
         todoItems.append(todoItem)
     }
     
-    mutating func removeTodoItem(id: String) {
+    func removeItem(by id: String) {
         for i in 0..<todoItems.count {
             if todoItems[i].id == id {
                 todoItems.remove(at: i)
@@ -38,27 +46,35 @@ struct FileCache {
 }
 
 extension FileCache {
-    mutating func loadFromJsonFile(fileName: String) {
-        guard let fileUrl = getFileUrl(fileName: fileName) else {
-            print("invalid fileURL")
-            return
+    
+    func loadJsonFile(fileName: String) throws {
+        guard let fileUrl = FileManager.getFileUrl(fileName: fileName) else {
+            throw FileError.invalidFileURL
         }
         
+        let data: Data
         do {
-            let data = try Data(contentsOf: fileUrl)
-            guard let jsonData = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {return}
+             data = try Data(contentsOf: fileUrl)
+        } catch {
+            throw FileError.fileNotFound
+        }
+        
+        do {       
+            guard let jsonData = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
+                return
+            }
             self.todoItems = jsonData.compactMap{
                 TodoItem.parse(json: $0)
             }
             
         } catch {
-            print("Error load data from json file: \(error)")
+            throw FileError.invalidJsonParse
         }
         
     }
-    
-    func saveAllToJsonFile(fileName: String) {
-        guard let fileUrl = getFileUrl(fileName: fileName) else {
+
+    func saveJsonFile(fileName: String) throws {
+        guard let fileUrl = FileManager.getFileUrl(fileName: fileName) else {
             print("invalid fileURL")
             return
         }
@@ -67,21 +83,17 @@ extension FileCache {
             $0.json
         }
         
+        let data: Data
         do {
-            let data = try JSONSerialization.data(withJSONObject: json)
-            try data.write(to: fileUrl)
+             data = try JSONSerialization.data(withJSONObject: json)
         } catch {
-            print("failed write to file: \(error)")
-        }
-    }
-}
-
-extension FileCache {
-    private func getFileUrl(fileName: String) -> URL? {
-        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else{
-            return nil
+            throw FileError.invalidJson
         }
         
-        return url.appending(path: fileName)
+        do {
+            try data.write(to: fileUrl)
+        } catch {
+            throw FileError.saveFileFailed
+        }
     }
 }
