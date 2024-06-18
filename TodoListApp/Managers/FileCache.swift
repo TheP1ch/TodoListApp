@@ -47,7 +47,7 @@ final class FileCache: FileManaging {
 
 extension FileCache {
     
-    func loadJsonFile(fileName: String) throws {
+    func loadJsonFile(named fileName: String) throws {
         guard let fileUrl = FileManager.getFileUrl(fileName: fileName) else {
             throw FileError.invalidFileURL
         }
@@ -73,7 +73,7 @@ extension FileCache {
         
     }
 
-    func saveJsonFile(fileName: String) throws {
+    func saveJsonFile(named fileName: String) throws {
         guard let fileUrl = FileManager.getFileUrl(fileName: fileName) else {
             print("invalid fileURL")
             return
