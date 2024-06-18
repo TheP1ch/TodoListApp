@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var fileCache = FileCache()
+    var fileCache = FileCache()
     var body: some View {
         VStack {
             Button("Add Todo") {
-                fileCache.addTodoItem(todoItem: TodoItem(text: "Item\(fileCache.todoItems.count)", priority: .low, isCompleted: Bool.random(), creationDate: Date()))
+                fileCache.add(todoItem: TodoItem(text: "Item\(fileCache.todoItems.count)", priority: .normal, isCompleted: Bool.random(), creationDate: Date()))
             }
             .foregroundColor(.black)
 
             .padding()
             Button("Save All") {
-                fileCache.saveAllToJsonFile(fileName: "JSON2")
+                try! fileCache.saveCSVFile(named: "CSV2")
             }
             Button("Load") {
-                fileCache.loadFromJsonFile(fileName: "JSON2")
+                try! fileCache.loadCSVFile(named: "CSV2")
             }
-            Button("remove"){
-                fileCache.removeTodoItem(id: "1B881E77-72E4-4A70-92D9-A607B7A3AE79")
-            }
+//            Button("remove"){
+//                fileCache.removeTodoItem(id: "1B881E77-72E4-4A70-92D9-A607B7A3AE79")
+//            }
             Button("print todoItems") {
                 fileCache.todoItems.forEach{
                     print("Todo-\($0.id): \($0)")

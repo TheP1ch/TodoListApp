@@ -151,9 +151,9 @@ extension TodoItem {
     //let isCompleted: Bool
     
     static func parse(csv: String) -> TodoItem? {
-        let csvDataArray = csv.split(separator: ",").compactMap{String($0)}
+        let csvDataArray = csv.components(separatedBy: ",")
         
-        guard csvDataArray.count > 7 else { return nil }
+        guard csvDataArray.count == 7 else { return nil }
         
         let id = csvDataArray[0]
         let text = csvDataArray[1]
