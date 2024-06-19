@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    var fileCache = FileCache()
+    var fileCache = FileCache(fileManagerCSV: FileManagerCSV(), fileManagerJson: FileManagerJson())
     var body: some View {
         VStack {
             Button("Add Todo") {
@@ -18,10 +18,10 @@ struct ContentView: View {
 
             .padding()
             Button("Save All") {
-                try! fileCache.saveCSVFile(named: "CSV2")
+                try! fileCache.save(fileName: "CSV2", format: .csv)
             }
             Button("Load") {
-                try! fileCache.loadCSVFile(named: "CSV2")
+                try! fileCache.load(fileName: "CSV2", format: .csv)
             }
 //            Button("remove"){
 //                fileCache.removeTodoItem(id: "1B881E77-72E4-4A70-92D9-A607B7A3AE79")
