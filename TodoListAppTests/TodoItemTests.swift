@@ -91,7 +91,7 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(todoItem?.priority, .normal)
     }
     
-    func testParseReturnNil() {
+    func testJsonParseReturnNil() {
         let json: [String: Any] = [:]
         
         let todoItem = TodoItem.parse(json: json)
@@ -99,7 +99,7 @@ final class TodoItemTests: XCTestCase {
         XCTAssertNil(todoItem)
     }
     
-    func testParseWithoutNotRequiredProperties() {
+    func testJsonParseWithoutNotRequiredProperties() {
         let json: [String: Any] = [
             "id": "test",
             "text": "hi",
@@ -120,5 +120,49 @@ final class TodoItemTests: XCTestCase {
         XCTAssertNil(todoItem?.lastChangingDate)
         
         XCTAssertEqual(todoItem?.priority, .important)
+    }
+    
+    //MARK: Test parse function
+    
+    func testParseCSVWithNormalPriority() {
+        let todoItem = TodoItem(id: "test1", text: "description", priority: .normal, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, creationDate: Date(timeIntervalSince1970: 100), lastChangingDate: Date(timeIntervalSince1970: 500))
+        let parsedCsv = TodoItem.parse(csv: todoItem.csv
+        )
+        
+        XCTAssertNotNil(todoItem)
+        
+        XCTAssertEqual(todoItem.id, parsedCsv?.id)
+        XCTAssertEqual(todoItem.text, parsedCsv?.text)
+        XCTAssertEqual(todoItem.isCompleted, parsedCsv?.isCompleted)
+        XCTAssertEqual(todoItem.creationDate, parsedCsv?.creationDate)
+        XCTAssertEqual(todoItem.deadline, parsedCsv?.deadline)
+        XCTAssertEqual(todoItem.lastChangingDate, parsedCsv?.lastChangingDate)
+        XCTAssertEqual(todoItem.priority, parsedCsv?.priority)
+    }
+    
+    func testCSVParseReturnNil() {
+        let csv: String = ""
+        
+        let todoItem = TodoItem.parse(csv: csv)
+        
+        XCTAssertNil(todoItem)
+    }
+    
+    func testCSVParseWithoutNotRequiredProperties() {
+        let todoItem = TodoItem(text: "test", priority: .important, isCompleted: true, creationDate: Date(timeIntervalSince1970: 500))
+        
+        let csvParsed = TodoItem.parse(csv: todoItem.csv)
+        
+        XCTAssertNotNil(todoItem)
+        
+        XCTAssertNotNil(csvParsed?.id)
+        XCTAssertEqual(csvParsed?.id, todoItem.id)
+        XCTAssertEqual(todoItem.text, csvParsed?.text)
+        XCTAssertEqual(todoItem.isCompleted, csvParsed?.isCompleted)
+        XCTAssertEqual(todoItem.creationDate, csvParsed?.creationDate)
+        XCTAssertNil(csvParsed?.deadline)
+        XCTAssertNil(csvParsed?.lastChangingDate)
+        
+        XCTAssertEqual(csvParsed?.priority, todoItem.priority)
     }
 }
