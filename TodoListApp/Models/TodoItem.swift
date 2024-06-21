@@ -142,14 +142,6 @@ extension TodoItem {
         return csvString
     }
     
-    //let id: String
-    //let text: String
-    //let creationDate: Date
-    //let priority: Priority
-    //let deadline: Date?
-    //let lastChangingDate: Date?
-    //let isCompleted: Bool
-    
     static func parse(csv: String) -> TodoItem? {
         let csvDataArray = csv.components(separatedBy: ",")
         
