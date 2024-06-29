@@ -10,37 +10,31 @@ import Foundation
 struct TodoItem{
     let id: String
     let text: String
-    let creationDate: Date
+    let createdAt: Date
     let isCompleted: Bool
     let priority: Priority
     let deadline: Date?
-    let lastChangingDate: Date?
+    let changeAt: Date?
     
     init(id: String = UUID().uuidString,
          text: String,
          priority: Priority,
          deadline: Date? = nil,
-         isCompleted: Bool,
-         creationDate: Date,
-         lastChangingDate: Date? = nil) {
+         isCompleted: Bool = false,
+         createdAt: Date = Date.now,
+         changeAt: Date? = nil) {
         self.id = id
         self.text = text
         self.priority = priority
         self.deadline = deadline
         self.isCompleted = isCompleted
-        self.creationDate = creationDate
-        self.lastChangingDate = lastChangingDate
+        self.createdAt = createdAt
+        self.changeAt = changeAt
     }
 }
 
-enum Priority: String {
-    case low = "неважная"
-    case normal = "обычная"
-    case important = "важная"
-}
-
 enum TodoItemKeys: String {
-    case id, text, priority, deadline, isCompleted, creationDate, lastChangingDate
+    case id, text, priority, deadline, isCompleted, createdAt, changeAt
 }
 
 extension TodoItem{
@@ -54,11 +48,11 @@ extension TodoItem{
         if let deadline = self.deadline {
             dictionary[TodoItemKeys.deadline.rawValue] = Int(deadline.timeIntervalSince1970)
         }
-        if let lastChangingDate = self.lastChangingDate {
-            dictionary[TodoItemKeys.lastChangingDate.rawValue] = Int(lastChangingDate.timeIntervalSince1970)
+        if let changeAt = self.changeAt {
+            dictionary[TodoItemKeys.changeAt.rawValue] = Int(changeAt.timeIntervalSince1970)
         }
         dictionary[TodoItemKeys.isCompleted.rawValue] = self.isCompleted
-        dictionary[TodoItemKeys.creationDate.rawValue] = Int(self.creationDate.timeIntervalSince1970)
+        dictionary[TodoItemKeys.createdAt.rawValue] = Int(self.createdAt.timeIntervalSince1970)
         
         return dictionary
     }
@@ -71,7 +65,7 @@ extension TodoItem {
               let id = json[TodoItemKeys.id.rawValue] as? String,
               let text = json[TodoItemKeys.text.rawValue] as? String,
               let isCompleted = json[TodoItemKeys.isCompleted.rawValue] as? Bool,
-              let creationDateTimeStamp = json[TodoItemKeys.creationDate.rawValue] as? Int
+              let creationDateTimeStamp = json[TodoItemKeys.createdAt.rawValue] as? Int
         else {
             return nil
         }
@@ -84,11 +78,11 @@ extension TodoItem {
             deadline = nil
         }
         
-        let lastChangingDate: Date?
-        if let lastChangingTimeInterval = json[TodoItemKeys.lastChangingDate.rawValue] as? Int {
-            lastChangingDate = Date(timeIntervalSince1970: TimeInterval(lastChangingTimeInterval))
+        let changeAt: Date?
+        if let changeAtTimeInterval = json[TodoItemKeys.changeAt.rawValue] as? Int {
+            changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
         } else {
-            lastChangingDate = nil
+            changeAt = nil
         }
         
         var priority: Priority
@@ -102,7 +96,7 @@ extension TodoItem {
             priority = .normal
         }
 
-        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
+        let createdAt = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
         
         return TodoItem(
             id: id,
@@ -110,8 +104,8 @@ extension TodoItem {
             priority: priority,
             deadline: deadline,
             isCompleted: isCompleted,
-            creationDate: creationDate,
-            lastChangingDate: lastChangingDate
+            createdAt: createdAt,
+            changeAt: changeAt
         )
     }
 }
@@ -120,7 +114,7 @@ extension TodoItem {
 
 extension TodoItem {
     var csv: String {
-        var csvString = "\(self.id),\(self.text),\(Int(self.creationDate.timeIntervalSince1970)),"
+        var csvString = "\(self.id),\(self.text),\(Int(self.createdAt.timeIntervalSince1970)),"
 
         if self.priority != .normal {
             csvString += "\(self.priority.rawValue),"
@@ -132,8 +126,8 @@ extension TodoItem {
         } else {
             csvString += ","
         }
-        if let lastChangingDate = self.lastChangingDate {
-            csvString += "\(Int(lastChangingDate.timeIntervalSince1970)),"
+        if let changeAt = self.changeAt {
+            csvString += "\(Int(changeAt.timeIntervalSince1970)),"
         }else {
             csvString += ","
         }
@@ -153,7 +147,7 @@ extension TodoItem {
         guard let creationDateTimeStamp = Int(csvDataArray[2]) else {
             return nil
         }
-        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
+        let createdAt = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
         
         let priority: Priority
         if csvDataArray[3] != ""{
@@ -173,11 +167,11 @@ extension TodoItem {
             deadline = nil
         }
         
-        let lastChangingDate: Date?
-        if let lastChangingTimeInterval = Int(csvDataArray[5]) {
-            lastChangingDate = Date(timeIntervalSince1970: TimeInterval(lastChangingTimeInterval))
+        let changeAt: Date?
+        if let changeAtTimeInterval = Int(csvDataArray[5]) {
+            changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
         } else {
-            lastChangingDate = nil
+            changeAt = nil
         }
         
         guard let isCompleted = Bool(csvDataArray[6]) else {
@@ -190,8 +184,8 @@ extension TodoItem {
             priority: priority,
             deadline: deadline,
             isCompleted: isCompleted,
-            creationDate: creationDate,
-            lastChangingDate: lastChangingDate
+            createdAt: createdAt,
+            changeAt: changeAt
         )
     }
 }
