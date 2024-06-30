@@ -7,12 +7,66 @@
 
 import SwiftUI
 
+fileprivate enum LayoutConstants {
+    static let addNewButtonPadding: CGFloat = 20
+    static let minListRowHeight: CGFloat = 56
+}
+
 struct TodoListView: View {
+    //MARK: Public Properties
+    @StateObject var viewModel: TodoListViewModel
+    
+    //MARK: Private Properties
+    
+    //MARK: Body
+    
     var body: some View {
-        Text("Hello World")
+        NavigationStack{
+            ZStack(alignment: .bottom) {
+                itemsList
+                addNewButton
+            }
+        }
+    }
+    
+    //MARK: View Properties
+    private var itemsList: some View {
+        List {
+            Section{
+                ForEach(viewModel.items) {todoItem in
+                    TodoItemCell(todoItem: todoItem) {}
+                    .listRowBackground(
+                        ColorTheme.Back.backSecondary.color
+                    )
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
+                        d[.leading] + 36
+                    })
+                }
+            }
+        }
+        .navigationTitle("Мои дела")
+        .scrollContentBackground(.hidden)
+        .background(ColorTheme.Back.backPrimary.color)
+        
+        .environment(\.defaultMinListRowHeight, LayoutConstants.minListRowHeight)
+    }
+    
+    private var addNewButton: some View {
+        AddNewItemButton {
+            viewModel.addItem()
+            print(viewModel.items.count)
+        }
+        .padding(.bottom, LayoutConstants.addNewButtonPadding)
     }
 }
 
 #Preview {
-    TodoListView()
+    TodoListView(
+        viewModel: TodoListViewModel(
+            fileCache: FileCache(
+                fileManagerCSV: FileManagerCSV(),
+                fileManagerJson: FileManagerJson()
+            )
+        )
+    )
 }
