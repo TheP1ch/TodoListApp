@@ -17,6 +17,8 @@ struct TodoListView: View {
     @StateObject var viewModel: TodoListViewModel
     
     //MARK: Private Properties
+    @State
+    private var selectedItems: TodoItem? = nil
     
     //MARK: Body
     
@@ -27,38 +29,61 @@ struct TodoListView: View {
                 addNewButton
             }
         }
+        .sheet(item: $selectedItems) {
+            selectedItems = nil
+        } content: {
+            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, isNew: false, collectionManager: viewModel))
+        }
+        
     }
     
     //MARK: View Properties
     private var itemsList: some View {
         List {
             Section{
-                ForEach(viewModel.items) {todoItem in
+                ForEach(viewModel.sortedItems) {todoItem in
                     TodoItemCell(todoItem: todoItem) {
                         viewModel.isDoneToggle(for: todoItem)
+                    }
+                    .onTapGesture {
+                        self.selectedItems = todoItem
                     }
                     .listRowBackground(
                         ColorTheme.Back.backSecondary.color
                     )
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
-                        d[.leading] + 38
+                        d[.leading] + 36
                     })
                 }
+                NewItemCell()
+                    .onTapGesture {
+                        self.selectedItems = TodoItem.new()
+                    }
+            } header: {
+                listHeader
             }
         }
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
-        
         .environment(\.defaultMinListRowHeight, LayoutConstants.minListRowHeight)
+        
     }
     
     private var addNewButton: some View {
         AddNewItemButton {
-            viewModel.add(item: nil)
-            print(viewModel.items.count)
+            self.selectedItems = TodoItem.new()
         }
         .padding(.bottom, LayoutConstants.addNewButtonPadding)
+    }
+    
+    private var listHeader: some View {
+        ListHeader(
+            isDoneCount: viewModel.isDoneCount,
+            filterOption: $viewModel.filterOption,
+            sortOption: $viewModel.sortOption
+        )
+        .textCase(nil)
     }
 }
 

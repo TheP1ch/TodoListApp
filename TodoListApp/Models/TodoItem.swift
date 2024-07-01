@@ -37,6 +37,15 @@ enum TodoItemKeys: String {
     case id, text, priority, deadline, isCompleted, createdAt, changeAt
 }
 
+extension TodoItem {
+    static func new() -> Self {
+        TodoItem(
+            text: "",
+            priority: .normal
+        )
+    }
+}
+
 extension TodoItem{
     var json: Any {
         var dictionary = [String: Any]()

@@ -8,8 +8,21 @@
 import Foundation
 
 
-enum Priority: String {
+enum Priority: String, Comparable {
     case low = "неважная"
     case normal = "обычная"
     case important = "важная"
+    
+    static func < (lhs: Priority, rhs: Priority) -> Bool {
+        switch (lhs, rhs) {
+        case (.low, _):
+            return true
+        case (.normal, .important):
+            return true
+        case (.important, _):
+            return false
+        case (.normal, _):
+            return false
+        }
+    }
 }

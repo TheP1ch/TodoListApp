@@ -74,6 +74,7 @@ struct TodoItemCell: View {
                     .foregroundStyle(ColorTheme.Support.separator.color)
             }
         }.frame(width: 24, height: 24)
+            .buttonStyle(.plain)
         
     }
     
@@ -97,5 +98,8 @@ struct TodoItemCell: View {
 }
 
 #Preview {
-    TodoItemCell(todoItem: TodoItem(id: "test1", text: "description", priority: .important, deadline: Date(timeIntervalSince1970: 10000), isCompleted: false, createdAt: Date(timeIntervalSince1970: 100), changeAt: Date(timeIntervalSince1970: 500))) {}
+    TodoItemCell(todoItem: TodoItem(text: "gege", priority: .important),
+                 onDoneButtonTap: {
+        print("tap btn")
+    })
 }

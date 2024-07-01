@@ -8,12 +8,12 @@
 import Foundation
 
 extension Date {
-    func toString(format: String = "dd MMMM") -> String {
+    func toString(with format: String = "dd MMMM") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.locale = Locale(identifier: "ru_RU")
         let string = dateFormatter.string(from: self)
-        
+
         return string
     }
 }
