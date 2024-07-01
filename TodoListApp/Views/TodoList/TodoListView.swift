@@ -34,12 +34,14 @@ struct TodoListView: View {
         List {
             Section{
                 ForEach(viewModel.items) {todoItem in
-                    TodoItemCell(todoItem: todoItem) {}
+                    TodoItemCell(todoItem: todoItem) {
+                        viewModel.isDoneToggle(for: todoItem)
+                    }
                     .listRowBackground(
                         ColorTheme.Back.backSecondary.color
                     )
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
-                        d[.leading] + 36
+                        d[.leading] + 38
                     })
                 }
             }
@@ -53,7 +55,7 @@ struct TodoListView: View {
     
     private var addNewButton: some View {
         AddNewItemButton {
-            viewModel.addItem()
+            viewModel.add(item: nil)
             print(viewModel.items.count)
         }
         .padding(.bottom, LayoutConstants.addNewButtonPadding)
