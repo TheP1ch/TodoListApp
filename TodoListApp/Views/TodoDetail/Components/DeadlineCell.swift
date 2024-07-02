@@ -8,11 +8,47 @@
 import SwiftUI
 
 struct DeadlineCell: View {
+    //MARK: Public Properties
+    @Binding var deadline: Date
+    
+    @Binding var hasDeadline: Bool
+    
+    var onTap: () -> Void
+    
+    //MARK: Body
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Toggle(isOn: $hasDeadline) {
+            VStack {
+                Text("Сделать до")
+                    .font(AppFont.body.font)
+                    .foregroundStyle(ColorTheme.Label.labelPrimary.color)
+                
+                if hasDeadline {
+                    deadlineTitle
+                }
+            }
+        }
+    }
+    
+    //MARK: View Properties
+    
+    private var deadlineTitle: some View {
+        Button {
+            onTap()
+        } label: {
+            Text("\(deadline.toString(with: "dd MMMM YYYY"))")
+                .font(AppFont.footnote.font)
+                .foregroundStyle(ColorTheme.ColorPalette.blue.color)
+        }
     }
 }
 
 #Preview {
-    DeadlineCell()
+    DeadlineCell(
+        deadline: .constant(Date.tommorow),
+        hasDeadline: .constant(true)
+    ) {
+        print("deadline \(Date.tommorow)")
+    }
 }
