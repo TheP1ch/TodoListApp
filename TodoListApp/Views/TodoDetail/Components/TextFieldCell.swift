@@ -9,18 +9,24 @@ import SwiftUI
 
 struct TextFieldCell: View {
     //MARK: Public Properties
-    
-    //MARK: Private Properties
-    
-    //MARK: Body
-    
+    @Binding var text: String
+
+    //MARK: Body    
     var body: some View {
-        Text("HI")
+        TextField(
+            "Что надо сделать",
+            text: $text,
+            axis: .vertical
+        )
+        .frame(minHeight: 120, alignment: .topLeading)
+        .foregroundStyle(
+            ColorTheme.Label.labelPrimary.color
+        )
+        .background(ColorTheme.Back.backSecondary.color)
     }
     
-    //MARK: View Properties
 }
 
 #Preview {
-    TextFieldCell()
+    TextFieldCell(text: .constant("ee"))
 }
