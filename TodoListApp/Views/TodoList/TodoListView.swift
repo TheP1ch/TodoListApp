@@ -32,7 +32,7 @@ struct TodoListView: View {
         .sheet(item: $selectedItems) {
             selectedItems = nil
         } content: {
-            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, isNew: false, collectionManager: viewModel))
+            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel))
         }
         
     }

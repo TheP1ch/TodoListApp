@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum Priority: String, Comparable {
+enum Priority: String, Comparable, CaseIterable {
     case low = "неважная"
     case normal = "обычная"
     case important = "важная"

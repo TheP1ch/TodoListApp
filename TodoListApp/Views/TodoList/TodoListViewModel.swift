@@ -8,8 +8,8 @@
 import Foundation
 
 protocol CollectionManaging {
-    func add(item: TodoItem?)
-    func remove(item: TodoItem)
+    func add(item: TodoItem)
+    func remove(by id: String)
 }
 
 final class TodoListViewModel: ObservableObject, CollectionManaging {
@@ -46,14 +46,14 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     //MARK: public methods
     
-    func add(item: TodoItem?) {
-        fileCache.add(todoItem: TodoItem(text: "description\(Int.random(in: 4...500))", priority: .low, deadline: Date(timeIntervalSince1970: 10000), isCompleted: false, createdAt: Date.now, changeAt: Date(timeIntervalSince1970: 500)))
+    func add(item: TodoItem) {
+        fileCache.add(todoItem: item)
         
         updateItems()
     }
     
-    func remove(item: TodoItem) {
-        fileCache.removeItem(by: item.id)
+    func remove(by id: String) {
+        fileCache.removeItem(by: id)
         
         updateItems()
     }

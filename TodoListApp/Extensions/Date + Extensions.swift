@@ -16,4 +16,8 @@ extension Date {
 
         return string
     }
+    
+    static var tommorow: Date {
+        Calendar.current.startOfDay(for: Date.now).addingTimeInterval(24 * 60 * 60)
+    }
 }

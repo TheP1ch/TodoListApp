@@ -13,12 +13,18 @@ extension Priority {
         switch self {
         case .important:
             Image(systemName: "exclamationmark.2")
-                .foregroundStyle(ColorTheme.ColorPalette.red.color)
+                .font(AppFont.subheadBold.font)
+                .foregroundStyle(ColorTheme.ColorPalette.red.color, .white)
         case .low:
             Image(systemName: "arrow.down")
-                .foregroundStyle(ColorTheme.ColorPalette.gray.color)
+                .font(AppFont.subheadBold.font)
+                .foregroundStyle(ColorTheme.ColorPalette.gray.color, .white)
         case .normal:
             nil
         }
     }
+}
+
+extension Priority {
+    var id: Self { self }
 }

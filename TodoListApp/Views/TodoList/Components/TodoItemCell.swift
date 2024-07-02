@@ -22,13 +22,13 @@ struct TodoItemCell: View {
                     if let priorityImage = todoItem.priority.image, !todoItem.isCompleted {
                         priorityImage
                     }
+                    
                     VStack(alignment: .leading) {
                         itemText
                         if let _ = todoItem.deadline{
                             deadlineLabel
                         }
                     }
-                    
                 }
             }
             Spacer()
