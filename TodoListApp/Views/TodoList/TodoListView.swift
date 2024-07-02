@@ -51,6 +51,21 @@ struct TodoListView: View {
                     .listRowBackground(
                         ColorTheme.Back.backSecondary.color
                     )
+                    .swipeActions(edge: .leading) {
+                        SuccessSwipeButton {
+                            viewModel.isDoneToggle(for: todoItem)
+                        }
+                    }
+                    
+                    .swipeActions(edge: .trailing) {
+                        DeleteSwipeButton {
+                            viewModel.remove(by: todoItem.id)
+                        }
+                        DetailsSwipeButton {
+                            self.selectedItems = todoItem
+                        }
+                    }
+                    
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
                         d[.leading] + 36
                     })
@@ -67,6 +82,7 @@ struct TodoListView: View {
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
         .environment(\.defaultMinListRowHeight, LayoutConstants.minListRowHeight)
+        .animation(.easeInOut, value: viewModel.sortedItems)
         
     }
     

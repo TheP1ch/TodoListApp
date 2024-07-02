@@ -36,6 +36,9 @@
 		9CD77A5F2C305298004885D8 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD77A5E2C305298004885D8 /* TodoListViewModel.swift */; };
 		9CD77A622C3054D9004885D8 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD77A612C3054D9004885D8 /* ColorTheme.swift */; };
 		9CED36BB2C308DA700684861 /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CED36BA2C308DA700684861 /* AppFont.swift */; };
+		9CF3A2602C348F5200813B69 /* SuccessSwipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3A25F2C348F5100813B69 /* SuccessSwipeButton.swift */; };
+		9CF3A2622C348FCA00813B69 /* DeleteSwipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3A2612C348FCA00813B69 /* DeleteSwipeButton.swift */; };
+		9CF3A2642C34909500813B69 /* DetailsSwipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3A2632C34909500813B69 /* DetailsSwipeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 		9CD77A5E2C305298004885D8 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		9CD77A612C3054D9004885D8 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		9CED36BA2C308DA700684861 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
+		9CF3A25F2C348F5100813B69 /* SuccessSwipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSwipeButton.swift; sourceTree = "<group>"; };
+		9CF3A2612C348FCA00813B69 /* DeleteSwipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSwipeButton.swift; sourceTree = "<group>"; };
+		9CF3A2632C34909500813B69 /* DetailsSwipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSwipeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +275,9 @@
 				9C8F5DE62C31AB2B00DAE22C /* TodoItemCell.swift */,
 				9C8F5DEE2C32DAC300DAE22C /* NewItemCell.swift */,
 				9C8F5DF02C32DF3D00DAE22C /* ListHeader.swift */,
+				9CF3A25F2C348F5100813B69 /* SuccessSwipeButton.swift */,
+				9CF3A2612C348FCA00813B69 /* DeleteSwipeButton.swift */,
+				9CF3A2632C34909500813B69 /* DetailsSwipeButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -414,12 +423,15 @@
 				9C441A412C2345F200CED704 /* FileManagerCSV.swift in Sources */,
 				9CC2DEB82C34344300A70FE5 /* ImportanceCell.swift in Sources */,
 				9C8F5DEB2C31C81B00DAE22C /* Date + Extensions.swift in Sources */,
+				9CF3A2622C348FCA00813B69 /* DeleteSwipeButton.swift in Sources */,
 				9C8F5DF12C32DF3D00DAE22C /* ListHeader.swift in Sources */,
 				9CED36BB2C308DA700684861 /* AppFont.swift in Sources */,
 				9CD77A622C3054D9004885D8 /* ColorTheme.swift in Sources */,
 				9C441A0E2C205E3600CED704 /* TodoListView.swift in Sources */,
 				9C8F5DEF2C32DAC300DAE22C /* NewItemCell.swift in Sources */,
+				9CF3A2602C348F5200813B69 /* SuccessSwipeButton.swift in Sources */,
 				9C441A372C2060C300CED704 /* TodoItem.swift in Sources */,
+				9CF3A2642C34909500813B69 /* DetailsSwipeButton.swift in Sources */,
 				9C6DA3962C303B0E002F2B6B /* Priority.swift in Sources */,
 				9C564E2E2C32E5B500E2EE78 /* FilterOption.swift in Sources */,
 				9C564E342C32FF8700E2EE78 /* TodoDetailViewModel.swift in Sources */,

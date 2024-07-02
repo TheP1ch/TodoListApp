@@ -36,6 +36,8 @@ struct TodoDetailView: View {
     @FocusState
     private var isFocused: Bool
     
+    @State private var showView: Bool = true
+    
     //MARK: Body
     
     var body: some View {
@@ -71,10 +73,8 @@ struct TodoDetailView: View {
                         .frame(minHeight: geometry.size.height - geometry.safeAreaInsets.top - 2 * geometry.safeAreaInsets.bottom, alignment: .topLeading)
                 }
                 .scrollDismissesKeyboard(.interactively)
-                .animation(.easeOut, value: isFocused)
-//                .scrollIndicators(.hidden)
             }
-            if !isFocused {
+            if showView {
                 List{
                     Section {
                         importanceCell
@@ -91,6 +91,11 @@ struct TodoDetailView: View {
                     deleteButton
                 }
                 .scrollIndicators(.hidden)
+            }
+        }
+        .onChange(of: isFocused) { old, new in
+            withAnimation(.easeInOut) {
+                showView = !new
             }
         }
     }
