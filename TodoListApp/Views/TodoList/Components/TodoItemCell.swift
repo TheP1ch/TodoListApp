@@ -41,10 +41,7 @@ struct TodoItemCell: View {
             }
             Spacer()
             chevroneImage
-            
-            if let _ = self.color {
-                colorLine
-            }
+            colorLine
         }
     }
     

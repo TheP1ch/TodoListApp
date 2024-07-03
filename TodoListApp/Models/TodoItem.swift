@@ -43,9 +43,8 @@ enum TodoItemKeys: String {
 extension TodoItem {
     static func new() -> Self {
         TodoItem(
-            text: "tetetatae",
-            priority: .normal,
-            hexColor: "#D3FF00"
+            text: "",
+            priority: .normal
         )
     }
 }

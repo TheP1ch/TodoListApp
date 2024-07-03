@@ -23,8 +23,7 @@ struct TodoListApp: App {
         WindowGroup {
             TodoListView(
                 viewModel: viewModel
-            )
-            .onAppear {
+            ).onAppear {
                 try? viewModel.load()
             }
         }

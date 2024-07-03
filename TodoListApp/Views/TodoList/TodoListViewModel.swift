@@ -45,8 +45,6 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     init(fileName: String, format: FileFormat, fileCache: FileCache) {
         self.fileCache = fileCache
         
-        items = fileCache.todoItems
-        
         self.fileName = fileName
         self.format = format
     }
@@ -82,6 +80,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     func load() throws {
         try self.fileCache.load(fileName: self.fileName, format: self.format)
+        items = fileCache.todoItems
     }
     
     //MARK: private methods
