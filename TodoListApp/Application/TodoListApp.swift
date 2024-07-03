@@ -9,11 +9,24 @@ import SwiftUI
 
 @main
 struct TodoListApp: App {
-    
+    @StateObject
+    var viewModel: TodoListViewModel = TodoListViewModel(
+        fileName: FileCache.fileName,
+        format: FileCache.fileExtension,
+        fileCache: FileCache(
+            fileManagerCSV: FileManagerCSV(),
+            fileManagerJson: FileManagerJson()
+        )
+    )
     
     var body: some Scene {
         WindowGroup {
-            TodoListView(viewModel: TodoListViewModel(fileCache: FileCache(fileManagerCSV: FileManagerCSV(), fileManagerJson: FileManagerJson())))
+            TodoListView(
+                viewModel: viewModel
+            )
+            .onAppear {
+                try? viewModel.load()
+            }
         }
     }
 }

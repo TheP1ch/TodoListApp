@@ -5,7 +5,7 @@
 //  Created by Евгений Беляков on 01.07.2024.
 //
 
-import Foundation
+import SwiftUI
 
 class TodoDetailViewModel: ObservableObject {
     
@@ -15,6 +15,8 @@ class TodoDetailViewModel: ObservableObject {
     @Published var deadline: Date
     @Published var priority: Priority
     @Published var hasDeadline: Bool
+    @Published var color: Color
+    @Published var hasColor: Bool
     
     var isSaveDisabled: Bool {
         text.isEmpty
@@ -42,11 +44,19 @@ class TodoDetailViewModel: ObservableObject {
         self.hasDeadline = todoItem.deadline == nil ? false : true
         
         self.isDeleteDisabled = todoItem.text.isEmpty ? true : false
+        
+        self.hasColor = todoItem.hexColor == nil ? false : true
+        if let hexColor = todoItem.hexColor, let color = Color(hex: hexColor) {
+            self.color = color
+        } else {
+            self.color = .red
+        }
     }
     
     //MARK: Public Methods
     func save() {
         let deadline = hasDeadline ? deadline : nil
+        let hexColor = hasColor ? color.toHex() : nil
         
         let item = TodoItem(
             id: self.id,
@@ -55,7 +65,8 @@ class TodoDetailViewModel: ObservableObject {
             deadline: deadline,
             isCompleted: self.isCompleted,
             createdAt: self.createdAt,
-            changeAt: Date.now
+            changeAt: Date.now,
+            hexColor: hexColor
         )
         
         collectionManager.add(item: item)

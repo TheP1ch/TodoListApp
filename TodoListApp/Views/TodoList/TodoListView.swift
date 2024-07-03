@@ -14,7 +14,7 @@ fileprivate enum LayoutConstants {
 
 struct TodoListView: View {
     //MARK: Public Properties
-    @StateObject var viewModel: TodoListViewModel
+    @ObservedObject var viewModel: TodoListViewModel
     
     //MARK: Private Properties
     @State
@@ -45,6 +45,7 @@ struct TodoListView: View {
                     TodoItemCell(todoItem: todoItem) {
                         viewModel.isDoneToggle(for: todoItem)
                     }
+                    .padding(.trailing, -18)
                     .onTapGesture {
                         self.selectedItems = todoItem
                     }
@@ -78,6 +79,7 @@ struct TodoListView: View {
                 listHeader
             }
         }
+        
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
@@ -106,6 +108,8 @@ struct TodoListView: View {
 #Preview {
     TodoListView(
         viewModel: TodoListViewModel(
+            fileName: FileCache.fileName,
+            format: FileCache.fileExtension,
             fileCache: FileCache(
                 fileManagerCSV: FileManagerCSV(),
                 fileManagerJson: FileManagerJson()

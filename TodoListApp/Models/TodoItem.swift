@@ -15,6 +15,7 @@ struct TodoItem: Identifiable, Equatable{
     let priority: Priority
     let deadline: Date?
     let changeAt: Date?
+    let hexColor: String?
     
     init(id: String = UUID().uuidString,
          text: String,
@@ -22,7 +23,8 @@ struct TodoItem: Identifiable, Equatable{
          deadline: Date? = nil,
          isCompleted: Bool = false,
          createdAt: Date = Date.now,
-         changeAt: Date? = nil) {
+         changeAt: Date? = nil,
+         hexColor: String? = nil) {
         self.id = id
         self.text = text
         self.priority = priority
@@ -30,18 +32,20 @@ struct TodoItem: Identifiable, Equatable{
         self.isCompleted = isCompleted
         self.createdAt = createdAt
         self.changeAt = changeAt
+        self.hexColor = hexColor
     }
 }
 
 enum TodoItemKeys: String {
-    case id, text, priority, deadline, isCompleted, createdAt, changeAt
+    case id, text, priority, deadline, isCompleted, createdAt, changeAt, hexColor
 }
 
 extension TodoItem {
     static func new() -> Self {
         TodoItem(
-            text: "",
-            priority: .normal
+            text: "tetetatae",
+            priority: .normal,
+            hexColor: "#D3FF00"
         )
     }
 }
@@ -59,6 +63,9 @@ extension TodoItem{
         }
         if let changeAt = self.changeAt {
             dictionary[TodoItemKeys.changeAt.rawValue] = Int(changeAt.timeIntervalSince1970)
+        }
+        if let hexColor = self.hexColor{
+            dictionary[TodoItemKeys.hexColor.rawValue] = hexColor
         }
         dictionary[TodoItemKeys.isCompleted.rawValue] = self.isCompleted
         dictionary[TodoItemKeys.createdAt.rawValue] = Int(self.createdAt.timeIntervalSince1970)
@@ -94,6 +101,8 @@ extension TodoItem {
             changeAt = nil
         }
         
+        let hexColor = json[TodoItemKeys.hexColor.rawValue] as? String
+        
         var priority: Priority
         if let priorityRawValue = json[TodoItemKeys.priority.rawValue] as? String{
             if let priorityValue = Priority(rawValue: priorityRawValue) {
@@ -114,7 +123,8 @@ extension TodoItem {
             deadline: deadline,
             isCompleted: isCompleted,
             createdAt: createdAt,
-            changeAt: changeAt
+            changeAt: changeAt,
+            hexColor: hexColor
         )
     }
 }
@@ -135,6 +145,11 @@ extension TodoItem {
         } else {
             csvString += ","
         }
+        if let hexColor = self.hexColor {
+            csvString += "\(hexColor)),"
+        } else {
+            csvString += ","
+        }
         if let changeAt = self.changeAt {
             csvString += "\(Int(changeAt.timeIntervalSince1970)),"
         }else {
@@ -148,7 +163,7 @@ extension TodoItem {
     static func parse(csv: String) -> TodoItem? {
         let csvDataArray = csv.components(separatedBy: ",")
         
-        guard csvDataArray.count == 7 else { return nil }
+        guard csvDataArray.count == 8 else { return nil }
         
         let id = csvDataArray[0]
         let text = csvDataArray[1]
@@ -176,14 +191,21 @@ extension TodoItem {
             deadline = nil
         }
         
+        let hexColor: String?
+        if csvDataArray[5] != ""  {
+            hexColor = csvDataArray[3]
+        } else {
+            hexColor = nil
+        }
+        
         let changeAt: Date?
-        if let changeAtTimeInterval = Int(csvDataArray[5]) {
+        if let changeAtTimeInterval = Int(csvDataArray[6]) {
             changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
         } else {
             changeAt = nil
         }
         
-        guard let isCompleted = Bool(csvDataArray[6]) else {
+        guard let isCompleted = Bool(csvDataArray[7]) else {
             return nil
         }
         
@@ -194,7 +216,8 @@ extension TodoItem {
             deadline: deadline,
             isCompleted: isCompleted,
             createdAt: createdAt,
-            changeAt: changeAt
+            changeAt: changeAt,
+            hexColor: hexColor
         )
     }
 }

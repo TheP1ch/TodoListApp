@@ -29,6 +29,9 @@ protocol FileManaging {
 }
 
 final class FileCache: FileManaging {
+    static let fileName: String = "TodoItems"
+    static let fileExtension: FileFormat = .json
+    
     private(set) var todoItems: [TodoItem]
     
     private let fileManagerJson: FileManagingJson
@@ -38,12 +41,7 @@ final class FileCache: FileManaging {
         fileManagerCSV: FileManagingCSV,
         fileManagerJson: FileManagingJson
     ) {
-        self.todoItems = [
-            TodoItem(id: "test1", text: "description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1", priority: .low, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, createdAt: Date(timeIntervalSince1970: 101), changeAt: Date(timeIntervalSince1970: 500)),
-            TodoItem(id: "test2", text: "Задание 1", priority: .normal, deadline: Date(timeIntervalSince1970: 10000), isCompleted: false, createdAt: Date(timeIntervalSince1970: 100), changeAt: Date(timeIntervalSince1970: 500)),
-            TodoItem(id: "test3", text: "description3", priority: .important, deadline: Date(timeIntervalSince1970: 10000), isCompleted: false, createdAt: Date(timeIntervalSince1970: 102), changeAt: Date(timeIntervalSince1970: 500)),
-            TodoItem(id: "test4", text: "description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1description1", priority: .normal, deadline: Date(timeIntervalSince1970: 10000), isCompleted: false, createdAt: Date(timeIntervalSince1970: 100), changeAt: Date(timeIntervalSince1970: 500))
-        ]
+        self.todoItems = []
         self.fileManagerJson = fileManagerJson
         self.fileManagerCSV = fileManagerCSV
     }

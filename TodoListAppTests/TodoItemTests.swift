@@ -73,22 +73,22 @@ final class TodoItemTests: XCTestCase {
             "id": "test",
             "text": "description",
             "isCompleted": false,
-            "creationDate": 500,
+            "createdAt": 500,
             "deadline": 399,
-            "lastChangingDate": 199
+            "changeAt": 199
         ]
         
         let todoItem = TodoItem.parse(json: json)
         
         XCTAssertNotNil(todoItem)
         
-        XCTAssertEqual(todoItem?.id, "test")
-        XCTAssertEqual(todoItem?.text, "description")
-        XCTAssertEqual(todoItem?.isCompleted, false)
-        XCTAssertEqual(todoItem?.createdAt, Date(timeIntervalSince1970: 500))
-        XCTAssertEqual(todoItem?.deadline, Date(timeIntervalSince1970: 399))
-        XCTAssertEqual(todoItem?.changeAt, Date(timeIntervalSince1970: 199))
-        XCTAssertEqual(todoItem?.priority, .normal)
+        XCTAssertEqual(todoItem!.id, "test")
+        XCTAssertEqual(todoItem!.text, "description")
+        XCTAssertEqual(todoItem!.isCompleted, false)
+        XCTAssertEqual(todoItem!.createdAt, Date(timeIntervalSince1970: 500))
+        XCTAssertEqual(todoItem!.deadline, Date(timeIntervalSince1970: 399))
+        XCTAssertEqual(todoItem!.changeAt, Date(timeIntervalSince1970: 199))
+        XCTAssertEqual(todoItem!.priority, .normal)
     }
     
     func testJsonParseReturnNil() {
@@ -105,7 +105,7 @@ final class TodoItemTests: XCTestCase {
             "text": "hi",
             "isCompleted": true,
             "priority": "важная",
-            "creationDate": 500
+            "createdAt": 500
         ]
         
         let todoItem = TodoItem.parse(json: json)

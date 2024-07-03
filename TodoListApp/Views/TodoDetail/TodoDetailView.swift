@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct TodoDetailView: View {
-    private enum HTransitionId: Hashable {
-        case textField
-        case settingsList
-    }
-    
     //MARK: Public Properties
     @ObservedObject var viewModel: TodoDetailViewModel
     
@@ -78,6 +73,7 @@ struct TodoDetailView: View {
                 Form{
                     Section {
                         importanceCell
+                        colorCell
                         deadlineCell
                         if isShowedDatePicker {
                             calendarCell
@@ -108,6 +104,7 @@ struct TodoDetailView: View {
                 }
                 Section {
                     importanceCell
+                    colorCell
                     deadlineCell
                     if isShowedDatePicker {
                         calendarCell
@@ -125,12 +122,17 @@ struct TodoDetailView: View {
     }
     
     private var textFieldCell: some View {
-        TextFieldCell(text: $viewModel.text)
+        TextFieldCell(text: $viewModel.text, color: $viewModel.color, hasColor: $viewModel.hasColor)
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     
     private var importanceCell: some View {
         ImportanceCell(importance: $viewModel.priority)
+            .listRowBackground(ColorTheme.Back.backSecondary.color)
+    }
+    
+    private var colorCell: some View {
+        ColorCell(itemColor: $viewModel.color, newColor: viewModel.color, hasColor: $viewModel.hasColor)
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     
@@ -215,6 +217,8 @@ struct TodoDetailView: View {
         viewModel: TodoDetailViewModel(
             todoItem: TodoItem.new(),
             collectionManager: TodoListViewModel(
+                fileName: FileCache.fileName,
+                format: FileCache.fileExtension,
                 fileCache: FileCache(
                     fileManagerCSV: FileManagerCSV(),
                     fileManagerJson: FileManagerJson()

@@ -36,12 +36,19 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     private var fileCache: FileManaging
     
+    private let fileName: String
+    
+    private let format: FileFormat
+    
     //MARK: Initializer
     
-    init(fileCache: FileCache) {
+    init(fileName: String, format: FileFormat, fileCache: FileCache) {
         self.fileCache = fileCache
         
         items = fileCache.todoItems
+        
+        self.fileName = fileName
+        self.format = format
     }
     
     //MARK: public methods
@@ -73,11 +80,16 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         updateItems()
     }
     
+    func load() throws {
+        try self.fileCache.load(fileName: self.fileName, format: self.format)
+    }
+    
     //MARK: private methods
     
     private func updateItems() {
         self.items = fileCache.todoItems
         
+        try? self.fileCache.save(fileName: self.fileName, format: self.format)
     }
     
     

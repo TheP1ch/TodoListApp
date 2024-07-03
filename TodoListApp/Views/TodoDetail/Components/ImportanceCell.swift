@@ -19,7 +19,6 @@ struct ImportanceCell: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             picker
         }
-
     }
     
     //MARK: View Properties

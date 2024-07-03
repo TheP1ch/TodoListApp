@@ -12,6 +12,14 @@ struct TodoItemCell: View {
     var todoItem: TodoItem
     var onDoneButtonTap: () -> Void
     
+    private var color: Color? {
+        if let hexColor = todoItem.hexColor, let color = Color(hex: hexColor) {
+            return color
+        }
+        
+        return nil
+    }
+    
     //MARK: Body
     
     var body: some View {
@@ -33,6 +41,10 @@ struct TodoItemCell: View {
             }
             Spacer()
             chevroneImage
+            
+            if let _ = self.color {
+                colorLine
+            }
         }
     }
     
@@ -46,6 +58,12 @@ struct TodoItemCell: View {
             )
             .lineLimit(3)
             .strikethrough(todoItem.isCompleted, pattern: .solid)
+    }
+    
+    private var colorLine: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .fill(color ?? ColorTheme.Back.backSecondary.color)
+            .frame(width: 4)
     }
     
     private var doneButton: some View {
@@ -98,7 +116,7 @@ struct TodoItemCell: View {
 }
 
 #Preview {
-    TodoItemCell(todoItem: TodoItem(text: "gege", priority: .important),
+    TodoItemCell(todoItem: TodoItem(text: "gege", priority: .important, hexColor: "#FF3B30"),
                  onDoneButtonTap: {
         print("tap btn")
     })
