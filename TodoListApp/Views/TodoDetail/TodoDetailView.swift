@@ -67,7 +67,7 @@ struct TodoDetailView: View {
     private var horizontalLayout: some View {
         HStack {
             GeometryReader { geometry in
-                List {
+                Form {
                     textFieldCell
                         .focused($isFocused)
                         .frame(minHeight: geometry.size.height - geometry.safeAreaInsets.top - 2 * geometry.safeAreaInsets.bottom, alignment: .topLeading)
@@ -75,7 +75,7 @@ struct TodoDetailView: View {
                 .scrollDismissesKeyboard(.interactively)
             }
             if showView {
-                List{
+                Form{
                     Section {
                         importanceCell
                         deadlineCell
@@ -102,22 +102,26 @@ struct TodoDetailView: View {
     
     
     private var verticalLayout: some View {
-        List{
-            textFieldCell
-            Section {
-                importanceCell
-                deadlineCell
-                if isShowedDatePicker {
-                    calendarCell
+            Form{
+                Section {
+                    textFieldCell
+                }
+                Section {
+                    importanceCell
+                    deadlineCell
+                    if isShowedDatePicker {
+                        calendarCell
+                    }
+                }
+                .alignmentGuide(.listRowSeparatorTrailing, computeValue: { d in
+                    d[.trailing]
+                })
+                .listSectionSpacing(16)
+                
+                Section {
+                    deleteButton
                 }
             }
-            .alignmentGuide(.listRowSeparatorTrailing, computeValue: { d in
-                d[.trailing]
-            })
-            .listSectionSpacing(16)
-            
-            deleteButton
-        }
     }
     
     private var textFieldCell: some View {

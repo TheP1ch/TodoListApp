@@ -13,11 +13,7 @@ struct TextFieldCell: View {
 
     //MARK: Body    
     var body: some View {
-        TextField(
-            "Что надо сделать",
-            text: $text,
-            axis: .vertical
-        )
+        TextField("Что надо сделать?", text: $text, axis: .vertical)
         .frame(minHeight: 120, alignment: .topLeading)
         .foregroundStyle(
             ColorTheme.Label.labelPrimary.color
