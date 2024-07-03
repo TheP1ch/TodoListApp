@@ -18,36 +18,6 @@ enum FileFormat {
     case csv
 }
 
-protocol FileManagingJson {
-    func saveJsonFile(named fileName: String, json: Any) throws
-    func loadJsonFile(named fileName: String) throws -> Any
-}
-
-final class FileManagerJson: FileManagingJson {
-    func loadJsonFile(named fileName: String) throws -> Any {
-        guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
-        }
-        
-        let data: Data = try Data(contentsOf: fileUrl)
-      
-        return try JSONSerialization.jsonObject(with: data)
-        
-    }
-
-    func saveJsonFile(named fileName: String, json: Any) throws {
-        guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
-        }
-        
-        let data: Data = try JSONSerialization.data(withJSONObject: json)
-        
-        try data.write(to: fileUrl)
-    }
-}
-
-
-
 protocol FileManaging {
     var todoItems: [TodoItem] {get}
     
@@ -59,17 +29,19 @@ protocol FileManaging {
 }
 
 final class FileCache: FileManaging {
+    static let fileName: String = "TodoItems"
+    static let fileExtension: FileFormat = .json
+    
     private(set) var todoItems: [TodoItem]
     
     private let fileManagerJson: FileManagingJson
     private let fileManagerCSV: FileManagingCSV
     
     init(
-        todoItems: [TodoItem] = [],
         fileManagerCSV: FileManagingCSV,
         fileManagerJson: FileManagingJson
     ) {
-        self.todoItems = todoItems
+        self.todoItems = []
         self.fileManagerJson = fileManagerJson
         self.fileManagerCSV = fileManagerCSV
     }
