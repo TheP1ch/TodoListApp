@@ -33,6 +33,8 @@ struct TodoDetailView: View {
     
     @State private var showView: Bool = true
     
+    @State private var isColorPickerOpen: Bool = false
+    
     //MARK: Body
     
     var body: some View {
@@ -44,6 +46,11 @@ struct TodoDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     toolbarContent
+                }
+                .sheet(isPresented: $isColorPickerOpen)
+                {
+                    ColorPicker(itemColor: $viewModel.color, newColor: viewModel.color)
+                        .presentationDetents([.fraction(0.6), .large])
                 }
         }
     }
@@ -122,7 +129,7 @@ struct TodoDetailView: View {
     }
     
     private var textFieldCell: some View {
-        TextFieldCell(text: $viewModel.text, color: $viewModel.color, hasColor: $viewModel.hasColor)
+        TextFieldCell(text: $viewModel.text, hasColor: $viewModel.hasColor, color: $viewModel.color)
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     
@@ -132,7 +139,9 @@ struct TodoDetailView: View {
     }
     
     private var colorCell: some View {
-        ColorCell(itemColor: $viewModel.color, newColor: viewModel.color, hasColor: $viewModel.hasColor)
+        ColorCell(itemColor: $viewModel.color, hasColor: $viewModel.hasColor) {
+            isColorPickerOpen.toggle()
+        }
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     

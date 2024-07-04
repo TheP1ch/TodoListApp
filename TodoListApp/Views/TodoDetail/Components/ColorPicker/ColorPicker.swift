@@ -10,9 +10,9 @@ import SwiftUI
 struct ColorPicker: View {
     //MARK: Public Properties
     
-    @Binding var color: Color
+    @Binding var itemColor: Color
     
-    let initialColor: Color
+    @State var newColor: Color
     
     //MARK: Private Properties
     
@@ -33,7 +33,11 @@ struct ColorPicker: View {
                 ScrollView {
                     VStack {
                         colorPeakerHeader
-                        HueSlider(width: proxy.size.width - 25, height: proxy.size.width / 6, hue: $hue)
+                        HueSlider(
+                            width: proxy.size.width == 0 ? 0 : proxy.size.width - 25,
+                            height: proxy.size.width / 6,
+                            hue: $hue
+                        )
                             .padding()
                         saturationSlider
                         brightnessSlider
@@ -55,14 +59,13 @@ struct ColorPicker: View {
             
         }
         .onChange(of: hue) { _, new in
-            color = Color(hue: new, saturation: saturation, brightness: brightness)
-            print(initialColor.toHex())
+            newColor = Color(hue: new, saturation: saturation, brightness: brightness)
         }
         .onChange(of: saturation) { _, new in
-            color = Color(hue: hue, saturation: new, brightness: brightness)
+            newColor = Color(hue: hue, saturation: new, brightness: brightness)
         }
         .onChange(of: brightness) { _, new in
-            color = Color(hue: hue, saturation: saturation, brightness: new)
+            newColor = Color(hue: hue, saturation: saturation, brightness: new)
         }
     }
     
@@ -71,9 +74,9 @@ struct ColorPicker: View {
     private var colorPeakerHeader: some View {
         HStack {
             Circle()
-                .fill(color)
+                .fill(newColor)
                 .frame(width: 40, height: 40)
-            Text(color.toHex() ?? "")
+            Text(newColor.toHex() ?? "")
                 .font(AppFont.title.font)
                 .foregroundColor(ColorTheme.Label.labelTertiary.color)
             Spacer()
@@ -99,6 +102,9 @@ struct ColorPicker: View {
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
+                withAnimation {
+                    itemColor = newColor
+                }
                 dismiss()
             } label: {
                 Text("Добавить")
@@ -109,7 +115,6 @@ struct ColorPicker: View {
         
         ToolbarItem(placement: .topBarLeading) {
             Button {
-                color = initialColor
                 dismiss()
             } label: {
                 Text("Отменить")
@@ -121,5 +126,5 @@ struct ColorPicker: View {
 }
 
 #Preview {
-    ColorPicker(color: .constant(.red), initialColor: .red)
+    ColorPicker(itemColor: .constant(.red), newColor: .green)
 }

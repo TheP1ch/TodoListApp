@@ -12,12 +12,9 @@ struct ColorCell: View {
     
     @Binding var itemColor: Color
     
-    @State var newColor: Color
-    
     @Binding var hasColor: Bool
-    
-    //MARK: Private Properties
-    @State private var isColorPickerOpen = false
+
+    let onTap: () -> Void
     
     //MARK: Body
     var body: some View {
@@ -30,7 +27,7 @@ struct ColorCell: View {
                 
                 if hasColor {
                     Button {
-                        isColorPickerOpen.toggle()
+                        onTap()
                     } label: {
                         Text(itemColor.toHex() ?? "")
                             .font(AppFont.footnote.font)
@@ -39,16 +36,9 @@ struct ColorCell: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $isColorPickerOpen) {
-            withAnimation {
-                itemColor = newColor
-            }
-        } content: {
-            ColorPicker(color: $newColor, initialColor: itemColor)
-        }
     }
 }
 
 #Preview {
-    ColorCell(itemColor: .constant(.red), newColor: .red, hasColor: .constant(true))
+    ColorCell(itemColor: .constant(.red), hasColor: .constant(true)) {}
 }

@@ -10,8 +10,8 @@ import SwiftUI
 struct HueSlider: View {
     //MARK: Public Properties
     
-    let width: CGFloat
-    let height: CGFloat
+    var width: CGFloat = 0
+    var height: CGFloat = 0
     
     @Binding var hue: Double
     

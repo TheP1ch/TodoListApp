@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-fileprivate enum LayoutConstants {
-    static let addNewButtonPadding: CGFloat = 20
-    static let minListRowHeight: CGFloat = 56
-}
-
 struct TodoListView: View {
     //MARK: Public Properties
     @ObservedObject var viewModel: TodoListViewModel
@@ -19,9 +14,8 @@ struct TodoListView: View {
     //MARK: Private Properties
     @State
     private var selectedItems: TodoItem? = nil
-    
+
     //MARK: Body
-    
     var body: some View {
         NavigationStack{
             ZStack(alignment: .bottom) {
@@ -83,7 +77,7 @@ struct TodoListView: View {
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
-        .environment(\.defaultMinListRowHeight, LayoutConstants.minListRowHeight)
+        .environment(\.defaultMinListRowHeight, 56)
         .animation(.easeInOut, value: viewModel.sortedItems)
         
     }
@@ -92,7 +86,7 @@ struct TodoListView: View {
         AddNewItemButton {
             self.selectedItems = TodoItem.new()
         }
-        .padding(.bottom, LayoutConstants.addNewButtonPadding)
+        .padding(.bottom, 20)
     }
     
     private var listHeader: some View {

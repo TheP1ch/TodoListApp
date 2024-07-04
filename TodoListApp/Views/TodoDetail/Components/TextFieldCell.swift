@@ -11,9 +11,9 @@ struct TextFieldCell: View {
     //MARK: Public Properties
     @Binding var text: String
     
-    @Binding var color: Color
-    
     @Binding var hasColor: Bool
+    
+    @Binding var color: Color
 
     //MARK: Body    
     var body: some View {
@@ -40,5 +40,5 @@ struct TextFieldCell: View {
 }
 
 #Preview {
-    TextFieldCell(text: .constant("ee"), color: .constant(.green), hasColor: .constant(true))
+    TextFieldCell(text: .constant("ee"), hasColor: .constant(true),color: .constant(.green))
 }
