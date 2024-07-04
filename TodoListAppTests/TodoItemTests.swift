@@ -15,7 +15,7 @@ final class TodoItemTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        todoItem = TodoItem(id: "test1", text: "description", priority: .low, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, creationDate: Date(timeIntervalSince1970: 100), lastChangingDate: Date(timeIntervalSince1970: 500))
+        todoItem = TodoItem(id: "test1", text: "description", priority: .low, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, createdAt: Date(timeIntervalSince1970: 100), changeAt: Date(timeIntervalSince1970: 500))
     }
 
     //MARK: test init
@@ -25,19 +25,19 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(todoItem.priority, .low)
         XCTAssertEqual(todoItem.deadline, Date(timeIntervalSince1970: 10000))
         XCTAssertEqual(todoItem.isCompleted, true)
-        XCTAssertEqual(todoItem.creationDate, Date(timeIntervalSince1970: 100))
-        XCTAssertEqual(todoItem.lastChangingDate, Date(timeIntervalSince1970: 500))
+        XCTAssertEqual(todoItem.createdAt, Date(timeIntervalSince1970: 100))
+        XCTAssertEqual(todoItem.changeAt, Date(timeIntervalSince1970: 500))
     }
     
     func testInitializationWithoutRequiredParameters() {
-        let todoItem = TodoItem(text: "Привет ШМР!", priority: .normal, isCompleted: false, creationDate: Date(timeIntervalSince1970: 399))
+        let todoItem = TodoItem(text: "Привет ШМР!", priority: .normal, isCompleted: false, createdAt: Date(timeIntervalSince1970: 399))
         XCTAssertNotNil(todoItem.id)
         XCTAssertNil(todoItem.deadline)
-        XCTAssertNil(todoItem.lastChangingDate)
+        XCTAssertNil(todoItem.changeAt)
         XCTAssertEqual(todoItem.priority, .normal)
         XCTAssertEqual(todoItem.text, "Привет ШМР!")
         XCTAssertEqual(todoItem.isCompleted, false)
-        XCTAssertEqual(todoItem.creationDate, Date(timeIntervalSince1970: 399))
+        XCTAssertEqual(todoItem.createdAt, Date(timeIntervalSince1970: 399))
     }
     
     //MARK: test convert object to json
@@ -48,12 +48,12 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(json[TodoItemKeys.text.rawValue] as? String, "description")
         XCTAssertEqual(json[TodoItemKeys.priority.rawValue] as? String, "неважная")
         XCTAssertEqual(json[TodoItemKeys.isCompleted.rawValue] as? Bool, true)
-        XCTAssertEqual(json[TodoItemKeys.creationDate.rawValue] as? Int, 100)
-        XCTAssertEqual(json[TodoItemKeys.lastChangingDate.rawValue] as? Int, 500)
+        XCTAssertEqual(json[TodoItemKeys.createdAt.rawValue] as? Int, 100)
+        XCTAssertEqual(json[TodoItemKeys.changeAt.rawValue] as? Int, 500)
     }
     // MARK: Проверка json без deadline и lastChangingDate, важность - обычная
     func testJsonPropertyWithoutNotRequiredPropertiesPriorityNormal() {
-        let todoItem = TodoItem(text: "Привет ШМР!", priority: .normal, isCompleted: false, creationDate: Date(timeIntervalSince1970: 399))
+        let todoItem = TodoItem(text: "Привет ШМР!", priority: .normal, isCompleted: false, createdAt: Date(timeIntervalSince1970: 399))
         
         let json: [String: Any] = todoItem.json as! [String: Any]
         
@@ -61,8 +61,8 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(json[TodoItemKeys.text.rawValue] as? String, todoItem.text)
         XCTAssertNil(json[TodoItemKeys.priority.rawValue], "Обычный приоритет не должен быть указан в json")
         XCTAssertEqual(json[TodoItemKeys.isCompleted.rawValue] as? Bool, false)
-        XCTAssertEqual(json[TodoItemKeys.creationDate.rawValue] as? Int, 399)
-        XCTAssertNil(json[TodoItemKeys.lastChangingDate.rawValue])
+        XCTAssertEqual(json[TodoItemKeys.createdAt.rawValue] as? Int, 399)
+        XCTAssertNil(json[TodoItemKeys.changeAt.rawValue])
         XCTAssertNil(json[TodoItemKeys.deadline.rawValue])
     }
     
@@ -73,22 +73,22 @@ final class TodoItemTests: XCTestCase {
             "id": "test",
             "text": "description",
             "isCompleted": false,
-            "creationDate": 500,
+            "createdAt": 500,
             "deadline": 399,
-            "lastChangingDate": 199
+            "changeAt": 199
         ]
         
         let todoItem = TodoItem.parse(json: json)
         
         XCTAssertNotNil(todoItem)
         
-        XCTAssertEqual(todoItem?.id, "test")
-        XCTAssertEqual(todoItem?.text, "description")
-        XCTAssertEqual(todoItem?.isCompleted, false)
-        XCTAssertEqual(todoItem?.creationDate, Date(timeIntervalSince1970: 500))
-        XCTAssertEqual(todoItem?.deadline, Date(timeIntervalSince1970: 399))
-        XCTAssertEqual(todoItem?.lastChangingDate, Date(timeIntervalSince1970: 199))
-        XCTAssertEqual(todoItem?.priority, .normal)
+        XCTAssertEqual(todoItem!.id, "test")
+        XCTAssertEqual(todoItem!.text, "description")
+        XCTAssertEqual(todoItem!.isCompleted, false)
+        XCTAssertEqual(todoItem!.createdAt, Date(timeIntervalSince1970: 500))
+        XCTAssertEqual(todoItem!.deadline, Date(timeIntervalSince1970: 399))
+        XCTAssertEqual(todoItem!.changeAt, Date(timeIntervalSince1970: 199))
+        XCTAssertEqual(todoItem!.priority, .normal)
     }
     
     func testJsonParseReturnNil() {
@@ -105,7 +105,7 @@ final class TodoItemTests: XCTestCase {
             "text": "hi",
             "isCompleted": true,
             "priority": "важная",
-            "creationDate": 500
+            "createdAt": 500
         ]
         
         let todoItem = TodoItem.parse(json: json)
@@ -115,9 +115,9 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(todoItem?.id, "test")
         XCTAssertEqual(todoItem?.text, "hi")
         XCTAssertEqual(todoItem?.isCompleted, true)
-        XCTAssertEqual(todoItem?.creationDate, Date(timeIntervalSince1970: 500))
+        XCTAssertEqual(todoItem?.createdAt, Date(timeIntervalSince1970: 500))
         XCTAssertNil(todoItem?.deadline)
-        XCTAssertNil(todoItem?.lastChangingDate)
+        XCTAssertNil(todoItem?.changeAt)
         
         XCTAssertEqual(todoItem?.priority, .important)
     }
@@ -125,7 +125,7 @@ final class TodoItemTests: XCTestCase {
     //MARK: Test parse function
     
     func testParseCSVWithNormalPriority() {
-        let todoItem = TodoItem(id: "test1", text: "description", priority: .normal, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, creationDate: Date(timeIntervalSince1970: 100), lastChangingDate: Date(timeIntervalSince1970: 500))
+        let todoItem = TodoItem(id: "test1", text: "description", priority: .normal, deadline: Date(timeIntervalSince1970: 10000), isCompleted: true, createdAt: Date(timeIntervalSince1970: 100), changeAt: Date(timeIntervalSince1970: 500))
         let parsedCsv = TodoItem.parse(csv: todoItem.csv
         )
         
@@ -134,9 +134,9 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(todoItem.id, parsedCsv?.id)
         XCTAssertEqual(todoItem.text, parsedCsv?.text)
         XCTAssertEqual(todoItem.isCompleted, parsedCsv?.isCompleted)
-        XCTAssertEqual(todoItem.creationDate, parsedCsv?.creationDate)
+        XCTAssertEqual(todoItem.createdAt, parsedCsv?.createdAt)
         XCTAssertEqual(todoItem.deadline, parsedCsv?.deadline)
-        XCTAssertEqual(todoItem.lastChangingDate, parsedCsv?.lastChangingDate)
+        XCTAssertEqual(todoItem.changeAt, parsedCsv?.changeAt)
         XCTAssertEqual(todoItem.priority, parsedCsv?.priority)
     }
     
@@ -149,7 +149,7 @@ final class TodoItemTests: XCTestCase {
     }
     
     func testCSVParseWithoutNotRequiredProperties() {
-        let todoItem = TodoItem(text: "test", priority: .important, isCompleted: true, creationDate: Date(timeIntervalSince1970: 500))
+        let todoItem = TodoItem(text: "test", priority: .important, isCompleted: true, createdAt: Date(timeIntervalSince1970: 500))
         
         let csvParsed = TodoItem.parse(csv: todoItem.csv)
         
@@ -159,9 +159,9 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(csvParsed?.id, todoItem.id)
         XCTAssertEqual(todoItem.text, csvParsed?.text)
         XCTAssertEqual(todoItem.isCompleted, csvParsed?.isCompleted)
-        XCTAssertEqual(todoItem.creationDate, csvParsed?.creationDate)
+        XCTAssertEqual(todoItem.createdAt, csvParsed?.createdAt)
         XCTAssertNil(csvParsed?.deadline)
-        XCTAssertNil(csvParsed?.lastChangingDate)
+        XCTAssertNil(csvParsed?.changeAt)
         
         XCTAssertEqual(csvParsed?.priority, todoItem.priority)
     }
