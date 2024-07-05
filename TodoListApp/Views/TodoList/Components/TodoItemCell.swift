@@ -27,6 +27,7 @@ struct TodoItemCell: View {
             HStack(spacing: 12){
                 doneButton
                 HStack(spacing: 2){
+                    colorLine
                     if let priorityImage = todoItem.priority.image, !todoItem.isCompleted {
                         priorityImage
                     }
@@ -41,7 +42,6 @@ struct TodoItemCell: View {
             }
             Spacer()
             chevroneImage
-            colorLine
         }
     }
     
@@ -96,6 +96,7 @@ struct TodoItemCell: View {
     private var chevroneImage: some View {
         Image(systemName: "chevron.right")
             .foregroundStyle(ColorTheme.ColorPalette.gray.color)
+            .padding(.trailing, 16)
     }
     
     private var deadlineLabel: some View {
