@@ -34,4 +34,23 @@ enum AppFont {
             Font.system(size: 13, weight: .semibold)
         }
     }
+    
+    var uiFont: UIFont {
+        switch self {
+        case .largeTitle:
+            UIFont.systemFont(ofSize: 38, weight: .bold)
+        case .title:
+            UIFont.systemFont(ofSize: 20, weight: .semibold)
+        case .headline:
+            UIFont.systemFont(ofSize: 17, weight: .semibold)
+        case .body:
+            UIFont.systemFont(ofSize: 17, weight: .regular)
+        case .subhead:
+            UIFont.systemFont(ofSize: 15, weight: .regular)
+        case .subheadBold:
+            UIFont.systemFont(ofSize: 15, weight: .bold)
+        case .footnote:
+            UIFont.systemFont(ofSize: 13, weight: .semibold)
+        }
+    }
 }

@@ -31,6 +31,7 @@ enum ColorTheme {
         case separator
         case overlay
         case navBarBlur
+        case calendarBack
     }
     
     enum Back: String, ColorConverter {

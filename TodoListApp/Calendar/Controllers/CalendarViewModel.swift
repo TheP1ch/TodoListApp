@@ -8,7 +8,7 @@
 import Foundation
 
 final class CalendarViewModel {
-     var todoItems: [TodoItem] = []
+    private var todoItems: [TodoItem] = []
     
     func update(items: [TodoItem]) {
         self.todoItems = items

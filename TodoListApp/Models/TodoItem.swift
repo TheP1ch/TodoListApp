@@ -43,7 +43,7 @@ enum TodoItemKeys: String {
 extension TodoItem {
     static func new() -> Self {
         TodoItem(
-            text: "",
+            text: "test 1 linetest 1 linetest 1 linetest 1 linetest 1 linetest 1 line",
             priority: .normal
         )
     }
