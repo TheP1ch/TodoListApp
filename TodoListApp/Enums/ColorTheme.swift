@@ -7,59 +7,56 @@
 
 import SwiftUI
 
+protocol ColorConverter {
+    var rawValue: String { get }
+    
+    var color: Color { get }
+    
+    var uiColor: UIColor {get}
+}
+
+extension ColorConverter {
+    var color: Color {
+        Color(self.rawValue)
+    }
+    
+    var uiColor: UIColor {
+        UIColor(self.color)
+    }
+}
 
 enum ColorTheme {
-    
-    enum Support: String {
+
+    enum Support: String, ColorConverter {
         case separator
         case overlay
         case navBarBlur
-        
-        var color: Color {
-            Color(self.rawValue)
-        }
     }
     
-    enum Back: String {
+    enum Back: String, ColorConverter {
         case backElevated
         case backIOSPrimary
         case backPrimary
         case backSecondary
-        
-        var color: Color {
-            Color(self.rawValue)
-        }
     }
     
-    enum Label: String {
+    enum Label: String, ColorConverter {
         case labelDisabled
         case labelPrimary
         case labelSecondary
         case labelTertiary
-        
-        var color: Color {
-            Color(self.rawValue)
-        }
     }
     
-    enum ColorPalette: String {
+    enum ColorPalette: String, ColorConverter {
         case blue
         case gray
         case grayLight
         case green
         case red
         case white
-        
-        var color: Color {
-            Color(self.rawValue)
-        }
     }
     
-    enum ButtonShadow: String {
+    enum ButtonShadow: String, ColorConverter {
         case addNew
-        
-        var color: Color {
-            Color(self.rawValue)
-        }
     }
 }

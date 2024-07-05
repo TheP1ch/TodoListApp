@@ -32,7 +32,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     //MARK: private properties
     
-    @Published private var items: [TodoItem] = []
+    @Published private(set) var items: [TodoItem] = []
     
     private var fileCache: FileManaging
     

@@ -41,6 +41,9 @@ struct TodoListView: View {
                 itemsList
                 addNewButton
             }
+            .toolbar {
+                toolBarItems
+            }
         }
         .sheet(item: $selectedItems) {
             selectedItems = nil
@@ -93,7 +96,6 @@ struct TodoListView: View {
                 listHeader
             }
         }
-        
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
@@ -116,6 +118,23 @@ struct TodoListView: View {
             sortOption: $viewModel.sortOption
         )
         .textCase(nil)
+    }
+    
+    @ToolbarContentBuilder
+    private var toolBarItems: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink {
+                UICalendarViewControllerRepresentable(listViewModel: viewModel)
+                    .ignoresSafeArea()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Мои дела")
+            } label: {
+                Image(systemName: "calendar")
+                    .foregroundStyle(
+                         ColorTheme.ColorPalette.blue.color
+                    )
+            }
+        }
     }
 }
 
