@@ -19,11 +19,12 @@ struct TextFieldCell: View {
     var body: some View {
         HStack {
             TextField("Что надо сделать?", text: $text, axis: .vertical)
-            .frame(minHeight: 120, alignment: .topLeading)
+                .frame(maxHeight: .infinity, alignment: .topLeading)
             .foregroundStyle(
                 ColorTheme.Label.labelPrimary.color
             )
             .background(ColorTheme.Back.backSecondary.color)
+            .padding(.top, 16)
             
             if hasColor {
                 colorLine

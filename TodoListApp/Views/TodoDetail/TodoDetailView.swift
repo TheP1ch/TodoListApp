@@ -108,7 +108,9 @@ struct TodoDetailView: View {
             Form{
                 Section {
                     textFieldCell
+                        .frame(minHeight: 120)
                 }
+                .scrollDismissesKeyboard(.immediately)
                 Section {
                     importanceCell
                     colorCell
@@ -131,6 +133,7 @@ struct TodoDetailView: View {
     private var textFieldCell: some View {
         TextFieldCell(text: $viewModel.text, hasColor: $viewModel.hasColor, color: $viewModel.color)
             .listRowBackground(ColorTheme.Back.backSecondary.color)
+            .padding(.trailing, -21)
     }
     
     private var importanceCell: some View {
