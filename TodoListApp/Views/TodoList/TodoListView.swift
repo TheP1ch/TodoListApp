@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+fileprivate enum Device {
+    case iphone
+    case ipad
+}
+
 struct TodoListView: View {
     //MARK: Public Properties
     @ObservedObject var viewModel: TodoListViewModel
@@ -14,7 +19,21 @@ struct TodoListView: View {
     //MARK: Private Properties
     @State
     private var selectedItems: TodoItem? = nil
-
+    
+    @Environment(\.horizontalSizeClass)
+    private var horizontalSizeClass
+    
+    @Environment(\.verticalSizeClass)
+    private var verticalSizeClass
+    
+    private var device: Device {
+        if verticalSizeClass == .regular && horizontalSizeClass == .regular {
+            return .ipad
+        }
+        
+        return .iphone
+    }
+    
     //MARK: Body
     var body: some View {
         NavigationStack{
@@ -40,9 +59,6 @@ struct TodoListView: View {
                         viewModel.isDoneToggle(for: todoItem)
                     }
                     .padding(.trailing, -18)
-                    .onTapGesture {
-                        self.selectedItems = todoItem
-                    }
                     .listRowBackground(
                         ColorTheme.Back.backSecondary.color
                     )
@@ -60,12 +76,16 @@ struct TodoListView: View {
                             self.selectedItems = todoItem
                         }
                     }
-                    
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
                         d[.leading] + 36
                     })
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        self.selectedItems = todoItem
+                    }
                 }
                 NewItemCell()
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         self.selectedItems = TodoItem.new()
                     }
