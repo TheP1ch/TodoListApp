@@ -38,6 +38,8 @@ struct TodoDetailView: View {
     
     @State private var isColorPickerOpen: Bool = false
     
+    @State private var isCategoryCreatorOpen: Bool = false
+    
     //MARK: Body
     
     var body: some View {
@@ -52,7 +54,13 @@ struct TodoDetailView: View {
                 }
                 .sheet(isPresented: $isColorPickerOpen)
                 {
-                    ColorPicker(itemColor: $viewModel.color, newColor: viewModel.color)
+                    ColorPickerNavWrapper(itemColor: $viewModel.color, newColor: viewModel.color)
+                        .presentationDetents([.fraction(0.6), .large])
+                }
+                .sheet(isPresented: $isCategoryCreatorOpen) {
+                    CategoryCreator { category in
+                        categoryViewModel.add(category: category)
+                    }
                         .presentationDetents([.fraction(0.6), .large])
                 }
         }
@@ -148,7 +156,7 @@ struct TodoDetailView: View {
     
     private var categoryCell: some View {
         CategoryCell(itemCategory: $viewModel.category, categories: categoryViewModel.categories, dictCategories: categoryViewModel.categoriesDict) {
-            
+            isCategoryCreatorOpen = true
         }
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }

@@ -46,6 +46,8 @@
 		9CAC0D512C38CD69004570E0 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC0D502C38CD69004570E0 /* CategoryCell.swift */; };
 		9CAC0D532C38D1EA004570E0 /* CategoryColorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC0D522C38D1EA004570E0 /* CategoryColorCircle.swift */; };
 		9CAC0D552C38D8BB004570E0 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC0D542C38D8BB004570E0 /* CategoryViewModel.swift */; };
+		9CAC0D582C38F976004570E0 /* CategoryCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC0D572C38F976004570E0 /* CategoryCreator.swift */; };
+		9CAC0D5A2C38FB3E004570E0 /* ColorPickerNavWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC0D592C38FB3E004570E0 /* ColorPickerNavWrapper.swift */; };
 		9CC2DEB62C34339400A70FE5 /* DeadlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2DEB52C34339400A70FE5 /* DeadlineCell.swift */; };
 		9CC2DEB82C34344300A70FE5 /* ImportanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC2DEB72C34344300A70FE5 /* ImportanceCell.swift */; };
 		9CC780162C37D5BB00A698FA /* UICalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC780152C37D5BB00A698FA /* UICalendarViewControllerRepresentable.swift */; };
@@ -118,6 +120,8 @@
 		9CAC0D502C38CD69004570E0 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9CAC0D522C38D1EA004570E0 /* CategoryColorCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryColorCircle.swift; sourceTree = "<group>"; };
 		9CAC0D542C38D8BB004570E0 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		9CAC0D572C38F976004570E0 /* CategoryCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCreator.swift; sourceTree = "<group>"; };
+		9CAC0D592C38FB3E004570E0 /* ColorPickerNavWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerNavWrapper.swift; sourceTree = "<group>"; };
 		9CC2DEB52C34339400A70FE5 /* DeadlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineCell.swift; sourceTree = "<group>"; };
 		9CC2DEB72C34344300A70FE5 /* ImportanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceCell.swift; sourceTree = "<group>"; };
 		9CC780152C37D5BB00A698FA /* UICalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 			children = (
 				9C243D982C35B730009B3EF8 /* HueSlider.swift */,
 				9C243D9A2C35B808009B3EF8 /* ColorPicker.swift */,
+				9CAC0D592C38FB3E004570E0 /* ColorPickerNavWrapper.swift */,
 			);
 			path = ColorPicker;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				9C243D932C35882A009B3EF8 /* ColorCell.swift */,
 				9CAC0D502C38CD69004570E0 /* CategoryCell.swift */,
 				9CAC0D522C38D1EA004570E0 /* CategoryColorCircle.swift */,
+				9CAC0D572C38F976004570E0 /* CategoryCreator.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -526,7 +532,9 @@
 				9C5A5F462C3831C900105632 /* VerticalCalendarViewCell.swift in Sources */,
 				9CF3A2622C348FCA00813B69 /* DeleteSwipeButton.swift in Sources */,
 				9C8F5DF12C32DF3D00DAE22C /* ListHeader.swift in Sources */,
+				9CAC0D582C38F976004570E0 /* CategoryCreator.swift in Sources */,
 				9CED36BB2C308DA700684861 /* AppFont.swift in Sources */,
+				9CAC0D5A2C38FB3E004570E0 /* ColorPickerNavWrapper.swift in Sources */,
 				9CD77A622C3054D9004885D8 /* ColorTheme.swift in Sources */,
 				9CAC0D4F2C38CC3A004570E0 /* Category.swift in Sources */,
 				9C441A0E2C205E3600CED704 /* TodoListView.swift in Sources */,

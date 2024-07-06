@@ -99,6 +99,9 @@ struct TodoListView: View {
                 listHeader
             }
         }
+        .onAppear {
+            try? categoryViewModel.load()
+        }
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
