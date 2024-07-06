@@ -17,6 +17,7 @@ struct ImportanceCell: View {
         HStack {
             Text("Важность")
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .font(AppFont.body.font)
             picker
         }
     }
@@ -41,5 +42,5 @@ struct ImportanceCell: View {
 }
 
 #Preview {
-    ImportanceCell(importance: .constant(.important))
+    ImportanceCell(importance: .constant(.low))
 }

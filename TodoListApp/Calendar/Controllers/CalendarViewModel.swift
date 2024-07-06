@@ -10,6 +10,12 @@ import Foundation
 final class CalendarViewModel {
     private(set) var todoItems: [TodoItem] = []
     
+    private(set) var categoryViewModel: CategoryViewModel
+    
+    init(categoryViewModel: CategoryViewModel) {
+        self.categoryViewModel = categoryViewModel
+    }
+    
     var items: [(Date?, [TodoItem])] {
         return sortByDeadline(items: todoItems)
     }

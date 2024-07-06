@@ -54,7 +54,7 @@ final class CalendarViewController: UIViewController {
     private func actionBtnTap() {
         guard let delegate = self.delegate else { return }
         let viewModel = TodoDetailViewModel(todoItem: TodoItem.new(), collectionManager: delegate)
-        let view = TodoDetailView(viewModel: viewModel)
+        let view = TodoDetailView(viewModel: viewModel, categoryViewModel: self.viewModel.categoryViewModel)
 
         navigationController?.present(
             UIHostingController(
@@ -109,11 +109,11 @@ final class CalendarViewController: UIViewController {
         ])
     }
     
-    func updateUI(items: [TodoItem]) {
+    func updateUI(items: [TodoItem], categories: [Category]) {
 
         viewModel.update(items: items)
         horizontalCalendar.configure(with: viewModel.dates)
-        verticalCalendar.configure(with: viewModel.items)
+        verticalCalendar.configure(with: viewModel.items, categories: categories)
     }
 }
 
@@ -130,7 +130,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
         }
         
         let viewModel = TodoDetailViewModel(todoItem: item, collectionManager: delegate)
-        let view = TodoDetailView(viewModel: viewModel)
+        let view = TodoDetailView(viewModel: viewModel, categoryViewModel: self.viewModel.categoryViewModel)
 
         navigationController?.present(
             UIHostingController(
@@ -150,7 +150,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
 
 
 #Preview {
-    let vc = CalendarViewController(viewModel: CalendarViewModel())
+    let vc = CalendarViewController(viewModel: CalendarViewModel(categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())))
     
     return vc
 }

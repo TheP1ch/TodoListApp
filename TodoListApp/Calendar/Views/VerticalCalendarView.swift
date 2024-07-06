@@ -15,6 +15,8 @@ final class VerticalCalendarView: UIView {
     
     private var items: [(date: Date?, items: [TodoItem])] = []
     
+    private var categories: [Category] = []
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         
@@ -71,9 +73,10 @@ final class VerticalCalendarView: UIView {
     }
     
     //MARK: configure method
-    func configure(with deadlineItems: [(Date?, [TodoItem])]){
-        items = deadlineItems
-
+    func configure(with deadlineItems: [(Date?, [TodoItem])], categories: [Category]){
+        self.items = deadlineItems
+        self.categories = categories
+        
         tableView.reloadData()
     }
 }
@@ -96,9 +99,21 @@ extension VerticalCalendarView: UITableViewDataSource {
             fatalError()
         }
         
+        let item = items[indexPath.section].items[indexPath.row]
+        
+        let category: Category
+        if let itemCategory = item.category {
+            category = categories.first {
+                $0.id == itemCategory
+            } ?? .defaultItem
+        } else {
+            category = .defaultItem
+        }
+        
         cell.configureCell(
-            text: items[indexPath.section].items[indexPath.row].text,
-            isCompleted: items[indexPath.section].items[indexPath.row].isCompleted
+            text: item.text,
+            isCompleted: item.isCompleted,
+            category: category
         )
         
         return cell
@@ -196,7 +211,7 @@ extension VerticalCalendarView {
         (Date.tommorow.addingTimeInterval(60*60*24), [TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new()]),
         (Date.tommorow.addingTimeInterval(60*60*24*2), [TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new()]),
         (nil, [TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new(), TodoItem.new()])
-    ])
+    ], categories: [])
     
     return view
 }

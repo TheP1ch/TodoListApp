@@ -18,11 +18,15 @@ protocol TaskComplitionDelegate: AnyObject{
 struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
     
     @ObservedObject var listViewModel: TodoListViewModel
+    @ObservedObject var categoryViewModel: CategoryViewModel
     
-    private var calendarViewModel: CalendarViewModel = CalendarViewModel()
+    private var calendarViewModel: CalendarViewModel
     
-    init(listViewModel: TodoListViewModel) {
+    init(listViewModel: TodoListViewModel, categoryViewModel: CategoryViewModel) {
         self.listViewModel = listViewModel
+        self.categoryViewModel = categoryViewModel
+        
+        self.calendarViewModel = CalendarViewModel(categoryViewModel: categoryViewModel)
     }
     
     func makeUIViewController(context: Context) -> CalendarViewController {
@@ -34,7 +38,8 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
     
     // Changes From SwiftUI to UIKit
     func updateUIViewController(_ uiViewController: CalendarViewController, context: Context) {
-        uiViewController.updateUI(items: listViewModel.items)
+        uiViewController.updateUI(items: listViewModel.items, categories: categoryViewModel.categories)
+        
     }
     
     //Coordinator changes from UIKit to SwiftUI
@@ -78,6 +83,6 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
                 fileManagerCSV: FileManagerCSV(),
                 fileManagerJson: FileManagerJson()
             )
-        )
+        ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
     )
 }

@@ -20,6 +20,9 @@ struct TodoListView: View {
     @State
     private var selectedItems: TodoItem? = nil
     
+    @StateObject
+    var categoryViewModel: CategoryViewModel = CategoryViewModel(fileManagerJson: FileManagerJson())
+    
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
     
@@ -48,7 +51,7 @@ struct TodoListView: View {
         .sheet(item: $selectedItems) {
             selectedItems = nil
         } content: {
-            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel))
+            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel), categoryViewModel: categoryViewModel)
         }
         
     }
@@ -124,7 +127,7 @@ struct TodoListView: View {
     private var toolBarItems: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             NavigationLink {
-                UICalendarViewControllerRepresentable(listViewModel: viewModel)
+                UICalendarViewControllerRepresentable(listViewModel: viewModel, categoryViewModel: categoryViewModel)
                     .ignoresSafeArea()
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Мои дела")

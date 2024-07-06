@@ -17,6 +17,7 @@ class TodoDetailViewModel: ObservableObject {
     @Published var hasDeadline: Bool
     @Published var color: Color
     @Published var hasColor: Bool
+    @Published var category: String
     
     var isSaveDisabled: Bool {
         text.isEmpty
@@ -51,6 +52,8 @@ class TodoDetailViewModel: ObservableObject {
         } else {
             self.color = .red
         }
+        
+        self.category = todoItem.category ?? Category.defaultItem.id
     }
     
     //MARK: Public Methods
@@ -66,7 +69,8 @@ class TodoDetailViewModel: ObservableObject {
             isCompleted: self.isCompleted,
             createdAt: self.createdAt,
             changeAt: Date.now,
-            hexColor: hexColor
+            hexColor: hexColor,
+            category: category
         )
         
         collectionManager.add(item: item)

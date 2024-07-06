@@ -76,7 +76,7 @@ struct ColorPicker: View {
             Circle()
                 .fill(newColor)
                 .frame(width: 40, height: 40)
-            Text(newColor.toHex() ?? "")
+            Text(newColor.toHex())
                 .font(AppFont.title.font)
                 .foregroundColor(ColorTheme.Label.labelTertiary.color)
             Spacer()

@@ -11,6 +11,9 @@ struct TodoDetailView: View {
     //MARK: Public Properties
     @ObservedObject var viewModel: TodoDetailViewModel
     
+    @ObservedObject
+    var categoryViewModel: CategoryViewModel
+    
     //MARK: Private Properties
     
     @Environment(\.dismiss)
@@ -81,6 +84,7 @@ struct TodoDetailView: View {
                     Section {
                         importanceCell
                         colorCell
+                        categoryCell
                         deadlineCell
                         if isShowedDatePicker {
                             calendarCell
@@ -114,6 +118,7 @@ struct TodoDetailView: View {
                 Section {
                     importanceCell
                     colorCell
+                    categoryCell
                     deadlineCell
                     if isShowedDatePicker {
                         calendarCell
@@ -138,6 +143,13 @@ struct TodoDetailView: View {
     
     private var importanceCell: some View {
         ImportanceCell(importance: $viewModel.priority)
+            .listRowBackground(ColorTheme.Back.backSecondary.color)
+    }
+    
+    private var categoryCell: some View {
+        CategoryCell(itemCategory: $viewModel.category, categories: categoryViewModel.categories, dictCategories: categoryViewModel.categoriesDict) {
+            
+        }
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     
@@ -236,6 +248,6 @@ struct TodoDetailView: View {
                     fileManagerJson: FileManagerJson()
                 )
             )
-        )
+        ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
     )
 }

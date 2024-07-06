@@ -29,7 +29,7 @@ struct ColorCell: View {
                     Button {
                         onTap()
                     } label: {
-                        Text(itemColor.toHex() ?? "")
+                        Text(itemColor.toHex())
                             .font(AppFont.footnote.font)
                             .foregroundStyle(ColorTheme.ColorPalette.blue.color)
                     }
