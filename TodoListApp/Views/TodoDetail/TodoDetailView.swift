@@ -11,6 +11,9 @@ struct TodoDetailView: View {
     //MARK: Public Properties
     @ObservedObject var viewModel: TodoDetailViewModel
     
+    @ObservedObject
+    var categoryViewModel: CategoryViewModel
+    
     //MARK: Private Properties
     
     @Environment(\.dismiss)
@@ -35,6 +38,8 @@ struct TodoDetailView: View {
     
     @State private var isColorPickerOpen: Bool = false
     
+    @State private var isCategoryCreatorOpen: Bool = false
+    
     //MARK: Body
     
     var body: some View {
@@ -49,7 +54,13 @@ struct TodoDetailView: View {
                 }
                 .sheet(isPresented: $isColorPickerOpen)
                 {
-                    ColorPicker(itemColor: $viewModel.color, newColor: viewModel.color)
+                    ColorPickerNavWrapper(itemColor: $viewModel.color, newColor: viewModel.color)
+                        .presentationDetents([.fraction(0.6), .large])
+                }
+                .sheet(isPresented: $isCategoryCreatorOpen) {
+                    CategoryCreator { category in
+                        categoryViewModel.add(category: category)
+                    }
                         .presentationDetents([.fraction(0.6), .large])
                 }
         }
@@ -81,6 +92,7 @@ struct TodoDetailView: View {
                     Section {
                         importanceCell
                         colorCell
+                        categoryCell
                         deadlineCell
                         if isShowedDatePicker {
                             calendarCell
@@ -114,6 +126,7 @@ struct TodoDetailView: View {
                 Section {
                     importanceCell
                     colorCell
+                    categoryCell
                     deadlineCell
                     if isShowedDatePicker {
                         calendarCell
@@ -138,6 +151,13 @@ struct TodoDetailView: View {
     
     private var importanceCell: some View {
         ImportanceCell(importance: $viewModel.priority)
+            .listRowBackground(ColorTheme.Back.backSecondary.color)
+    }
+    
+    private var categoryCell: some View {
+        CategoryCell(itemCategory: $viewModel.category, categories: categoryViewModel.categories, dictCategories: categoryViewModel.categoriesDict) {
+            isCategoryCreatorOpen = true
+        }
             .listRowBackground(ColorTheme.Back.backSecondary.color)
     }
     
@@ -236,6 +256,6 @@ struct TodoDetailView: View {
                     fileManagerJson: FileManagerJson()
                 )
             )
-        )
+        ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
     )
 }

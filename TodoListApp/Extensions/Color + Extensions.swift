@@ -8,10 +8,10 @@
 import SwiftUI
 
 extension Color {
-    func toHex() -> String? {
+    func toHex() -> String {
         let uic = UIColor(self)
         guard let components = uic.cgColor.components, components.count >= 3 else {
-            return nil
+            return Color.clear.toHex()
         }
         let r = Float(components[0])
         let g = Float(components[1])

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CollectionManaging {
+protocol CollectionManaging: AnyObject {
     func add(item: TodoItem)
     func remove(by id: String)
 }
@@ -32,7 +32,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     //MARK: private properties
     
-    @Published private var items: [TodoItem] = []
+    @Published private(set) var items: [TodoItem] = []
     
     private var fileCache: FileManaging
     
@@ -63,13 +63,13 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         updateItems()
     }
     
-    func isDoneToggle(for item: TodoItem){
+    func isCompletedChange(for item: TodoItem, newValue: Bool){
         let item = TodoItem(
             id: item.id,
             text: item.text,
             priority: item.priority,
             deadline: item.deadline,
-            isCompleted: !item.isCompleted,
+            isCompleted: newValue,
             createdAt: item.createdAt,
             changeAt: item.changeAt,
             hexColor: item.hexColor

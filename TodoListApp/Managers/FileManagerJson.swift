@@ -23,6 +23,26 @@ final class FileManagerJson: FileManagingJson {
         return try JSONSerialization.jsonObject(with: data)
         
     }
+    
+    func load(fileName: String) throws -> Data {
+        guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
+            throw FileError.invalidFileURL
+        }
+        
+        let jsonDecoder = JSONDecoder()
+        
+        let data: Data = try Data(contentsOf: fileUrl)
+        
+        return data
+    }
+    
+    func save(fileName: String, json: Data) throws {
+        guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
+            throw FileError.invalidFileURL
+        }
+        
+        try json.write(to: fileUrl)
+    }
 
     func saveJsonFile(named fileName: String, json: Any) throws {
         guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {

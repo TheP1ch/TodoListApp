@@ -20,6 +20,9 @@ struct TodoListView: View {
     @State
     private var selectedItems: TodoItem? = nil
     
+    @StateObject
+    var categoryViewModel: CategoryViewModel = CategoryViewModel(fileManagerJson: FileManagerJson())
+    
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
     
@@ -41,11 +44,14 @@ struct TodoListView: View {
                 itemsList
                 addNewButton
             }
+            .toolbar {
+                toolBarItems
+            }
         }
         .sheet(item: $selectedItems) {
             selectedItems = nil
         } content: {
-            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel))
+            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel), categoryViewModel: categoryViewModel)
         }
         
     }
@@ -56,7 +62,7 @@ struct TodoListView: View {
             Section{
                 ForEach(viewModel.sortedItems) {todoItem in
                     TodoItemCell(todoItem: todoItem) {
-                        viewModel.isDoneToggle(for: todoItem)
+                        viewModel.isCompletedChange(for: todoItem, newValue: $0)
                     }
                     .padding(.trailing, -18)
                     .listRowBackground(
@@ -64,7 +70,7 @@ struct TodoListView: View {
                     )
                     .swipeActions(edge: .leading) {
                         SuccessSwipeButton {
-                            viewModel.isDoneToggle(for: todoItem)
+                            viewModel.isCompletedChange(for: todoItem, newValue: true)
                         }
                     }
                     
@@ -93,7 +99,9 @@ struct TodoListView: View {
                 listHeader
             }
         }
-        
+        .onAppear {
+            try? categoryViewModel.load()
+        }
         .navigationTitle("Мои дела")
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
@@ -116,6 +124,23 @@ struct TodoListView: View {
             sortOption: $viewModel.sortOption
         )
         .textCase(nil)
+    }
+    
+    @ToolbarContentBuilder
+    private var toolBarItems: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink {
+                UICalendarViewControllerRepresentable(listViewModel: viewModel, categoryViewModel: categoryViewModel)
+                    .ignoresSafeArea()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Мои дела")
+            } label: {
+                Image(systemName: "calendar")
+                    .foregroundStyle(
+                         ColorTheme.ColorPalette.blue.color
+                    )
+            }
+        }
     }
 }
 
