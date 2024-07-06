@@ -10,6 +10,16 @@ import UIKit
 final class HorizontalCalendarViewCell: UICollectionViewCell {
     static let cellId = "HorizontalCalendarViewCell"
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                selectCell()
+            } else {
+                deselectCell()
+            }
+        }
+    }
+    
     //MARK: view properties
     private lazy var dateLabel: UILabel = {
         let label = UILabel()

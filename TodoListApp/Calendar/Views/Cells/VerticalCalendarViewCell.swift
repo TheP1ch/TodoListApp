@@ -13,7 +13,6 @@ final class VerticalCalendarViewCell: UITableViewCell {
     //MARK: view properties
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = ColorTheme.Label.labelPrimary.uiColor
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         
@@ -39,8 +38,7 @@ final class VerticalCalendarViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        descriptionLabel.text = ""
-        descriptionLabel.strikeThrough(false)
+        descriptionLabel.attributedText = NSMutableAttributedString("")
     }
     
     //MARK: Cell constraints
@@ -57,8 +55,19 @@ final class VerticalCalendarViewCell: UITableViewCell {
     
     //MARK: Configure cell method
     func configureCell(text: String, isCompleted: Bool) {
-        descriptionLabel.text = text
-        descriptionLabel.strikeThrough(isCompleted)
+        let attr: [NSAttributedString.Key: Any]
+        if isCompleted {
+            attr = [
+                .foregroundColor: ColorTheme.Label.labelTertiary.uiColor,
+                .strikethroughStyle: NSUnderlineStyle.thick.rawValue
+            ]
+        } else {
+            attr = [
+                .foregroundColor: ColorTheme.Label.labelPrimary.uiColor
+            ]
+        }
+        
+        descriptionLabel.attributedText = NSAttributedString(string: text, attributes: attr)
     }
 }
 

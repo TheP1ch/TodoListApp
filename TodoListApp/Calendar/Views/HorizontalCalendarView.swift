@@ -9,6 +9,8 @@ import UIKit
 
 final class HorizontalCalendarView: UIView {
     
+    weak var delegate: HorizontalCalendarDelegate?
+    
     private var itemDates: [Date?] = []
     
     private var collectionView: UICollectionView?
@@ -134,16 +136,17 @@ extension HorizontalCalendarView: UICollectionViewDataSource {
 //MARK: CollectionView Delegates methods
 extension HorizontalCalendarView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? HorizontalCalendarViewCell {
-            cell.selectCell()
-        }
+        delegate?.scrollToDate(at: indexPath.item)
     }
+}
 
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? HorizontalCalendarViewCell {
-            cell.deselectCell()
-        }
+//MARK: integrate with verticalCalendar method
+extension HorizontalCalendarView {
+    func selectItem(at index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        
+        collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        
     }
 }
 

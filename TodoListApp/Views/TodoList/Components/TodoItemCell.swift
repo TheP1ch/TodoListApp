@@ -10,7 +10,7 @@ import SwiftUI
 struct TodoItemCell: View {
     //MARK: Public Properties
     var todoItem: TodoItem
-    var onDoneButtonTap: () -> Void
+    var onDoneButtonTap: (_ val: Bool) -> Void
     
     private var color: Color? {
         if let hexColor = todoItem.hexColor, let color = Color(hex: hexColor) {
@@ -65,7 +65,7 @@ struct TodoItemCell: View {
     
     private var doneButton: some View {
         Button {
-            onDoneButtonTap()
+            onDoneButtonTap(!todoItem.isCompleted)
         } label: {
             if todoItem.isCompleted{
                 Image(systemName: "checkmark.circle.fill")
@@ -115,7 +115,7 @@ struct TodoItemCell: View {
 
 #Preview {
     TodoItemCell(todoItem: TodoItem(text: "gege", priority: .important, hexColor: "#FF3B30"),
-                 onDoneButtonTap: {
+                 onDoneButtonTap: { _ in
         print("tap btn")
     })
 }

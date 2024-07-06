@@ -59,7 +59,7 @@ struct TodoListView: View {
             Section{
                 ForEach(viewModel.sortedItems) {todoItem in
                     TodoItemCell(todoItem: todoItem) {
-                        viewModel.isDoneToggle(for: todoItem)
+                        viewModel.isCompletedChange(for: todoItem, newValue: $0)
                     }
                     .padding(.trailing, -18)
                     .listRowBackground(
@@ -67,7 +67,7 @@ struct TodoListView: View {
                     )
                     .swipeActions(edge: .leading) {
                         SuccessSwipeButton {
-                            viewModel.isDoneToggle(for: todoItem)
+                            viewModel.isCompletedChange(for: todoItem, newValue: true)
                         }
                     }
                     
