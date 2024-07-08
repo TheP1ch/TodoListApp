@@ -110,9 +110,10 @@ final class CalendarViewController: UIViewController {
     }
     
     func updateUI(items: [TodoItem], categories: [Category]) {
-
         viewModel.update(items: items)
+        
         horizontalCalendar.configure(with: viewModel.dates)
+        
         verticalCalendar.configure(with: viewModel.items, categories: categories)
     }
 }

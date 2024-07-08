@@ -13,6 +13,8 @@ final class HorizontalCalendarView: UIView {
     
     private var itemDates: [Date?] = []
     
+    private var lastSelectedCellIdx: Int?
+    
     private var collectionView: UICollectionView?
     
     private lazy var bottomViewBorder: UIView = {
@@ -39,6 +41,10 @@ final class HorizontalCalendarView: UIView {
         itemDates = dates
 
         collectionView?.reloadData()
+        
+        if let lastSelectedCellIdx {
+            selectItem(at: lastSelectedCellIdx)
+        }
     }
 
     //MARK: configure Collection View
@@ -147,6 +153,7 @@ extension HorizontalCalendarView {
         
         collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         
+        lastSelectedCellIdx = index
     }
 }
 
