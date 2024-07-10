@@ -72,8 +72,10 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
             isCompleted: newValue,
             createdAt: item.createdAt,
             changeAt: item.changeAt,
-            hexColor: item.hexColor
+            hexColor: item.hexColor,
+            category: item.category
         )
+        
         fileCache.add(todoItem: item)
         
         updateItems()

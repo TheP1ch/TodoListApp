@@ -196,6 +196,10 @@ extension VerticalCalendarView: UITableViewDelegate {
 //MARK: integrate with horizontalCalendar methods
 extension VerticalCalendarView {
     func scrollToSection(at section: Int){
+        guard items[section].items.count != 0 else {
+            return
+        }
+        
         let indexPath = IndexPath(row: 0, section: section)
         
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
