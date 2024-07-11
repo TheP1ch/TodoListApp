@@ -190,7 +190,12 @@ final class TodoItemTests: XCTestCase {
     }
 
     func testCSVParseWithoutNotRequiredProperties() {
-        let todoItem = TodoItem(text: "test", priority: .important, isCompleted: true, createdAt: Date(timeIntervalSince1970: 500))
+        let todoItem = TodoItem(
+            text: "test",
+            priority: .important,
+            isCompleted: true,
+            createdAt: Date(timeIntervalSince1970: 500)
+        )
 
         let csvParsed = TodoItem.parse(csv: todoItem.csv)
 

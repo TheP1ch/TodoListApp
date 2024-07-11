@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		779E8BA14CD9F3924E3520F5 /* Pods_TodoListApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB78D3DD3C0361194C2DD1BB /* Pods_TodoListApp.framework */; };
 		95D7E08CA108E3F96A6C88AB /* Pods_TodoListAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9C51FB4D153CF6F49E8C4C /* Pods_TodoListAppTests.framework */; };
 		9C0C36212C35C2780049798F /* Color + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C36202C35C2780049798F /* Color + Extensions.swift */; };
 		9C243D942C35882A009B3EF8 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C243D932C35882A009B3EF8 /* ColorCell.swift */; };
@@ -161,7 +160,6 @@
 				9C4667BD2C3FFE5000F4AC81 /* CocoaLumberjackSwift in Frameworks */,
 				9C4667BF2C3FFE5000F4AC81 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				9C4667BB2C3FFE5000F4AC81 /* CocoaLumberjack in Frameworks */,
-				779E8BA14CD9F3924E3520F5 /* Pods_TodoListApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
