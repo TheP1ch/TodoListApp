@@ -79,10 +79,7 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
         listViewModel: TodoListViewModel(
             fileName: FileCache.fileName,
             format: FileCache.fileExtension,
-            fileCache: FileCache(
-                fileManagerCSV: FileManagerCSV(),
-                fileManagerJson: FileManagerJson()
-            )
+            fileCache: FileCache()
         ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
     )
 }

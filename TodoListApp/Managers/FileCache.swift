@@ -38,8 +38,8 @@ final class FileCache: FileManaging {
     private let fileManagerCSV: FileManagingCSV
     
     init(
-        fileManagerCSV: FileManagingCSV,
-        fileManagerJson: FileManagingJson
+        fileManagerCSV: FileManagingCSV = FileManagerCSV(),
+        fileManagerJson: FileManagingJson = FileManagerJson()
     ) {
         self.todoItems = []
         self.fileManagerJson = fileManagerJson

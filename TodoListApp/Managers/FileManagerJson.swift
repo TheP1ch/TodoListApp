@@ -29,8 +29,6 @@ final class FileManagerJson: FileManagingJson {
             throw FileError.invalidFileURL
         }
         
-        let jsonDecoder = JSONDecoder()
-        
         let data: Data = try Data(contentsOf: fileUrl)
         
         return data

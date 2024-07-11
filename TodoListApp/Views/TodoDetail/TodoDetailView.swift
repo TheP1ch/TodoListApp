@@ -251,10 +251,7 @@ struct TodoDetailView: View {
             collectionManager: TodoListViewModel(
                 fileName: FileCache.fileName,
                 format: FileCache.fileExtension,
-                fileCache: FileCache(
-                    fileManagerCSV: FileManagerCSV(),
-                    fileManagerJson: FileManagerJson()
-                )
+                fileCache: FileCache()
             )
         ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
     )

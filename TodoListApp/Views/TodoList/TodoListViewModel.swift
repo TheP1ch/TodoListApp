@@ -20,9 +20,17 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         return sort(filteredItems, with: sortOption)
     }
     
-    @Published var filterOption: FilterOption = .hideDone
+    @Published var filterOption: FilterOption = .hideDone {
+        didSet {
+            Logger.log("Items will be filtered by option: \(filterOption)", level: .debug)
+        }
+    }
     
-    @Published var sortOption: SortOption = .createdAt
+    @Published var sortOption: SortOption = .createdAt {
+        didSet {
+            Logger.log("Items will be sorted by option: \(sortOption)", level: .debug)
+        }
+    }
     
     var isDoneCount: Int {
         fileCache.todoItems.reduce(0) { value, item in
@@ -53,12 +61,14 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     
     func add(item: TodoItem) {
         fileCache.add(todoItem: item)
-        
+        Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
         updateItems()
     }
     
     func remove(by id: String) {
         fileCache.removeItem(by: id)
+        
+        Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
         
         updateItems()
     }
@@ -78,11 +88,21 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         
         fileCache.add(todoItem: item)
         
+        Logger.log(
+            "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
+            level: .debug
+        )
+        
         updateItems()
     }
     
-    func load() throws {
-        try self.fileCache.load(fileName: self.fileName, format: self.format)
+    func load() {
+        do {
+            try fileCache.load(fileName: fileName, format: format)
+        } catch {
+            Logger.log("Load from file error: \(error.localizedDescription)", level: .error)
+        }
+
         items = fileCache.todoItems
     }
     
@@ -91,7 +111,13 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     private func updateItems() {
         self.items = fileCache.todoItems
         
-        try? self.fileCache.save(fileName: self.fileName, format: self.format)
+        do {
+            try self.fileCache.save(fileName: self.fileName, format: self.format)
+            
+            Logger.log("Items saved", level: .debug)
+        } catch {
+            Logger.log("Save to file error: \(error.localizedDescription)", level: .error)
+        }
     }
     
     

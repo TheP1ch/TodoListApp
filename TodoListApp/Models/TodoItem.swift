@@ -46,7 +46,7 @@ enum TodoItemKeys: String {
 extension TodoItem {
     static func new() -> Self {
         TodoItem(
-            text: "test 1 linetest 1 linetest 1 linetest 1 linetest 1 linetest 1 line",
+            text: "",
             priority: .normal
         )
     }
@@ -88,6 +88,8 @@ extension TodoItem {
               let isCompleted = json[TodoItemKeys.isCompleted.rawValue] as? Bool,
               let creationDateTimeStamp = json[TodoItemKeys.createdAt.rawValue] as? Int
         else {
+            Logger.log("TodoItem parse error json: \(json)", level: .warning)
+            
             return nil
         }
 

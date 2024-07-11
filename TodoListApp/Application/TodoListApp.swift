@@ -13,18 +13,21 @@ struct TodoListApp: App {
     var viewModel: TodoListViewModel = TodoListViewModel(
         fileName: FileCache.fileName,
         format: FileCache.fileExtension,
-        fileCache: FileCache(
-            fileManagerCSV: FileManagerCSV(),
-            fileManagerJson: FileManagerJson()
-        )
+        fileCache: FileCache()
     )
+    
+    private let logger = Logger()
+    
+    init() {
+        logger.initLogger()
+    }
     
     var body: some Scene {
         WindowGroup {
             TodoListView(
                 viewModel: viewModel
             ).onAppear {
-                try? viewModel.load()
+                viewModel.load()
             }
         }
     }

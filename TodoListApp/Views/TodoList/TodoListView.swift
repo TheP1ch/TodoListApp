@@ -149,10 +149,7 @@ struct TodoListView: View {
         viewModel: TodoListViewModel(
             fileName: FileCache.fileName,
             format: FileCache.fileExtension,
-            fileCache: FileCache(
-                fileManagerCSV: FileManagerCSV(),
-                fileManagerJson: FileManagerJson()
-            )
+            fileCache: FileCache()
         )
     )
 }
