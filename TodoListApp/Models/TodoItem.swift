@@ -188,7 +188,7 @@ extension TodoItem {
         let createdAt = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
 
         let priority: Priority
-        if csvDataArray[3] != "" {
+        if csvDataArray[3].isEmpty {
             if let priorityValue = Priority(rawValue: csvDataArray[3]) {
                 priority = priorityValue
             } else {
@@ -206,14 +206,14 @@ extension TodoItem {
         }
 
         let hexColor: String?
-        if csvDataArray[5] != "" {
+        if csvDataArray[5].isEmpty {
             hexColor = csvDataArray[5]
         } else {
             hexColor = nil
         }
 
         let category: String?
-        if csvDataArray[6] != "" {
+        if csvDataArray[6].isEmpty {
             category = csvDataArray[6]
         } else {
             category = nil

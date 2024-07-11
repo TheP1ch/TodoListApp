@@ -16,3 +16,8 @@ line_length:
 
 disabled_rules:
   - for_where
+
+opt_in_rules:
+  - sorted_imports
+  - empty_count
+  - empty_string

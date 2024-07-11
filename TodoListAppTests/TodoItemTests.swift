@@ -5,8 +5,8 @@
 //  Created by Евгений Беляков on 17.06.2024.
 //
 
-import XCTest
 @testable import TodoListApp
+import XCTest
 
 final class TodoItemTests: XCTestCase {
 

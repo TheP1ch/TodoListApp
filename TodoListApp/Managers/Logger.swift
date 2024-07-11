@@ -16,6 +16,8 @@ final class Logger {
 
     func initLogger() {
         let consoleLogger = DDOSLogger.sharedInstance
+        let logFormatter = LogFormatter()
+        consoleLogger.logFormatter = logFormatter
 
         DDLog.add(consoleLogger)
     }
