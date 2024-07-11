@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct ColorCell: View {
-    //MARK: Public Properties
-    
+    // MARK: Public Properties
+
     @Binding var itemColor: Color
-    
+
     @Binding var hasColor: Bool
 
     let onTap: () -> Void
-    
-    //MARK: Body
+
+    // MARK: Body
     var body: some View {
         Toggle(isOn: $hasColor) {
             VStack(alignment: .leading) {
                 Text("Цвет")
                     .font(AppFont.body.font)
                     .foregroundStyle(ColorTheme.Label.labelPrimary.color)
-                
-                
+
                 if hasColor {
                     Button {
                         onTap()

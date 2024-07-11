@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CategoryColorCircle: View {
     @State var color: Color
-    
+
     var body: some View {
         Circle()
             .frame(width: 24, height: 24)
             .foregroundStyle(color)
-        
+
     }
 }
 

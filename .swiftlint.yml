@@ -1,0 +1,18 @@
+identifier_name:
+  min_length: # only min_length
+    error: 3 # only error
+  excluded: # excluded via string array
+    - id
+    - i
+    - j
+    - k
+    - vc
+
+line_length:
+  warning: 120
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_urls: true
+
+disabled_rules:
+  - for_where

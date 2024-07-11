@@ -8,9 +8,9 @@
 import SwiftUI
 
 class TodoDetailViewModel: ObservableObject {
-    
-    //MARK: Public properties
-    
+
+    // MARK: Public properties
+
     @Published var text: String
     @Published var deadline: Date
     @Published var priority: Priority
@@ -18,24 +18,24 @@ class TodoDetailViewModel: ObservableObject {
     @Published var color: Color
     @Published var hasColor: Bool
     @Published var category: String
-    
+
     var isSaveDisabled: Bool {
         text.isEmpty
     }
-    
+
     var isDeleteDisabled: Bool
-    
-    //MARK: Private properties
+
+    // MARK: Private properties
     private let collectionManager: CollectionManaging
-    
+
     let id: String
     let createdAt: Date
     let isCompleted: Bool
-    
-    //MARK: Initializer
+
+    // MARK: Initializer
     init(todoItem: TodoItem, collectionManager: CollectionManaging) {
         self.collectionManager = collectionManager
-        
+
         self.id = todoItem.id
         self.createdAt = todoItem.createdAt
         self.isCompleted = todoItem.isCompleted
@@ -43,24 +43,24 @@ class TodoDetailViewModel: ObservableObject {
         self.deadline = if let deadline = todoItem.deadline { deadline } else {Date.tommorow}
         self.priority = todoItem.priority
         self.hasDeadline = todoItem.deadline == nil ? false : true
-        
+
         self.isDeleteDisabled = todoItem.text.isEmpty ? true : false
-        
+
         self.hasColor = todoItem.hexColor == nil ? false : true
         if let hexColor = todoItem.hexColor, let color = Color(hex: hexColor) {
             self.color = color
         } else {
             self.color = .red
         }
-        
+
         self.category = todoItem.category ?? Category.defaultItem.id
     }
-    
-    //MARK: Public Methods
+
+    // MARK: Public Methods
     func save() {
         let deadline = hasDeadline ? deadline : nil
         let hexColor = hasColor ? color.toHex() : nil
-        
+
         let item = TodoItem(
             id: self.id,
             text: self.text,
@@ -72,10 +72,10 @@ class TodoDetailViewModel: ObservableObject {
             hexColor: hexColor,
             category: category
         )
-        
+
         collectionManager.add(item: item)
     }
-    
+
     func delete() {
         collectionManager.remove(by: self.id)
     }

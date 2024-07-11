@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SuccessSwipeButton: View {
-    //MARK: Public Properties
-    
+    // MARK: Public Properties
+
     let action: () -> Void
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
         Button {
             action()

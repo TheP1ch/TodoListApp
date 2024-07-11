@@ -9,12 +9,8 @@ import SwiftUI
 
 struct HeadBarContent: ToolbarContent {
     @Binding var isSaveDisabled: Bool
-    
+
     var saveAction: () -> Void
     var cancelAction: () -> Void
-    
-    
-    
 
 }
-

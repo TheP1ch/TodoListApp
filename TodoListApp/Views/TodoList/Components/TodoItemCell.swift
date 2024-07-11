@@ -8,33 +8,33 @@
 import SwiftUI
 
 struct TodoItemCell: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     var todoItem: TodoItem
     var onDoneButtonTap: (_ val: Bool) -> Void
-    
+
     private var color: Color? {
         if let hexColor = todoItem.hexColor, let color = Color(hex: hexColor) {
             return color
         }
-        
+
         return nil
     }
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
         HStack(spacing: 16) {
-            HStack(spacing: 12){
+            HStack(spacing: 12) {
                 doneButton
-                HStack(spacing: 2){
+                HStack(spacing: 2 ) {
                     colorLine
                     if let priorityImage = todoItem.priority.image, !todoItem.isCompleted {
                         priorityImage
                     }
-                    
+
                     VStack(alignment: .leading) {
                         itemText
-                        if let _ = todoItem.deadline{
+                        if todoItem.deadline != nil {
                             deadlineLabel
                         }
                     }
@@ -44,10 +44,10 @@ struct TodoItemCell: View {
             chevroneImage
         }
     }
-    
-    //MARK: View Properties
-    
-    private var itemText: some View{
+
+    // MARK: View Properties
+
+    private var itemText: some View {
         Text(todoItem.text)
             .font(AppFont.body.font)
             .foregroundStyle(
@@ -56,18 +56,18 @@ struct TodoItemCell: View {
             .lineLimit(3)
             .strikethrough(todoItem.isCompleted, pattern: .solid)
     }
-    
+
     private var colorLine: some View {
         RoundedRectangle(cornerRadius: 4)
             .fill(color ?? ColorTheme.Back.backSecondary.color)
             .frame(width: 4)
     }
-    
+
     private var doneButton: some View {
         Button {
             onDoneButtonTap(!todoItem.isCompleted)
         } label: {
-            if todoItem.isCompleted{
+            if todoItem.isCompleted {
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()
                     .foregroundStyle(
@@ -82,7 +82,7 @@ struct TodoItemCell: View {
                     .foregroundStyle(ColorTheme.ColorPalette.red.color)
                     .background(ColorTheme.ColorPalette.red.color.opacity(0.1))
                     .clipShape(.circle)
-                
+
             } else {
                 Image(systemName: "circle")
                     .resizable()
@@ -90,24 +90,23 @@ struct TodoItemCell: View {
             }
         }.frame(width: 24, height: 24)
             .buttonStyle(.plain)
-        
+
     }
-    
+
     private var chevroneImage: some View {
         Image(systemName: "chevron.right")
             .foregroundStyle(ColorTheme.ColorPalette.gray.color)
             .padding(.trailing, 16)
     }
-    
+
     private var deadlineLabel: some View {
         HStack(spacing: 2) {
             Image(systemName: "calendar")
-            if let deadline = todoItem.deadline{
+            if let deadline = todoItem.deadline {
                 Text(deadline.toString())
                     .font(AppFont.subhead.font)
             }
-            
-                
+
         }
         .foregroundStyle(ColorTheme.Label.labelTertiary.color)
     }

@@ -7,12 +7,11 @@
 
 import Foundation
 
-
 enum Priority: String, Comparable, CaseIterable {
     case low = "неважная"
     case normal = "обычная"
     case important = "важная"
-    
+
     static func < (lhs: Priority, rhs: Priority) -> Bool {
         switch (lhs, rhs) {
         case (.low, _):

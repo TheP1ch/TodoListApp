@@ -15,13 +15,13 @@ struct TodoListApp: App {
         format: FileCache.fileExtension,
         fileCache: FileCache()
     )
-    
+
     private let logger = Logger()
-    
+
     init() {
         logger.initLogger()
     }
-    
+
     var body: some Scene {
         WindowGroup {
             TodoListView(

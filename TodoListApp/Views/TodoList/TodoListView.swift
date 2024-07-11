@@ -7,39 +7,39 @@
 
 import SwiftUI
 
-fileprivate enum Device {
+private enum Device {
     case iphone
     case ipad
 }
 
 struct TodoListView: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     @ObservedObject var viewModel: TodoListViewModel
-    
-    //MARK: Private Properties
+
+    // MARK: Private Properties
     @State
-    private var selectedItems: TodoItem? = nil
-    
+    private var selectedItems: TodoItem?
+
     @StateObject
     var categoryViewModel: CategoryViewModel = CategoryViewModel(fileManagerJson: FileManagerJson())
-    
+
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
-    
+
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
-    
+
     private var device: Device {
         if verticalSizeClass == .regular && horizontalSizeClass == .regular {
             return .ipad
         }
-        
+
         return .iphone
     }
-    
-    //MARK: Body
+
+    // MARK: Body
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack(alignment: .bottom) {
                 itemsList
                 addNewButton
@@ -51,15 +51,21 @@ struct TodoListView: View {
         .sheet(item: $selectedItems) {
             selectedItems = nil
         } content: {
-            TodoDetailView(viewModel: TodoDetailViewModel(todoItem: $0, collectionManager: viewModel), categoryViewModel: categoryViewModel)
+            TodoDetailView(
+                viewModel: TodoDetailViewModel(
+                    todoItem: $0,
+                    collectionManager: viewModel
+                ),
+                categoryViewModel: categoryViewModel
+            )
         }
-        
+
     }
-    
-    //MARK: View Properties
+
+    // MARK: View Properties
     private var itemsList: some View {
         List {
-            Section{
+            Section {
                 ForEach(viewModel.sortedItems) {todoItem in
                     TodoItemCell(todoItem: todoItem) {
                         viewModel.isCompletedChange(for: todoItem, newValue: $0)
@@ -73,7 +79,7 @@ struct TodoListView: View {
                             viewModel.isCompletedChange(for: todoItem, newValue: true)
                         }
                     }
-                    
+
                     .swipeActions(edge: .trailing) {
                         DeleteSwipeButton {
                             viewModel.remove(by: todoItem.id)
@@ -82,8 +88,8 @@ struct TodoListView: View {
                             self.selectedItems = todoItem
                         }
                     }
-                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
-                        d[.leading] + 36
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { dimensions in
+                        dimensions[.leading] + 36
                     })
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -107,16 +113,16 @@ struct TodoListView: View {
         .background(ColorTheme.Back.backPrimary.color)
         .environment(\.defaultMinListRowHeight, 56)
         .animation(.easeInOut, value: viewModel.sortedItems)
-        
+
     }
-    
+
     private var addNewButton: some View {
         AddNewItemButton {
             self.selectedItems = TodoItem.new()
         }
         .padding(.bottom, 20)
     }
-    
+
     private var listHeader: some View {
         ListHeader(
             isDoneCount: viewModel.isDoneCount,
@@ -125,7 +131,7 @@ struct TodoListView: View {
         )
         .textCase(nil)
     }
-    
+
     @ToolbarContentBuilder
     private var toolBarItems: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {

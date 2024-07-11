@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension Priority {
-    
-    var image: Optional<some View> {
+
+    var image: (some View)? {
         switch self {
         case .important:
             Image(systemName: "exclamationmark.2")

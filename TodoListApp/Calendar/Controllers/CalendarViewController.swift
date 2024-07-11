@@ -13,44 +13,43 @@ protocol HorizontalCalendarDelegate: AnyObject {
 
 protocol VerticalCalendarDelegate: AnyObject {
     func selectDate(at index: Int)
-    
+
     func presentDetailView(item: TodoItem, with indexPath: IndexPath)
 }
 
 final class CalendarViewController: UIViewController {
-    
-    //MARK: Private Properties
+
+    // MARK: Private Properties
     private let viewModel: CalendarViewModel
-    
+
     weak var delegate: CoordinatorDelegate?
-    
-    //MARK: Private view properties
+
+    // MARK: Private view properties
     private lazy var horizontalCalendar: HorizontalCalendarView = {
-        let vc = HorizontalCalendarView()
-        vc.delegate = self
-        
-        return vc
-    }()
-    
-    private lazy var verticalCalendar: VerticalCalendarView = {
-        let vc = VerticalCalendarView()
-        vc.delegate = self
-        vc.complitionTaskDelegate = delegate
-        
-        return vc
-    }()
-    
-    private lazy var addPlusButton: UIHostingController<AddNewItemButton> = {
-        let vc = UIHostingController(rootView: AddNewItemButton(action: actionBtnTap))
-        
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        vc.view.layer.cornerRadius = 22
-        
-        return vc
+        let view = HorizontalCalendarView()
+        view.delegate = self
+
+        return view
     }()
 
-    
+    private lazy var verticalCalendar: VerticalCalendarView = {
+        let view = VerticalCalendarView()
+        view.delegate = self
+        view.complitionTaskDelegate = delegate
+
+        return view
+    }()
+
+    private lazy var addPlusButton: UIHostingController<AddNewItemButton> = {
+        let controller = UIHostingController(rootView: AddNewItemButton(action: actionBtnTap))
+
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+
+        controller.view.layer.cornerRadius = 22
+
+        return controller
+    }()
+
     private func actionBtnTap() {
         guard let delegate = self.delegate else { return }
         let viewModel = TodoDetailViewModel(todoItem: TodoItem.new(), collectionManager: delegate)
@@ -63,57 +62,57 @@ final class CalendarViewController: UIViewController {
             animated: true
         )
     }
-    
-    //MARK: Initializer
+
+    // MARK: Initializer
     init(viewModel: CalendarViewModel) {
         self.viewModel = viewModel
-        
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: LifeCycle methods
+
+    // MARK: LifeCycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = ColorTheme.Back.backIOSPrimary.uiColor
         configureConstraints()
     }
-    
-    //MARK: Constraints configuration
+
+    // MARK: Constraints configuration
     private func configureConstraints() {
         [horizontalCalendar, verticalCalendar].forEach {
             view.addSubview($0)
         }
-        
+
         self.addChild(addPlusButton)
         view.addSubview(addPlusButton.view)
         addPlusButton.didMove(toParent: self)
-        
+
         NSLayoutConstraint.activate([
             horizontalCalendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             horizontalCalendar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             horizontalCalendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             horizontalCalendar.heightAnchor.constraint(equalToConstant: 100),
-            
+
             verticalCalendar.topAnchor.constraint(equalTo: horizontalCalendar.bottomAnchor),
             verticalCalendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             verticalCalendar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             verticalCalendar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+
             addPlusButton.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             addPlusButton.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
+
     func updateUI(items: [TodoItem], categories: [Category]) {
         viewModel.update(items: items)
-        
+
         horizontalCalendar.configure(with: viewModel.dates)
-        
+
         verticalCalendar.configure(with: viewModel.items, categories: categories)
     }
 }
@@ -129,7 +128,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
         guard let delegate = self.delegate else {
             return
         }
-        
+
         let viewModel = TodoDetailViewModel(todoItem: item, collectionManager: delegate)
         let view = TodoDetailView(viewModel: viewModel, categoryViewModel: self.viewModel.categoryViewModel)
 
@@ -143,15 +142,20 @@ extension CalendarViewController: VerticalCalendarDelegate {
             self.verticalCalendar.deselectRow(at: indexPath)
         }
     }
-    
+
     func scrollToDate(at section: Int) {
         verticalCalendar.scrollToSection(at: section)
     }
 }
 
-
 #Preview {
-    let vc = CalendarViewController(viewModel: CalendarViewModel(categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())))
-    
-    return vc
+    let controller = CalendarViewController(
+        viewModel: CalendarViewModel(
+            categoryViewModel: CategoryViewModel(
+                fileManagerJson: FileManagerJson()
+            )
+        )
+    )
+
+    return controller
 }

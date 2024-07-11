@@ -11,13 +11,13 @@ struct CategoryCell: View {
     @Binding var itemCategory: String
     var categories: [Category]
     var dictCategories: [String: Category]
-    
+
     var category: Category {
         dictCategories[itemCategory] ?? Category.defaultItem
     }
-    
-    let addAction: () -> ()
-    
+
+    let addAction: () -> Void
+
     var body: some View {
         VStack {
             HStack {
@@ -29,15 +29,15 @@ struct CategoryCell: View {
                         .font(AppFont.footnote.font)
                         .foregroundStyle(ColorTheme.ColorPalette.blue.color)
                 }
-                
+
                 CategoryColorCircle(color: category.color)
             }
             picker
-            
+
             newCategory
         }
     }
-    
+
     private var picker: some View {
         ForEach(categories, id: \.id) {item in
             HStack {
@@ -51,7 +51,7 @@ struct CategoryCell: View {
             }
         }
     }
-    
+
     private var newCategory: some View {
         Button {
             addAction()
@@ -65,7 +65,7 @@ struct CategoryCell: View {
             }
         }
     }
-    
+
 }
 
 #Preview {
@@ -76,7 +76,7 @@ struct CategoryCell: View {
             "1": Category.unchangableCategories[0],
             "2": Category.unchangableCategories[1],
             "3": Category.unchangableCategories[2],
-            "4": Category.unchangableCategories[3],
+            "4": Category.unchangableCategories[3]
         ]
     ) {}
 }

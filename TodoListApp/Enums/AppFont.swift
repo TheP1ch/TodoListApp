@@ -15,7 +15,7 @@ enum AppFont {
     case subhead
     case subheadBold
     case footnote
-    
+
     var font: Font {
         switch self {
         case .largeTitle:
@@ -34,7 +34,7 @@ enum AppFont {
             Font.system(size: 13, weight: .semibold)
         }
     }
-    
+
     var uiFont: UIFont {
         switch self {
         case .largeTitle:

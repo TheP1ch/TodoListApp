@@ -9,18 +9,18 @@ import SwiftUI
 
 struct CategoryCreator: View {
     @State var categoryColor: Color = .clear
-    
+
     @State var text: String = ""
-    
-    var onSave: (Category) -> ()
-    
+
+    var onSave: (Category) -> Void
+
     @Environment(\.dismiss)
     private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             VStack {
-                VStack{
+                VStack {
                     TextField("Введите название категории", text: $text, axis: .vertical)
                         .frame(minHeight: 100, maxHeight: 250)
                         .padding(.horizontal)
@@ -41,9 +41,9 @@ struct CategoryCreator: View {
             .navigationTitle("Категории")
             .navigationBarTitleDisplayMode(.inline)
         }
-        
+
     }
-    
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
@@ -58,7 +58,7 @@ struct CategoryCreator: View {
                     )
             }
         }
-        
+
         ToolbarItem(placement: .topBarLeading) {
             Button {
                 dismiss()
