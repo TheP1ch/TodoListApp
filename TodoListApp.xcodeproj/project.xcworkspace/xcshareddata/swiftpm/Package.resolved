@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "filemanaging",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TheP1ch/FileManaging.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4df69d474873792ef6bb87cedaebbf4aee5137a2"
+      }
+    },
+    {
       "identity" : "swift-log",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",

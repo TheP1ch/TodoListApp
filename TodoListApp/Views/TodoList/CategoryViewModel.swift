@@ -5,6 +5,7 @@
 //  Created by Евгений Беляков on 06.07.2024.
 //
 
+import FileManaging
 import SwiftUI
 
 final class CategoryViewModel: ObservableObject {
@@ -25,11 +26,7 @@ final class CategoryViewModel: ObservableObject {
         return dict
     }
 
-    private let fileManagerJson: FileManagerJson
-
-    init(fileManagerJson: FileManagerJson) {
-        self.fileManagerJson = fileManagerJson
-    }
+    private let fileManagerJson: FileManagingJson = FileManagerJson()
 
     func add(category: Category) {
         categories.append(category)

@@ -9,6 +9,9 @@ import Foundation
 
 protocol FileManagingJson {
     func saveJsonFile(named fileName: String, json: Any) throws
+    func save(fileName: String, json: Data) throws
+
+    func load(fileName: String) throws -> Data
     func loadJsonFile(named fileName: String) throws -> Any
 }
 

@@ -5,13 +5,8 @@
 //  Created by Евгений Беляков on 17.06.2024.
 //
 
+import FileManaging
 import Foundation
-
-enum FileError: Error {
-    case invalidFileURL
-    case invalidJsonSearialization
-    case invalidStringConvert
-}
 
 enum FileFormat {
     case json

@@ -151,9 +151,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
 #Preview {
     let controller = CalendarViewController(
         viewModel: CalendarViewModel(
-            categoryViewModel: CategoryViewModel(
-                fileManagerJson: FileManagerJson()
-            )
+            categoryViewModel: CategoryViewModel()
         )
     )
 

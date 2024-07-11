@@ -79,6 +79,6 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
             fileName: FileCache.fileName,
             format: FileCache.fileExtension,
             fileCache: FileCache()
-        ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
+        ), categoryViewModel: CategoryViewModel()
     )
 }

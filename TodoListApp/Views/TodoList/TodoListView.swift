@@ -21,7 +21,7 @@ struct TodoListView: View {
     private var selectedItems: TodoItem?
 
     @StateObject
-    var categoryViewModel: CategoryViewModel = CategoryViewModel(fileManagerJson: FileManagerJson())
+    var categoryViewModel: CategoryViewModel = CategoryViewModel()
 
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass

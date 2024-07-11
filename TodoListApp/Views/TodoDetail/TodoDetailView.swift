@@ -5,6 +5,7 @@
 //  Created by Евгений Беляков on 01.07.2024.
 //
 
+import FileManaging
 import SwiftUI
 
 struct TodoDetailView: View {
@@ -264,6 +265,6 @@ struct TodoDetailView: View {
                 format: FileCache.fileExtension,
                 fileCache: FileCache()
             )
-        ), categoryViewModel: CategoryViewModel(fileManagerJson: FileManagerJson())
+        ), categoryViewModel: CategoryViewModel()
     )
 }
