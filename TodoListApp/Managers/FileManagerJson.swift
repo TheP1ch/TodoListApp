@@ -18,7 +18,8 @@ protocol FileManagingJson {
 final class FileManagerJson: FileManagingJson {
     func loadJsonFile(named fileName: String) throws -> Any {
         guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
+//            throw FileError.invalidFileURL/
+            throw CancellationError()
         }
 
         let data: Data = try Data(contentsOf: fileUrl)
@@ -29,7 +30,7 @@ final class FileManagerJson: FileManagingJson {
 
     func load(fileName: String) throws -> Data {
         guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
+            throw CancellationError()
         }
 
         let data: Data = try Data(contentsOf: fileUrl)
@@ -39,7 +40,7 @@ final class FileManagerJson: FileManagingJson {
 
     func save(fileName: String, json: Data) throws {
         guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
+            throw CancellationError()
         }
 
         try json.write(to: fileUrl)
@@ -47,7 +48,7 @@ final class FileManagerJson: FileManagingJson {
 
     func saveJsonFile(named fileName: String, json: Any) throws {
         guard let fileUrl = FileManager.getFileUrl(fileName: "\(fileName).json") else {
-            throw FileError.invalidFileURL
+            throw CancellationError()
         }
 
         let data: Data = try JSONSerialization.data(withJSONObject: json)
