@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct ListHeader: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     var isDoneCount: Int
-    
+
     @Binding var filterOption: FilterOption
-    
+
     @Binding var sortOption: SortOption
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
-        HStack{
+        HStack {
             isDoneText
             Spacer()
             menu
         }
     }
-    //MARK: View Properties
+    // MARK: View Properties
     private var isDoneText: some View {
         Text("Выполнено — " + "\(isDoneCount)")
             .font(AppFont.subhead.font)
@@ -32,7 +32,7 @@ struct ListHeader: View {
                 ColorTheme.Label.labelTertiary.color
             )
     }
-    
+
     private var menu: some View {
         Menu {
             completeSection
@@ -45,15 +45,15 @@ struct ListHeader: View {
                 )
         }
     }
-    
+
     private var completeSection: some View {
         Section("Выполненные") {
-            ForEach(FilterOption.allCases, id: \.id){ option in
-                Button{
+            ForEach(FilterOption.allCases, id: \.id) { option in
+                Button {
                     filterOption = option
                 } label: {
                     Text(option.rawValue)
-                    
+
                     if filterOption == option {
                         Image(systemName: "checkmark")
                     }
@@ -62,15 +62,15 @@ struct ListHeader: View {
             }
         }
     }
-    
+
     private var filterSection: some View {
         Section("Сортировать по") {
-            ForEach(SortOption.allCases, id: \.id){ option in
-                Button{
+            ForEach(SortOption.allCases, id: \.id) { option in
+                Button {
                     sortOption = option
                 } label: {
                     Text(option.rawValue)
-                    
+
                     if sortOption == option {
                         Image(systemName: "checkmark")
                     }

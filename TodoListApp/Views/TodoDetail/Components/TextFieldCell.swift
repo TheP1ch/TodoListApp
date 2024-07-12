@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TextFieldCell: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     @Binding var text: String
-    
+
     @Binding var hasColor: Bool
-    
+
     @Binding var color: Color
 
-    //MARK: Body    
+    // MARK: Body    
     var body: some View {
         HStack {
             TextField("Что надо сделать?", text: $text, axis: .vertical)
@@ -25,21 +25,21 @@ struct TextFieldCell: View {
             )
             .background(ColorTheme.Back.backSecondary.color)
             .padding(.top, 16)
-            
+
             if hasColor {
                 colorLine
             }
         }
     }
-    
+
     private var colorLine: some View {
         RoundedRectangle(cornerRadius: 4)
             .fill(color)
             .frame(width: 4)
     }
-    
+
 }
 
 #Preview {
-    TextFieldCell(text: .constant("ee"), hasColor: .constant(true),color: .constant(.green))
+    TextFieldCell(text: .constant("ee"), hasColor: .constant(true), color: .constant(.green))
 }

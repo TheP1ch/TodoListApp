@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct HueSlider: View {
-    //MARK: Public Properties
-    
+    // MARK: Public Properties
+
     var width: CGFloat = 0
     var height: CGFloat = 0
-    
+
     @Binding var hue: Double
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
-        ZStack{
+        ZStack {
             VStack {
                 Rectangle()
                     .fill(
@@ -33,26 +33,25 @@ struct HueSlider: View {
                             DragGesture(coordinateSpace: .local)
                                 .onChanged({ value in
                                     let gestureLocation = value.location
-                    
-                                    if gestureLocation.x > 0 && gestureLocation.x < width{
+
+                                    if gestureLocation.x > 0 && gestureLocation.x < width {
                                         self.hue = gestureLocation.x / width
                                     }
-                                    
+
                                     if gestureLocation.x <= 0 {
                                         self.hue = 0
                                     }
-                                    
+
                                     if gestureLocation.x >= width {
                                         self.hue = 1
                                     }
-                    
                                 })
                         )
-                
+
             }
         }
     }
-    //MARK: View Properties
+    // MARK: View Properties
 }
 
 #Preview {

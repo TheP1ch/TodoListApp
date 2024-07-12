@@ -9,10 +9,10 @@ import Foundation
 
 extension FileManager {
     static func getFileUrl(fileName: String) -> URL? {
-        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else{
+        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
-        
+
         return url.appending(path: fileName)
     }
 }

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ColorPickerNavWrapper: View {
     @Binding var itemColor: Color
-    
+
     @State var newColor: Color
 
     @Environment(\.dismiss)
     private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             ColorPicker(itemColor: $itemColor, newColor: $newColor)
@@ -28,7 +28,7 @@ struct ColorPickerNavWrapper: View {
                 }
         }
     }
-    
+
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
@@ -43,7 +43,7 @@ struct ColorPickerNavWrapper: View {
                     )
             }
         }
-        
+
         ToolbarItem(placement: .topBarLeading) {
             Button {
                 dismiss()

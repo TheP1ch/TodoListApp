@@ -14,8 +14,8 @@
             filePath = "TodoListApp/Views/TodoList/TodoListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "addNewButton"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "TodoListAppTests/TodoItemTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "TodoItemTests"
             landmarkType = "3">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "TodoListAppTests/TodoItemTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "testParseJsonWithoutPriority()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "TodoListAppTests/TodoItemTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "testParseJsonWithoutPriority()"
             landmarkType = "7">
          </BreakpointContent>
@@ -114,6 +114,209 @@
             endingLineNumber = "14"
             landmarkName = "strikeThrough(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "86CE078F-60EB-4D57-8B2F-4DF489B6B454"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Managers/LogFormatter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "format(message:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Application/TodoListApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - f92744a582850ca1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - 4c92a8d2a6baa6df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - b0e137cbe4a17c1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - f92744a582850ca1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - 4c92a8d2a6baa630"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - b0e137cbe4a17cf4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF9F8277-7E9F-4A5D-B4A8-1110112CB72C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Application/TodoListApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Application/TodoListApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB - f92744a582850ca1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB - 4c92a8d2a6baa630"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB - b0e137cbe4a17cf4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #1 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in TodoListApp.TodoListApp.body.getter : some"
+                  moduleName = "TodoListApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/evgenijbelakov/Desktop/yandex-school/TodoListApp/TodoListApp/Application/TodoListApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

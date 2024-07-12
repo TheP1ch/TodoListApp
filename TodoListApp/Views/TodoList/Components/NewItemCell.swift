@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NewItemCell: View {
-    
-    //MARK: Body
+
+    // MARK: Body
     var body: some View {
         HStack(spacing: 12) {
             Spacer()

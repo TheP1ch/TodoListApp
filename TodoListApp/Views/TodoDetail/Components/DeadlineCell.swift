@@ -8,31 +8,31 @@
 import SwiftUI
 
 struct DeadlineCell: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     @Binding var deadline: Date
-    
+
     @Binding var hasDeadline: Bool
-    
+
     var onTap: () -> Void
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
         Toggle(isOn: $hasDeadline) {
             VStack {
                 Text("Сделать до")
                     .font(AppFont.body.font)
                     .foregroundStyle(ColorTheme.Label.labelPrimary.color)
-                
+
                 if hasDeadline {
                     deadlineTitle
                 }
             }
         }
     }
-    
-    //MARK: View Properties
-    
+
+    // MARK: View Properties
+
     private var deadlineTitle: some View {
         Button {
             onTap()

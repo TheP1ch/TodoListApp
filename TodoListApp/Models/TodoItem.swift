@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TodoItem: Identifiable, Equatable{
+struct TodoItem: Identifiable, Equatable {
     let id: String
     let text: String
     let createdAt: Date
@@ -17,7 +17,7 @@ struct TodoItem: Identifiable, Equatable{
     let changeAt: Date?
     let hexColor: String?
     let category: String?
-    
+
     init(id: String = UUID().uuidString,
          text: String,
          priority: Priority,
@@ -46,13 +46,13 @@ enum TodoItemKeys: String {
 extension TodoItem {
     static func new() -> Self {
         TodoItem(
-            text: "test 1 linetest 1 linetest 1 linetest 1 linetest 1 linetest 1 line",
+            text: "",
             priority: .normal
         )
     }
 }
 
-extension TodoItem{
+extension TodoItem {
     var json: Any {
         var dictionary = [String: Any]()
         dictionary[TodoItemKeys.id.rawValue] = self.id
@@ -66,15 +66,15 @@ extension TodoItem{
         if let changeAt = self.changeAt {
             dictionary[TodoItemKeys.changeAt.rawValue] = Int(changeAt.timeIntervalSince1970)
         }
-        if let hexColor = self.hexColor{
+        if let hexColor = self.hexColor {
             dictionary[TodoItemKeys.hexColor.rawValue] = hexColor
         }
-        if let category = self.category{
+        if let category = self.category {
             dictionary[TodoItemKeys.category.rawValue] = category
         }
         dictionary[TodoItemKeys.isCompleted.rawValue] = self.isCompleted
         dictionary[TodoItemKeys.createdAt.rawValue] = Int(self.createdAt.timeIntervalSince1970)
-        
+
         return dictionary
     }
 }
@@ -88,6 +88,8 @@ extension TodoItem {
               let isCompleted = json[TodoItemKeys.isCompleted.rawValue] as? Bool,
               let creationDateTimeStamp = json[TodoItemKeys.createdAt.rawValue] as? Int
         else {
+            Logger.log("TodoItem parse error json: \(json)", level: .warning)
+
             return nil
         }
 
@@ -98,20 +100,20 @@ extension TodoItem {
         } else {
             deadline = nil
         }
-        
+
         let changeAt: Date?
         if let changeAtTimeInterval = json[TodoItemKeys.changeAt.rawValue] as? Int {
             changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
         } else {
             changeAt = nil
         }
-        
+
         let hexColor = json[TodoItemKeys.hexColor.rawValue] as? String
-        
+
         let category = json[TodoItemKeys.category.rawValue] as? String
-        
+
         var priority: Priority
-        if let priorityRawValue = json[TodoItemKeys.priority.rawValue] as? String{
+        if let priorityRawValue = json[TodoItemKeys.priority.rawValue] as? String {
             if let priorityValue = Priority(rawValue: priorityRawValue) {
                 priority = priorityValue
             } else {
@@ -122,7 +124,7 @@ extension TodoItem {
         }
 
         let createdAt = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
-        
+
         return TodoItem(
             id: id,
             text: text,
@@ -137,15 +139,13 @@ extension TodoItem {
     }
 }
 
-
-
 extension TodoItem {
     var csv: String {
         var csvString = "\(self.id),\(self.text),\(Int(self.createdAt.timeIntervalSince1970)),"
 
         if self.priority != .normal {
             csvString += "\(self.priority.rawValue),"
-        }else {
+        } else {
             csvString += ","
         }
         if let deadline = self.deadline {
@@ -165,29 +165,30 @@ extension TodoItem {
         }
         if let changeAt = self.changeAt {
             csvString += "\(Int(changeAt.timeIntervalSince1970)),"
-        }else {
+        } else {
             csvString += ","
         }
 
         csvString += "\(self.isCompleted)"
         return csvString
     }
-    
+
+    // swiftlint:disable function_body_length
     static func parse(csv: String) -> TodoItem? {
         let csvDataArray = csv.components(separatedBy: ",")
-        
+
         guard csvDataArray.count == 9 else { return nil }
-        
+
         let id = csvDataArray[0]
         let text = csvDataArray[1]
-        
+
         guard let creationDateTimeStamp = Int(csvDataArray[2]) else {
             return nil
         }
         let createdAt = Date(timeIntervalSince1970: TimeInterval(creationDateTimeStamp))
-        
+
         let priority: Priority
-        if csvDataArray[3] != ""{
+        if csvDataArray[3].isEmpty {
             if let priorityValue = Priority(rawValue: csvDataArray[3]) {
                 priority = priorityValue
             } else {
@@ -196,39 +197,39 @@ extension TodoItem {
         } else {
             priority = .normal
         }
-        
+
         let deadline: Date?
         if let deadlineTimeInterval = Int(csvDataArray[4]) {
             deadline = Date(timeIntervalSince1970: TimeInterval(deadlineTimeInterval))
         } else {
             deadline = nil
         }
-        
+
         let hexColor: String?
-        if csvDataArray[5] != ""  {
+        if csvDataArray[5].isEmpty {
             hexColor = csvDataArray[5]
         } else {
             hexColor = nil
         }
-        
+
         let category: String?
-        if csvDataArray[6] != ""  {
+        if csvDataArray[6].isEmpty {
             category = csvDataArray[6]
         } else {
             category = nil
         }
-        
+
         let changeAt: Date?
         if let changeAtTimeInterval = Int(csvDataArray[7]) {
             changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
         } else {
             changeAt = nil
         }
-        
+
         guard let isCompleted = Bool(csvDataArray[8]) else {
             return nil
         }
-        
+
         return TodoItem(
             id: id,
             text: text,
@@ -241,4 +242,5 @@ extension TodoItem {
             category: category
         )
     }
+    // swiftlint:enable function_body_length
 }

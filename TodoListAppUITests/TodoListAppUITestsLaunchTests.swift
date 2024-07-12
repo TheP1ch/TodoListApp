@@ -8,10 +8,11 @@
 import XCTest
 
 final class TodoListAppUITestsLaunchTests: XCTestCase {
-
+    // swiftlint:disable static_over_final_class
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
+    // swiftlint:enable static_over_final_class
 
     override func setUpWithError() throws {
         continueAfterFailure = false

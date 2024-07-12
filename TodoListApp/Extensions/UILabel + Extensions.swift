@@ -10,22 +10,22 @@ import UIKit
 
 extension UILabel {
 
-func strikeThrough(_ isStrikeThrough:Bool) {
+func strikeThrough(_ isStrikeThrough: Bool) {
     if isStrikeThrough {
         if let lblText = self.text {
             let attributeString =  NSMutableAttributedString(string: lblText)
-            
+
             attributeString.addAttribute(
                 .strikethroughStyle,
                 value: NSUnderlineStyle.thick.rawValue,
-                range: NSMakeRange(0,attributeString.length)
+                range: NSRange(location: 0, length: attributeString.length)
             )
             attributeString.addAttribute(
                 .foregroundColor,
                 value: ColorTheme.Label.labelTertiary.uiColor,
-                range: NSMakeRange(0,attributeString.length)
+                range: NSRange(location: 0, length: attributeString.length)
             )
-            
+
             self.attributedText = attributeString
         }
     } else {

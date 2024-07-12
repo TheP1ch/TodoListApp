@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ImportanceCell: View {
-    //MARK: Public Properties
+    // MARK: Public Properties
     @Binding var importance: Priority
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
         HStack {
             Text("Важность")
@@ -21,9 +21,9 @@ struct ImportanceCell: View {
             picker
         }
     }
-    
-    //MARK: View Properties
-    
+
+    // MARK: View Properties
+
     private var picker: some View {
         Picker("Test", selection: $importance) {
             ForEach(

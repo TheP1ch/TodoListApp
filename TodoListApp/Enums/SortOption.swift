@@ -10,6 +10,6 @@ import Foundation
 enum SortOption: String, CaseIterable {
     case priority = "Важности"
     case createdAt = "Добавлению"
-    
+
     var id: Self { self }
 }

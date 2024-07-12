@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct ColorPicker: View {
-    //MARK: Public Properties
-    
+    // MARK: Public Properties
+
     @Binding var itemColor: Color
-    
+
     @Binding var newColor: Color
-    
-    //MARK: Private Properties
-    
+
+    // MARK: Private Properties
+
     @State private var hue: Double = 0
-    
+
     @State private var saturation: Double = 1
-    
+
     @State private var brightness: Double = 1
-    
-    //MARK: Body
-    
+
+    // MARK: Body
+
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
@@ -57,9 +57,9 @@ struct ColorPicker: View {
             newColor = Color(hue: hue, saturation: saturation, brightness: new)
         }
     }
-    
-    //MARK: View Properties
-    
+
+    // MARK: View Properties
+
     private var colorPeakerHeader: some View {
         HStack {
             Circle()
@@ -71,18 +71,18 @@ struct ColorPicker: View {
             Spacer()
         }.padding()
     }
-    
+
     private var saturationSlider: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Насыщенность:")
             Slider(value: $saturation, in: 0...1)
         }.padding()
     }
-    
+
     private var brightnessSlider: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Яркость:")
-            
+
             Slider(value: $brightness, in: 0...1)
         }.padding()
     }

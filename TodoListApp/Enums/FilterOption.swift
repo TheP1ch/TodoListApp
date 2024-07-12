@@ -10,6 +10,6 @@ import Foundation
 enum FilterOption: String, CaseIterable {
     case all = "Показать"
     case hideDone = "Скрыть"
-    
+
     var id: Self { self }
 }
