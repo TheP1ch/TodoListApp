@@ -30,8 +30,6 @@
 		9C4667C32C4004E400F4AC81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C22C4004E400F4AC81 /* Logger.swift */; };
 		9C4667C72C4057A200F4AC81 /* FileManaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4667C62C4057A200F4AC81 /* FileManaging */; };
 		9C4667C92C412D9900F4AC81 /* URLSession + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */; };
-		9C4667CB2C41A83400F4AC81 /* FileManagerCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667CA2C41A83400F4AC81 /* FileManagerCSV.swift */; };
-		9C4667CD2C41A84F00F4AC81 /* FileManagerJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667CC2C41A84F00F4AC81 /* FileManagerJson.swift */; };
 		9C564E2E2C32E5B500E2EE78 /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */; };
 		9C564E322C32FF7E00E2EE78 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */; };
 		9C564E342C32FF8700E2EE78 /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */; };
@@ -112,8 +110,6 @@
 		9C4667C02C4002E500F4AC81 /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		9C4667C22C4004E400F4AC81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extensions.swift"; sourceTree = "<group>"; };
-		9C4667CA2C41A83400F4AC81 /* FileManagerCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerCSV.swift; sourceTree = "<group>"; };
-		9C4667CC2C41A84F00F4AC81 /* FileManagerJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerJson.swift; sourceTree = "<group>"; };
 		9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
 		9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -316,8 +312,6 @@
 				9C441A392C20646D00CED704 /* FileCache.swift */,
 				9C4667C02C4002E500F4AC81 /* LogFormatter.swift */,
 				9C4667C22C4004E400F4AC81 /* Logger.swift */,
-				9C4667CA2C41A83400F4AC81 /* FileManagerCSV.swift */,
-				9C4667CC2C41A84F00F4AC81 /* FileManagerJson.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -687,7 +681,6 @@
 				9C5A5F462C3831C900105632 /* VerticalCalendarViewCell.swift in Sources */,
 				9CF3A2622C348FCA00813B69 /* DeleteSwipeButton.swift in Sources */,
 				9C8F5DF12C32DF3D00DAE22C /* ListHeader.swift in Sources */,
-				9C4667CB2C41A83400F4AC81 /* FileManagerCSV.swift in Sources */,
 				9C4667C32C4004E400F4AC81 /* Logger.swift in Sources */,
 				9CAC0D582C38F976004570E0 /* CategoryCreator.swift in Sources */,
 				9CED36BB2C308DA700684861 /* AppFont.swift in Sources */,
@@ -729,7 +722,6 @@
 				9C8F5DE72C31AB2B00DAE22C /* TodoItemCell.swift in Sources */,
 				9C62D73C2C3172B800316F0B /* AddNewItemButton.swift in Sources */,
 				9C5A5F442C382E6900105632 /* CalendarViewModel.swift in Sources */,
-				9C4667CD2C41A84F00F4AC81 /* FileManagerJson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
