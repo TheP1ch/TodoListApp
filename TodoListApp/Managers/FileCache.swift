@@ -49,6 +49,8 @@ final class FileCache: FileManaging {
             }
         }
         todoItems.append(todoItem)
+        
+        Logger.log("Item add", level: .debug)
     }
 
     func removeItem(by id: String) {
@@ -58,6 +60,8 @@ final class FileCache: FileManaging {
                 return
             }
         }
+        
+        Logger.log("Item removed", level: .debug)
     }
 
     func load(fileName: String, format: FileFormat) throws {
@@ -70,6 +74,7 @@ final class FileCache: FileManaging {
             }
         case .json:
             guard let jsonData = try self.fileManagerJson.loadJsonFile(named: fileName) as? [[String: Any]] else {
+                Logger.log("load data invalid JsonSearialization", level: .error)
                 throw FileError.invalidJsonSearialization
             }
             self.todoItems = jsonData.compactMap {
