@@ -143,7 +143,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
         }
     }
 
-    func scrollToDate(at section: Int) {
+    @MainActor func scrollToDate(at section: Int) {
         verticalCalendar.scrollToSection(at: section)
     }
 }

@@ -29,6 +29,7 @@
 		9C4667C12C4002E500F4AC81 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C02C4002E500F4AC81 /* LogFormatter.swift */; };
 		9C4667C32C4004E400F4AC81 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C22C4004E400F4AC81 /* Logger.swift */; };
 		9C4667C72C4057A200F4AC81 /* FileManaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4667C62C4057A200F4AC81 /* FileManaging */; };
+		9C4667C92C412D9900F4AC81 /* URLSession + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */; };
 		9C564E2E2C32E5B500E2EE78 /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */; };
 		9C564E322C32FF7E00E2EE78 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */; };
 		9C564E342C32FF8700E2EE78 /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */; };
@@ -108,6 +109,7 @@
 		9C441A3C2C21C85000CED704 /* FileManager + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager + Extension.swift"; sourceTree = "<group>"; };
 		9C4667C02C4002E500F4AC81 /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		9C4667C22C4004E400F4AC81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extensions.swift"; sourceTree = "<group>"; };
 		9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
 		9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				9C243D952C3592C6009B3EF8 /* Gradient + Extensions.swift */,
 				9C0C36202C35C2780049798F /* Color + Extensions.swift */,
 				9C5A5F492C383A0000105632 /* UILabel + Extensions.swift */,
+				9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 				9C4667C12C4002E500F4AC81 /* LogFormatter.swift in Sources */,
 				9CAC0D532C38D1EA004570E0 /* CategoryColorCircle.swift in Sources */,
 				9C5A5F4D2C38435800105632 /* HorizontalCalendarView.swift in Sources */,
+				9C4667C92C412D9900F4AC81 /* URLSession + Extensions.swift in Sources */,
 				9C441A3A2C20646D00CED704 /* FileCache.swift in Sources */,
 				9C441A0C2C205E3600CED704 /* TodoListApp.swift in Sources */,
 				9CAC0D552C38D8BB004570E0 /* CategoryViewModel.swift in Sources */,
@@ -814,6 +818,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 			};
 			name = Debug;
 		};
@@ -869,6 +874,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
