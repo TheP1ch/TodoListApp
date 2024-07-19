@@ -49,7 +49,7 @@ final class FileCache: FileManaging {
             }
         }
         todoItems.append(todoItem)
-        
+
         Logger.log("Item add", level: .debug)
     }
 
@@ -60,7 +60,7 @@ final class FileCache: FileManaging {
                 return
             }
         }
-        
+
         Logger.log("Item removed", level: .debug)
     }
 

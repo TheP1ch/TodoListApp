@@ -40,7 +40,15 @@ struct TodoItem: Identifiable, Equatable {
 }
 
 enum TodoItemKeys: String {
-    case id, text, priority, deadline, isCompleted, createdAt, changeAt, hexColor, category
+    case id = "id"
+    case text = "text"
+    case priority = "importance"
+    case deadline = "deadline"
+    case isCompleted = "done"
+    case createdAt = "created_at"
+    case changeAt = "changed_at"
+    case hexColor = "color"
+    case category = "category"
 }
 
 extension TodoItem {
