@@ -8,7 +8,7 @@
 import Foundation
 import URL
 
-enum API {
+enum APITodoItem {
     private static let baseUrl = #URL("https://hive.mrdekk.ru/todo")
     private static let token = "Bearer Galadriel"
     private static let basePathComponent = "list"
@@ -21,7 +21,7 @@ enum API {
     case deleteTodoItem(id: String, revision: Int32)
 
     private var url: URL {
-        let url = API.baseUrl.appending(path: API.basePathComponent)
+        let url = APITodoItem.baseUrl.appending(path: APITodoItem.basePathComponent)
 
         switch self {
         case .getTodoItem(let id), .updateTodoItem(let id, _), .deleteTodoItem(let id, _):
@@ -48,7 +48,7 @@ enum API {
 
     private var headers: [String: String] {
         var headers = [String: String]()
-        headers["Authorization"] = API.token
+        headers["Authorization"] = APITodoItem.token
 
         switch self {
         case .patchTodoList(let revision),
@@ -63,26 +63,52 @@ enum API {
         return headers
     }
 
-    func request<T: Encodable>(with body: T = nil) throws -> URLRequest {
+    func request(with body: Encodable? = nil) throws -> URLRequest {
         var request = URLRequest(url: url)
-
+        request.httpMethod = method
+        request.allHTTPHeaderFields = headers
         assert(Thread.current != Thread.main)
+
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .custom({ date, encoder in
+            var container = encoder.singleValueContainer()
+            try container.encode(Int(date.timeIntervalSince1970))
+        })
 
         if let body = body {
             do {
-                if let itemBody = body as? [String: Any] {
-                    request.httpBody = try JSON
-                } else if let listBody = body as? [[String: Any]] {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: listBody)
-                } else {
-                    throw NetworkingError.invalidBody
-                }
+                request.httpBody = try encoder.encode(body)
             } catch {
-                Logger.log("API.request: \(error.localizedDescription)", level: .error)
+                Logger.log("API.request: \(error.localizedDescription)", level: .warning)
                 throw error
             }
         }
 
+        requestDescription(for: request)
+
         return request
+    }
+
+    private func requestDescription(for request: URLRequest) {
+        print("\n------------------\n")
+        print("Request URL: \(request.url?.absoluteString ?? "No URL")")
+        print("HTTP Method: \(request.httpMethod ?? "No HTTP Method")")
+
+        print("Headers: ")
+        if let headers = request.allHTTPHeaderFields {
+            for (header, value) in headers {
+                print("\(header): \(value)")
+            }
+        } else {
+            print("No headers")
+        }
+
+        print("Body: ")
+        if let body = request.httpBody, let bodyString = String(data: body, encoding: .utf8) {
+            print(bodyString)
+        } else {
+            print("No body")
+        }
+        print("\n------------------\n")
     }
 }

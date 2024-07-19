@@ -17,7 +17,7 @@ final class SingletoneDateFormatter {
         dateFormatter.locale = Locale(identifier: "ru_RU")
     }
 
-    func toString(date: Date, format: String = "dd MMMM") -> String {
+    func toString(date: Date, with format: String = "dd MMMM") -> String {
         dateFormatter.dateFormat = format
         let string = dateFormatter.string(from: date)
 

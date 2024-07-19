@@ -37,7 +37,7 @@ struct DeadlineCell: View {
         Button {
             onTap()
         } label: {
-            Text("\(deadline.toString(with: "dd MMMM YYYY"))")
+            Text("\(SingletoneDateFormatter.shared.toString(date: deadline, with: "dd MMMM YYYY"))")
                 .font(AppFont.footnote.font)
                 .foregroundStyle(ColorTheme.ColorPalette.blue.color)
         }

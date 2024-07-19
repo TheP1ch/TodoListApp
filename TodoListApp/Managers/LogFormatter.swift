@@ -23,6 +23,6 @@ final class LogFormatter: NSObject, DDLogFormatter {
         let logLevel = logMessage.level
         let logText = logMessage.message
 
-        return "\(timestamp) [\(logLevel)] - \(logText)"
+        return "\(timestamp) - \(logText)"
     }
 }

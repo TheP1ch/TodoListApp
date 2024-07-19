@@ -32,7 +32,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     }
 
     var isDoneCount: Int {
-        fileCache.todoItems.reduce(0) { value, item in
+        items.reduce(0) { value, item in
             value + (item.isCompleted ? 1 : 0)
         }
     }
@@ -41,36 +41,13 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
 
     @Published private(set) var items: [TodoItem] = []
 
-    private var fileCache: FileManaging = FileCache()
+    private let networkHelper: TodoNetworkingHelper = TodoListNetworkingHelper()
+
+    private let fileCache: FileManaging = FileCache()
 
     private let fileName: String = FileCache.fileName
 
     private let format: FileFormat = FileCache.fileExtension
-
-    // MARK: public methods
-
-    func isCompletedChange(for item: TodoItem, newValue: Bool) {
-        let item = TodoItem(
-            id: item.id,
-            text: item.text,
-            priority: item.priority,
-            deadline: item.deadline,
-            isCompleted: newValue,
-            createdAt: item.createdAt,
-            changeAt: item.changeAt,
-            hexColor: item.hexColor,
-            category: item.category
-        )
-
-        fileCache.add(todoItem: item)
-
-        Logger.log(
-            "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
-            level: .debug
-        )
-
-        updateItems()
-    }
 
     // MARK: private methods
     private func filter(with filterOption: FilterOption) -> [TodoItem] {
@@ -96,41 +73,70 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     }
 }
 
-// MARK: FileCacheMethods
+// MARK: Networking
 extension TodoListViewModel {
+    func load() {
+        Task {
+            await networkHelper.fetchTodoList()
+
+            Logger.log("Task loaded", level: .debug)
+
+            updateItems()
+        }
+    }
+
+    func isCompletedChange(for item: TodoItem, newValue: Bool) {
+        let item = TodoItem(
+            id: item.id,
+            text: item.text,
+            priority: item.priority,
+            deadline: item.deadline,
+            isCompleted: newValue,
+            createdAt: item.createdAt,
+            changeAt: item.changeAt,
+            hexColor: item.hexColor,
+            category: item.category
+        )
+
+        Task {
+            await networkHelper.updateTodoItem(with: item.id, item)
+
+            Logger.log(
+                "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
+                level: .debug
+            )
+
+            updateItems()
+        }
+    }
+
     func add(item: TodoItem) {
-        fileCache.add(todoItem: item)
-        Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
-        updateItems()
+        Task {
+            await networkHelper.addTodoItem(item)
+            Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+
+            updateItems()
+        }
+
     }
 
     func remove(by id: String) {
-        fileCache.removeItem(by: id)
+        Task {
+            await networkHelper.deleteTodoItem(with: id)
+            Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
 
-        Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
-
-        updateItems()
+            updateItems()
+        }
     }
 
     private func updateItems() {
-        self.items = fileCache.todoItems
+        Task {
+            let helperItems = await networkHelper.todoItems
 
-        do {
-            try self.fileCache.save(fileName: self.fileName, format: self.format)
-
-            Logger.log("Items saved", level: .debug)
-        } catch {
-            Logger.log("Save to file error: \(error.localizedDescription)", level: .error)
+            await MainActor.run {
+                self.items = helperItems
+                Logger.log("ViewModel List Updated", level: .debug)
+            }
         }
-    }
-
-    func load() {
-        do {
-            try fileCache.load(fileName: fileName, format: format)
-        } catch {
-            Logger.log("Load from file error: \(error.localizedDescription)", level: .error)
-        }
-
-        items = fileCache.todoItems
     }
 }

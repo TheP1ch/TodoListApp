@@ -103,7 +103,7 @@ struct TodoItemCell: View {
         HStack(spacing: 2) {
             Image(systemName: "calendar")
             if let deadline = todoItem.deadline {
-                Text(deadline.toString())
+                Text(SingletoneDateFormatter.shared.toString(date: deadline))
                     .font(AppFont.subhead.font)
             }
 

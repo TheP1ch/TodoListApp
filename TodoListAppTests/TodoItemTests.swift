@@ -40,7 +40,7 @@ final class TodoItemTests: XCTestCase {
     func testInitializationWithoutRequiredParameters() {
         let todoItem = TodoItem(
             text: "Привет ШМР!",
-            priority: .normal,
+            priority: .basic,
             isCompleted: false,
             createdAt: Date(timeIntervalSince1970: 399)
         )
@@ -48,7 +48,7 @@ final class TodoItemTests: XCTestCase {
         XCTAssertNotNil(todoItem.id)
         XCTAssertNil(todoItem.deadline)
         XCTAssertNil(todoItem.changeAt)
-        XCTAssertEqual(todoItem.priority, .normal)
+        XCTAssertEqual(todoItem.priority, .basic)
         XCTAssertEqual(todoItem.text, "Привет ШМР!")
         XCTAssertEqual(todoItem.isCompleted, false)
         XCTAssertEqual(todoItem.createdAt, Date(timeIntervalSince1970: 399))
@@ -64,18 +64,18 @@ final class TodoItemTests: XCTestCase {
             fatalError()
         }
 
-        XCTAssertEqual(json[TodoItemKeys.id.rawValue] as? String, "test1")
-        XCTAssertEqual(json[TodoItemKeys.text.rawValue] as? String, "description")
-        XCTAssertEqual(json[TodoItemKeys.priority.rawValue] as? String, "неважная")
-        XCTAssertEqual(json[TodoItemKeys.isCompleted.rawValue] as? Bool, true)
-        XCTAssertEqual(json[TodoItemKeys.createdAt.rawValue] as? Int, 100)
-        XCTAssertEqual(json[TodoItemKeys.changeAt.rawValue] as? Int, 500)
+        XCTAssertEqual(json[TodoItem.CodingKeys.id.rawValue] as? String, "test1")
+        XCTAssertEqual(json[TodoItem.CodingKeys.text.rawValue] as? String, "description")
+        XCTAssertEqual(json[TodoItem.CodingKeys.priority.rawValue] as? String, "неважная")
+        XCTAssertEqual(json[TodoItem.CodingKeys.isCompleted.rawValue] as? Bool, true)
+        XCTAssertEqual(json[TodoItem.CodingKeys.createdAt.rawValue] as? Int, 100)
+        XCTAssertEqual(json[TodoItem.CodingKeys.changeAt.rawValue] as? Int, 500)
     }
     // MARK: Проверка json без deadline и lastChangingDate, важность - обычная
     func testJsonPropertyWithoutNotRequiredPropertiesPriorityNormal() {
         let todoItem = TodoItem(
             text: "Привет ШМР!",
-            priority: .normal,
+            priority: .basic,
             isCompleted: false,
             createdAt: Date(timeIntervalSince1970: 399)
         )
@@ -88,13 +88,13 @@ final class TodoItemTests: XCTestCase {
             fatalError()
         }
 
-        XCTAssertEqual(json[TodoItemKeys.id.rawValue] as? String, todoItem.id)
-        XCTAssertEqual(json[TodoItemKeys.text.rawValue] as? String, todoItem.text)
-        XCTAssertNil(json[TodoItemKeys.priority.rawValue], "Обычный приоритет не должен быть указан в json")
-        XCTAssertEqual(json[TodoItemKeys.isCompleted.rawValue] as? Bool, false)
-        XCTAssertEqual(json[TodoItemKeys.createdAt.rawValue] as? Int, 399)
-        XCTAssertNil(json[TodoItemKeys.changeAt.rawValue])
-        XCTAssertNil(json[TodoItemKeys.deadline.rawValue])
+        XCTAssertEqual(json[TodoItem.CodingKeys.id.rawValue] as? String, todoItem.id)
+        XCTAssertEqual(json[TodoItem.CodingKeys.text.rawValue] as? String, todoItem.text)
+        XCTAssertNil(json[TodoItem.CodingKeys.priority.rawValue], "Обычный приоритет не должен быть указан в json")
+        XCTAssertEqual(json[TodoItem.CodingKeys.isCompleted.rawValue] as? Bool, false)
+        XCTAssertEqual(json[TodoItem.CodingKeys.createdAt.rawValue] as? Int, 399)
+        XCTAssertNil(json[TodoItem.CodingKeys.changeAt.rawValue])
+        XCTAssertNil(json[TodoItem.CodingKeys.deadline.rawValue])
     }
 
     // MARK: Test parse function
@@ -119,7 +119,7 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(todoItem!.createdAt, Date(timeIntervalSince1970: 500))
         XCTAssertEqual(todoItem!.deadline, Date(timeIntervalSince1970: 399))
         XCTAssertEqual(todoItem!.changeAt, Date(timeIntervalSince1970: 199))
-        XCTAssertEqual(todoItem!.priority, .normal)
+        XCTAssertEqual(todoItem!.priority, .basic)
     }
 
     func testJsonParseReturnNil() {
@@ -159,7 +159,7 @@ final class TodoItemTests: XCTestCase {
         let todoItem = TodoItem(
             id: "test1",
             text: "description",
-            priority: .normal,
+            priority: .basic,
             deadline: Date(
                 timeIntervalSince1970: 10000
             ),

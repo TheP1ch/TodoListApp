@@ -7,9 +7,10 @@
 
 import Foundation
 
-protocol TodoResponse {
+protocol TodoResponse: Codable {
     associatedtype ResponseResult
-    
-    let status: String
-    let 
+
+    var status: String { get }
+    var result: ResponseResult { get }
+    var revision: Int32 { get }
 }

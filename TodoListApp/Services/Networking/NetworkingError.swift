@@ -8,6 +8,8 @@
 import Foundation
 
 enum NetworkingError: Error {
-    case invalidBody
-
+    case invalidResponse
+    case httpError(statusCode: Int)
+    case serverError
+    case unknown
 }

@@ -1,134 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "723EF7CD-CBA7-4285-9BE5-1888A9C7A8DE"
-   type = "1"
+   uuid = "E285D23F-1225-493C-B4E6-5759F4EF380F"
+   type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "220F758E-F577-456D-A780-C55946EF934F"
+            uuid = "3813A113-FD39-4DDC-88EA-A02CEFFEB6F7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Views/TodoList/TodoListView.swift"
+            filePath = "TodoListApp/Services/Networking/TodoListNetworkingHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "addNewButton"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "828F18D2-4A77-4772-AE97-3B0E6F7B15F3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoListAppTests/TodoItemTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "TodoItemTests"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BD474DCF-8E7D-4BD9-ADA3-47D5E1A1CF20"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoListAppTests/TodoItemTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "testParseJsonWithoutPriority()"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "handleResponse(networkCall:onSuccess:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7A04E42E-46B7-4460-9302-2F8A25FBBEFA"
+            uuid = "C7F06A34-EBEF-4FEA-A5FD-9661F268E96D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListAppTests/TodoItemTests.swift"
+            filePath = "TodoListApp/Services/Networking/APITodoItem.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "testParseJsonWithoutPriority()"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "request(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "79DBD6E6-187D-4617-9130-3130E6E3EB85"
+            uuid = "D7638270-4A2D-4AE5-978E-27BA8D4F971B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Calendar/Controllers/CalendarViewController.swift"
+            filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "load()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "256822F0-FD8B-4C08-AA17-2E00B257726F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "80"
             endingLineNumber = "80"
-            landmarkName = "viewDidLoad()"
+            landmarkName = "load()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6A84A592-8554-4BE9-B000-6BEA626F8D4B"
+            uuid = "5B24107D-A545-4C02-865F-AB407E48EE55"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Calendar/Controllers/CalendarViewModel.swift"
+            filePath = "TodoListApp/Services/Networking/TodoListNetworkingHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "sortByDeadline(items:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "handleResponse(networkCall:onSuccess:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5F3D5C95-E170-4E3C-A9F6-23BD57D30EE3"
+            uuid = "7B8E7879-E24A-4761-8A98-D207B9480750"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Extensions/UILabel + Extensions.swift"
+            filePath = "TodoListApp/Services/Networking/DefaultNetworkingService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "strikeThrough(_:)"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "postTodoItem(_:revision:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "86CE078F-60EB-4D57-8B2F-4DF489B6B454"
+            uuid = "E53DC3B7-48B7-488A-9110-593F1E6587F1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Managers/LogFormatter.swift"
+            filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "format(message:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "sort(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

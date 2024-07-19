@@ -31,7 +31,6 @@
 		9C4667C72C4057A200F4AC81 /* FileManaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4667C62C4057A200F4AC81 /* FileManaging */; };
 		9C4667C92C412D9900F4AC81 /* URLSession + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */; };
 		9C5389FF2C4A661500AFB9DC /* APITodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5389FE2C4A661500AFB9DC /* APITodoItem.swift */; };
-		9C538A012C4A661F00AFB9DC /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A002C4A661F00AFB9DC /* NetworkingService.swift */; };
 		9C538A032C4A663000AFB9DC /* DefaultNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A022C4A663000AFB9DC /* DefaultNetworkingService.swift */; };
 		9C538A082C4A6EC900AFB9DC /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A072C4A6EC900AFB9DC /* NetworkingError.swift */; };
 		9C538A0A2C4A6EF400AFB9DC /* TodoListNetworkingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A092C4A6EF400AFB9DC /* TodoListNetworkingHelper.swift */; };
@@ -39,6 +38,11 @@
 		9C538A0F2C4A728C00AFB9DC /* URLClient in Frameworks */ = {isa = PBXBuildFile; productRef = 9C538A0E2C4A728C00AFB9DC /* URLClient */; };
 		9C538A142C4A8C8400AFB9DC /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A132C4A8C8400AFB9DC /* TodoResponse.swift */; };
 		9C538A172C4A91CB00AFB9DC /* SingletoneDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A162C4A91CB00AFB9DC /* SingletoneDateFormatter.swift */; };
+		9C538A192C4A94F300AFB9DC /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A182C4A94F300AFB9DC /* Date + Extensions.swift */; };
+		9C538A1B2C4A973D00AFB9DC /* TodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A1A2C4A973D00AFB9DC /* TodoListResponse.swift */; };
+		9C538A232C4AA11600AFB9DC /* TodoItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A222C4AA11600AFB9DC /* TodoItemResponse.swift */; };
+		9C538A282C4ADA2200AFB9DC /* TodoItemDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A272C4ADA2200AFB9DC /* TodoItemDTO.swift */; };
+		9C538A2A2C4ADA2D00AFB9DC /* TodoListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C538A292C4ADA2D00AFB9DC /* TodoListDTO.swift */; };
 		9C564E2E2C32E5B500E2EE78 /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */; };
 		9C564E322C32FF7E00E2EE78 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */; };
 		9C564E342C32FF8700E2EE78 /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */; };
@@ -119,12 +123,16 @@
 		9C4667C22C4004E400F4AC81 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Extensions.swift"; sourceTree = "<group>"; };
 		9C5389FE2C4A661500AFB9DC /* APITodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITodoItem.swift; sourceTree = "<group>"; };
-		9C538A002C4A661F00AFB9DC /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		9C538A022C4A663000AFB9DC /* DefaultNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkingService.swift; sourceTree = "<group>"; };
 		9C538A072C4A6EC900AFB9DC /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		9C538A092C4A6EF400AFB9DC /* TodoListNetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListNetworkingHelper.swift; sourceTree = "<group>"; };
 		9C538A132C4A8C8400AFB9DC /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
 		9C538A162C4A91CB00AFB9DC /* SingletoneDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletoneDateFormatter.swift; sourceTree = "<group>"; };
+		9C538A182C4A94F300AFB9DC /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
+		9C538A1A2C4A973D00AFB9DC /* TodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListResponse.swift; sourceTree = "<group>"; };
+		9C538A222C4AA11600AFB9DC /* TodoItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemResponse.swift; sourceTree = "<group>"; };
+		9C538A272C4ADA2200AFB9DC /* TodoItemDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemDTO.swift; sourceTree = "<group>"; };
+		9C538A292C4ADA2D00AFB9DC /* TodoListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDTO.swift; sourceTree = "<group>"; };
 		9C564E2D2C32E5B500E2EE78 /* FilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
 		9C564E312C32FF7E00E2EE78 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
 		9C564E332C32FF8700E2EE78 /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
@@ -343,6 +351,7 @@
 				9C0C36202C35C2780049798F /* Color + Extensions.swift */,
 				9C5A5F492C383A0000105632 /* UILabel + Extensions.swift */,
 				9C4667C82C412D9900F4AC81 /* URLSession + Extensions.swift */,
+				9C538A182C4A94F300AFB9DC /* Date + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -358,9 +367,9 @@
 		9C5389FC2C4A65F200AFB9DC /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				9C538A262C4AD9DF00AFB9DC /* DTO */,
 				9C538A122C4A8C4300AFB9DC /* Reponses */,
 				9C5389FE2C4A661500AFB9DC /* APITodoItem.swift */,
-				9C538A002C4A661F00AFB9DC /* NetworkingService.swift */,
 				9C538A022C4A663000AFB9DC /* DefaultNetworkingService.swift */,
 				9C538A072C4A6EC900AFB9DC /* NetworkingError.swift */,
 				9C538A092C4A6EF400AFB9DC /* TodoListNetworkingHelper.swift */,
@@ -372,6 +381,8 @@
 			isa = PBXGroup;
 			children = (
 				9C538A132C4A8C8400AFB9DC /* TodoResponse.swift */,
+				9C538A1A2C4A973D00AFB9DC /* TodoListResponse.swift */,
+				9C538A222C4AA11600AFB9DC /* TodoItemResponse.swift */,
 			);
 			path = Reponses;
 			sourceTree = "<group>";
@@ -382,6 +393,15 @@
 				9C538A162C4A91CB00AFB9DC /* SingletoneDateFormatter.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9C538A262C4AD9DF00AFB9DC /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				9C538A272C4ADA2200AFB9DC /* TodoItemDTO.swift */,
+				9C538A292C4ADA2D00AFB9DC /* TodoListDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		9C564E2F2C32FF6200E2EE78 /* TodoDetail */ = {
@@ -733,6 +753,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C538A1B2C4A973D00AFB9DC /* TodoListResponse.swift in Sources */,
 				9CC2DEB82C34344300A70FE5 /* ImportanceCell.swift in Sources */,
 				9CC780182C37D6B900A698FA /* CalendarViewController.swift in Sources */,
 				9C5A5F462C3831C900105632 /* VerticalCalendarViewCell.swift in Sources */,
@@ -745,18 +766,19 @@
 				9CAC0D5A2C38FB3E004570E0 /* ColorPickerNavWrapper.swift in Sources */,
 				9CD77A622C3054D9004885D8 /* ColorTheme.swift in Sources */,
 				9CAC0D4F2C38CC3A004570E0 /* Category.swift in Sources */,
-				9C538A012C4A661F00AFB9DC /* NetworkingService.swift in Sources */,
 				9C441A0E2C205E3600CED704 /* TodoListView.swift in Sources */,
 				9C8F5DEF2C32DAC300DAE22C /* NewItemCell.swift in Sources */,
 				9C243D942C35882A009B3EF8 /* ColorCell.swift in Sources */,
 				9CF3A2602C348F5200813B69 /* SuccessSwipeButton.swift in Sources */,
 				9C243D9B2C35B808009B3EF8 /* ColorPicker.swift in Sources */,
+				9C538A282C4ADA2200AFB9DC /* TodoItemDTO.swift in Sources */,
 				9C5A5F4A2C383A0000105632 /* UILabel + Extensions.swift in Sources */,
 				9C243D992C35B730009B3EF8 /* HueSlider.swift in Sources */,
 				9CAC0D512C38CD69004570E0 /* CategoryCell.swift in Sources */,
 				9CC780162C37D5BB00A698FA /* UICalendarViewControllerRepresentable.swift in Sources */,
 				9C538A082C4A6EC900AFB9DC /* NetworkingError.swift in Sources */,
 				9C0C36212C35C2780049798F /* Color + Extensions.swift in Sources */,
+				9C538A2A2C4ADA2D00AFB9DC /* TodoListDTO.swift in Sources */,
 				9C441A372C2060C300CED704 /* TodoItem.swift in Sources */,
 				9CF3A2642C34909500813B69 /* DetailsSwipeButton.swift in Sources */,
 				9C5A5F4F2C385B3100105632 /* VerticalCalendarView.swift in Sources */,
@@ -770,6 +792,7 @@
 				9C8F5DF32C32E4BB00DAE22C /* SortOption.swift in Sources */,
 				9C5A5F482C38320100105632 /* HorizontalCalendarViewCell.swift in Sources */,
 				9C564E382C3338D300E2EE78 /* TextFieldCell.swift in Sources */,
+				9C538A192C4A94F300AFB9DC /* Date + Extensions.swift in Sources */,
 				9CC2DEB62C34339400A70FE5 /* DeadlineCell.swift in Sources */,
 				9C4667C12C4002E500F4AC81 /* LogFormatter.swift in Sources */,
 				9CAC0D532C38D1EA004570E0 /* CategoryColorCircle.swift in Sources */,
@@ -784,6 +807,7 @@
 				9C8F5DE92C31BE6100DAE22C /* Priority + Extensions.swift in Sources */,
 				9C8F5DE72C31AB2B00DAE22C /* TodoItemCell.swift in Sources */,
 				9C62D73C2C3172B800316F0B /* AddNewItemButton.swift in Sources */,
+				9C538A232C4AA11600AFB9DC /* TodoItemResponse.swift in Sources */,
 				9C5389FF2C4A661500AFB9DC /* APITodoItem.swift in Sources */,
 				9C5A5F442C382E6900105632 /* CalendarViewModel.swift in Sources */,
 			);
