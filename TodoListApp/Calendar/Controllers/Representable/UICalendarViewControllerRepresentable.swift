@@ -75,10 +75,6 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
 
 #Preview{
     UICalendarViewControllerRepresentable(
-        listViewModel: TodoListViewModel(
-            fileName: FileCache.fileName,
-            format: FileCache.fileExtension,
-            fileCache: FileCache()
-        ), categoryViewModel: CategoryViewModel()
+        listViewModel: TodoListViewModel(), categoryViewModel: CategoryViewModel()
     )
 }

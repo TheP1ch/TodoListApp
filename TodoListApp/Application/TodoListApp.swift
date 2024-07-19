@@ -10,11 +10,7 @@ import SwiftUI
 @main
 struct TodoListApp: App {
     @StateObject
-    var viewModel: TodoListViewModel = TodoListViewModel(
-        fileName: FileCache.fileName,
-        format: FileCache.fileExtension,
-        fileCache: FileCache()
-    )
+    var viewModel: TodoListViewModel = TodoListViewModel()
 
     private let logger = Logger()
 

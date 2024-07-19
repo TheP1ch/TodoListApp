@@ -142,8 +142,8 @@
             filePath = "TodoListApp/Application/TodoListApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -159,8 +159,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "276">
+                  endingLineNumber = "32">
                </Location>
                <Location
                   uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - 4c92a8d2a6baa6df"
@@ -174,8 +173,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "156">
+                  endingLineNumber = "32">
                </Location>
                <Location
                   uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - b0e137cbe4a17c1b"
@@ -189,8 +187,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "80">
+                  endingLineNumber = "32">
                </Location>
                <Location
                   uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - f92744a582850ca1"
@@ -204,8 +201,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "444">
+                  endingLineNumber = "32">
                </Location>
                <Location
                   uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - 4c92a8d2a6baa630"
@@ -219,8 +215,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "20">
+                  endingLineNumber = "33">
                </Location>
                <Location
                   uuid = "0F77AC1A-CE60-4A75-B156-4C7994B4CCB5 - b0e137cbe4a17cf4"
@@ -234,8 +229,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "20">
+                  endingLineNumber = "33">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -250,8 +244,8 @@
             filePath = "TodoListApp/Application/TodoListApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -266,8 +260,8 @@
             filePath = "TodoListApp/Application/TodoListApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -283,8 +277,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "444">
+                  endingLineNumber = "32">
                </Location>
                <Location
                   uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB - 4c92a8d2a6baa630"
@@ -298,8 +291,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "20">
+                  endingLineNumber = "33">
                </Location>
                <Location
                   uuid = "E9784166-971D-43FE-BFBD-E39FADE600EB - b0e137cbe4a17cf4"
@@ -313,8 +305,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "20">
+                  endingLineNumber = "33">
                </Location>
             </Locations>
          </BreakpointContent>

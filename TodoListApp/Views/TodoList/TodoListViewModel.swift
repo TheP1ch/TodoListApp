@@ -13,7 +13,6 @@ protocol CollectionManaging: AnyObject {
 }
 
 final class TodoListViewModel: ObservableObject, CollectionManaging {
-
     // MARK: public properties
     var sortedItems: [TodoItem] {
         let filteredItems = self.filter(with: filterOption)
@@ -42,36 +41,13 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
 
     @Published private(set) var items: [TodoItem] = []
 
-    private var fileCache: FileManaging
+    private var fileCache: FileManaging = FileCache()
 
-    private let fileName: String
+    private let fileName: String = FileCache.fileName
 
-    private let format: FileFormat
-
-    // MARK: Initializer
-
-    init(fileName: String, format: FileFormat, fileCache: FileCache) {
-        self.fileCache = fileCache
-
-        self.fileName = fileName
-        self.format = format
-    }
+    private let format: FileFormat = FileCache.fileExtension
 
     // MARK: public methods
-
-    func add(item: TodoItem) {
-        fileCache.add(todoItem: item)
-        Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
-        updateItems()
-    }
-
-    func remove(by id: String) {
-        fileCache.removeItem(by: id)
-
-        Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
-
-        updateItems()
-    }
 
     func isCompletedChange(for item: TodoItem, newValue: Bool) {
         let item = TodoItem(
@@ -96,30 +72,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         updateItems()
     }
 
-    func load() {
-        do {
-            try fileCache.load(fileName: fileName, format: format)
-        } catch {
-            Logger.log("Load from file error: \(error.localizedDescription)", level: .error)
-        }
-
-        items = fileCache.todoItems
-    }
-
     // MARK: private methods
-
-    private func updateItems() {
-        self.items = fileCache.todoItems
-
-        do {
-            try self.fileCache.save(fileName: self.fileName, format: self.format)
-
-            Logger.log("Items saved", level: .debug)
-        } catch {
-            Logger.log("Save to file error: \(error.localizedDescription)", level: .error)
-        }
-    }
-
     private func filter(with filterOption: FilterOption) -> [TodoItem] {
         switch filterOption {
         case .all:
@@ -140,5 +93,44 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
                 $0.priority > $1.priority
             }
         }
+    }
+}
+
+// MARK: FileCacheMethods
+extension TodoListViewModel {
+    func add(item: TodoItem) {
+        fileCache.add(todoItem: item)
+        Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+        updateItems()
+    }
+
+    func remove(by id: String) {
+        fileCache.removeItem(by: id)
+
+        Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
+
+        updateItems()
+    }
+
+    private func updateItems() {
+        self.items = fileCache.todoItems
+
+        do {
+            try self.fileCache.save(fileName: self.fileName, format: self.format)
+
+            Logger.log("Items saved", level: .debug)
+        } catch {
+            Logger.log("Save to file error: \(error.localizedDescription)", level: .error)
+        }
+    }
+
+    func load() {
+        do {
+            try fileCache.load(fileName: fileName, format: format)
+        } catch {
+            Logger.log("Load from file error: \(error.localizedDescription)", level: .error)
+        }
+
+        items = fileCache.todoItems
     }
 }

@@ -152,10 +152,6 @@ struct TodoListView: View {
 
 #Preview {
     TodoListView(
-        viewModel: TodoListViewModel(
-            fileName: FileCache.fileName,
-            format: FileCache.fileExtension,
-            fileCache: FileCache()
-        )
+        viewModel: TodoListViewModel()
     )
 }

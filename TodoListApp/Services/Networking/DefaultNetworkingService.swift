@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+final class DefaultNetworkingService {
+    private let session: URLSession
+
+    init(session: URLSession = URLSession.shared) {
+        self.session = session
+    }
+
+    // MARK: Get requests
+    func fetchTodoList() async throws -> Any {
+
+    }
+}

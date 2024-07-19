@@ -260,11 +260,7 @@ struct TodoDetailView: View {
     TodoDetailView(
         viewModel: TodoDetailViewModel(
             todoItem: TodoItem.new(),
-            collectionManager: TodoListViewModel(
-                fileName: FileCache.fileName,
-                format: FileCache.fileExtension,
-                fileCache: FileCache()
-            )
+            collectionManager: TodoListViewModel()
         ), categoryViewModel: CategoryViewModel()
     )
 }
