@@ -46,6 +46,7 @@ final class CategoryViewModel: ObservableObject {
         let json = try fileManagerJson.load(fileName: "categories")
 
         let jsonDecoder = JSONDecoder()
+
         let data = try jsonDecoder.decode([Category].self, from: json)
 
         categories = data

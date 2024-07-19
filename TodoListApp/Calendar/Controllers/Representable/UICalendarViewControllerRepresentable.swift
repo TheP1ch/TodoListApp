@@ -54,6 +54,10 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
             self.listViewModel = listViewModel
         }
 
+        func update(item: TodoItem) {
+            listViewModel.update(item: item)
+        }
+
         func add(item: TodoItem) {
             listViewModel.add(item: item)
         }
@@ -75,10 +79,6 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
 
 #Preview{
     UICalendarViewControllerRepresentable(
-        listViewModel: TodoListViewModel(
-            fileName: FileCache.fileName,
-            format: FileCache.fileExtension,
-            fileCache: FileCache()
-        ), categoryViewModel: CategoryViewModel()
+        listViewModel: TodoListViewModel(), categoryViewModel: CategoryViewModel()
     )
 }

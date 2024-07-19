@@ -69,7 +69,7 @@ final class HorizontalCalendarViewCell: UICollectionViewCell {
     // MARK: Configure cell method
     func configureCell(date: Date?) {
         let labelText = if let date {
-            date.toString().split(separator: " ").joined(separator: "\n")
+            SingletoneDateFormatter.shared.toString(date: date).split(separator: " ").joined(separator: "\n")
         } else {
             "Другое"
         }

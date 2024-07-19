@@ -119,7 +119,11 @@ extension VerticalCalendarView: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        items[section].date?.toString() ?? "Другое"
+        if let date = items[section].date {
+            SingletoneDateFormatter.shared.toString(date: date)
+        } else {
+            "Другое"
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

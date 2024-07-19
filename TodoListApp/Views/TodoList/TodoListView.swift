@@ -12,13 +12,25 @@ private enum Device {
     case ipad
 }
 
+private struct SelectedItem: Identifiable {
+    let id: String
+    let item: TodoItem
+    let isNew: Bool
+
+    init(item: TodoItem, isNew: Bool) {
+        self.id = item.id
+        self.item = item
+        self.isNew = isNew
+    }
+}
+
 struct TodoListView: View {
     // MARK: Public Properties
     @ObservedObject var viewModel: TodoListViewModel
 
     // MARK: Private Properties
     @State
-    private var selectedItems: TodoItem?
+    private var selectedItems: SelectedItem?
 
     @StateObject
     var categoryViewModel: CategoryViewModel = CategoryViewModel()
@@ -53,7 +65,8 @@ struct TodoListView: View {
         } content: {
             TodoDetailView(
                 viewModel: TodoDetailViewModel(
-                    todoItem: $0,
+                    todoItem: $0.item,
+                    isNew: $0.isNew,
                     collectionManager: viewModel
                 ),
                 categoryViewModel: categoryViewModel
@@ -85,7 +98,7 @@ struct TodoListView: View {
                             viewModel.remove(by: todoItem.id)
                         }
                         DetailsSwipeButton {
-                            self.selectedItems = todoItem
+                            self.selectedItems = SelectedItem(item: todoItem, isNew: false)
                         }
                     }
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { dimensions in
@@ -93,13 +106,13 @@ struct TodoListView: View {
                     })
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        self.selectedItems = todoItem
+                        self.selectedItems = SelectedItem(item: todoItem, isNew: false)
                     }
                 }
                 NewItemCell()
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        self.selectedItems = TodoItem.new()
+                        self.selectedItems = SelectedItem(item: TodoItem.new(), isNew: true)
                     }
             } header: {
                 listHeader
@@ -118,7 +131,7 @@ struct TodoListView: View {
 
     private var addNewButton: some View {
         AddNewItemButton {
-            self.selectedItems = TodoItem.new()
+            self.selectedItems = SelectedItem(item: TodoItem.new(), isNew: true)
         }
         .padding(.bottom, 20)
     }
@@ -134,6 +147,9 @@ struct TodoListView: View {
 
     @ToolbarContentBuilder
     private var toolBarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            ActivityIndicator(shouldAnimate: $viewModel.hasUnCompletedNetwork)
+        }
         ToolbarItem(placement: .topBarTrailing) {
             NavigationLink {
                 UICalendarViewControllerRepresentable(listViewModel: viewModel, categoryViewModel: categoryViewModel)
@@ -152,10 +168,6 @@ struct TodoListView: View {
 
 #Preview {
     TodoListView(
-        viewModel: TodoListViewModel(
-            fileName: FileCache.fileName,
-            format: FileCache.fileExtension,
-            fileCache: FileCache()
-        )
+        viewModel: TodoListViewModel()
     )
 }

@@ -52,7 +52,7 @@ final class CalendarViewController: UIViewController {
 
     private func actionBtnTap() {
         guard let delegate = self.delegate else { return }
-        let viewModel = TodoDetailViewModel(todoItem: TodoItem.new(), collectionManager: delegate)
+        let viewModel = TodoDetailViewModel(todoItem: TodoItem.new(), isNew: true, collectionManager: delegate)
         let view = TodoDetailView(viewModel: viewModel, categoryViewModel: self.viewModel.categoryViewModel)
 
         navigationController?.present(
@@ -129,7 +129,7 @@ extension CalendarViewController: VerticalCalendarDelegate {
             return
         }
 
-        let viewModel = TodoDetailViewModel(todoItem: item, collectionManager: delegate)
+        let viewModel = TodoDetailViewModel(todoItem: item, isNew: false, collectionManager: delegate)
         let view = TodoDetailView(viewModel: viewModel, categoryViewModel: self.viewModel.categoryViewModel)
 
         navigationController?.present(

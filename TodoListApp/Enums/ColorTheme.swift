@@ -28,7 +28,7 @@ extension ColorConverter {
 enum ColorTheme {
 
     enum Support: String, ColorConverter {
-        case separator
+        case separator = "colorSeparator"
         case overlay
         case navBarBlur
         case calendarBack
@@ -49,12 +49,12 @@ enum ColorTheme {
     }
 
     enum ColorPalette: String, ColorConverter {
-        case blue
-        case gray
-        case grayLight
-        case green
-        case red
-        case white
+        case blue = "colorBlue"
+        case gray = "colorGray"
+        case grayLight = "colorGrayLight"
+        case green = "colorGreen"
+        case red = "colorRed"
+        case white = "colorWhite"
     }
 
     enum ButtonShadow: String, ColorConverter {

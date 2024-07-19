@@ -5,20 +5,23 @@
 //  Created by Евгений Беляков on 29.06.2024.
 //
 
+import Combine
 import Foundation
 
 protocol CollectionManaging: AnyObject {
     func add(item: TodoItem)
+    func update(item: TodoItem)
     func remove(by id: String)
 }
 
 final class TodoListViewModel: ObservableObject, CollectionManaging {
-
     // MARK: public properties
     var sortedItems: [TodoItem] {
         let filteredItems = self.filter(with: filterOption)
         return sort(filteredItems, with: sortOption)
     }
+
+    @Published var hasUnCompletedNetwork: Bool = false
 
     @Published var filterOption: FilterOption = .hideDone {
         didSet {
@@ -33,93 +36,28 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
     }
 
     var isDoneCount: Int {
-        fileCache.todoItems.reduce(0) { value, item in
+        items.reduce(0) { value, item in
             value + (item.isCompleted ? 1 : 0)
         }
+    }
+
+    init() {
+        bind()
     }
 
     // MARK: private properties
 
     @Published private(set) var items: [TodoItem] = []
 
-    private var fileCache: FileManaging
+    private let networkHelper: TodoNetworkingHelper = TodoListNetworkingHelper()
 
-    private let fileName: String
+    private let fileCache: FileManaging = FileCache()
 
-    private let format: FileFormat
+    private let fileName: String = FileCache.fileName
 
-    // MARK: Initializer
-
-    init(fileName: String, format: FileFormat, fileCache: FileCache) {
-        self.fileCache = fileCache
-
-        self.fileName = fileName
-        self.format = format
-    }
-
-    // MARK: public methods
-
-    func add(item: TodoItem) {
-        fileCache.add(todoItem: item)
-        Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
-        updateItems()
-    }
-
-    func remove(by id: String) {
-        fileCache.removeItem(by: id)
-
-        Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
-
-        updateItems()
-    }
-
-    func isCompletedChange(for item: TodoItem, newValue: Bool) {
-        let item = TodoItem(
-            id: item.id,
-            text: item.text,
-            priority: item.priority,
-            deadline: item.deadline,
-            isCompleted: newValue,
-            createdAt: item.createdAt,
-            changeAt: item.changeAt,
-            hexColor: item.hexColor,
-            category: item.category
-        )
-
-        fileCache.add(todoItem: item)
-
-        Logger.log(
-            "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
-            level: .debug
-        )
-
-        updateItems()
-    }
-
-    func load() {
-        do {
-            try fileCache.load(fileName: fileName, format: format)
-        } catch {
-            Logger.log("Load from file error: \(error.localizedDescription)", level: .error)
-        }
-
-        items = fileCache.todoItems
-    }
+    private let format: FileFormat = FileCache.fileExtension
 
     // MARK: private methods
-
-    private func updateItems() {
-        self.items = fileCache.todoItems
-
-        do {
-            try self.fileCache.save(fileName: self.fileName, format: self.format)
-
-            Logger.log("Items saved", level: .debug)
-        } catch {
-            Logger.log("Save to file error: \(error.localizedDescription)", level: .error)
-        }
-    }
-
     private func filter(with filterOption: FilterOption) -> [TodoItem] {
         switch filterOption {
         case .all:
@@ -138,6 +76,95 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         case .priority:
             return items.sorted {
                 $0.priority > $1.priority
+            }
+        }
+    }
+    var subscribers: [AnyCancellable] = []
+}
+
+// MARK: Networking
+extension TodoListViewModel {
+
+    private func bind() {
+        Task {
+            await networkHelper.isItemUpdate.sink { _ in
+                self.updateItems()
+            }.store(in: &subscribers)
+
+            await networkHelper.hasRunningNetworkCall
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.hasUnCompletedNetwork, on: self)
+                .store(in: &subscribers)
+        }
+    }
+
+    func load() {
+        Task {
+            await networkHelper.fetchTodoList()
+
+            Logger.log("Load task method", level: .debug)
+        }
+    }
+
+    func isCompletedChange(for item: TodoItem, newValue: Bool) {
+        let item = TodoItem(
+            id: item.id,
+            text: item.text,
+            priority: item.priority,
+            deadline: item.deadline,
+            isCompleted: newValue,
+            createdAt: Date.now,
+            changeAt: item.changeAt,
+            hexColor: item.hexColor,
+            category: item.category
+        )
+
+        Task {
+            await networkHelper.updateTodoItem(with: item.id, item)
+
+            Logger.log(
+                "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
+                level: .debug
+            )
+
+            updateItems()
+        }
+    }
+
+    func update(item: TodoItem) {
+        Task {
+            await networkHelper.updateTodoItem(with: item.id, item)
+            Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+
+            updateItems()
+        }
+    }
+
+    func add(item: TodoItem) {
+        Task {
+            await networkHelper.addTodoItem(item)
+            Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+
+            updateItems()
+        }
+    }
+
+    func remove(by id: String) {
+        Task {
+            await networkHelper.deleteTodoItem(with: id)
+            Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
+
+            updateItems()
+        }
+    }
+
+    private func updateItems() {
+        Task {
+            let helperItems = await networkHelper.todoItems
+
+            await MainActor.run {
+                self.items = helperItems
+                Logger.log("ViewModel List Updated", level: .debug)
             }
         }
     }

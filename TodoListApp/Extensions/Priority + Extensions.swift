@@ -19,7 +19,7 @@ extension Priority {
             Image(systemName: "arrow.down")
                 .font(AppFont.subheadBold.font)
                 .foregroundStyle(ColorTheme.ColorPalette.gray.color, .white)
-        case .normal:
+        case .basic:
             nil
         }
     }
