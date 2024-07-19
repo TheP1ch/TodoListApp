@@ -54,6 +54,10 @@ struct UICalendarViewControllerRepresentable: UIViewControllerRepresentable {
             self.listViewModel = listViewModel
         }
 
+        func update(item: TodoItem) {
+            listViewModel.update(item: item)
+        }
+
         func add(item: TodoItem) {
             listViewModel.add(item: item)
         }

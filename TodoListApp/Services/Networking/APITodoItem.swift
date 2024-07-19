@@ -70,10 +70,11 @@ enum APITodoItem {
         assert(Thread.current != Thread.main)
 
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .custom({ date, encoder in
+        encoder.dateEncodingStrategy = .custom { date, encoder in
             var container = encoder.singleValueContainer()
-            try container.encode(Int(date.timeIntervalSince1970))
-        })
+
+            try container.encode(Int64(date.timeIntervalSince1970))
+        }
 
         if let body = body {
             do {
@@ -84,31 +85,6 @@ enum APITodoItem {
             }
         }
 
-        requestDescription(for: request)
-
         return request
-    }
-
-    private func requestDescription(for request: URLRequest) {
-        print("\n------------------\n")
-        print("Request URL: \(request.url?.absoluteString ?? "No URL")")
-        print("HTTP Method: \(request.httpMethod ?? "No HTTP Method")")
-
-        print("Headers: ")
-        if let headers = request.allHTTPHeaderFields {
-            for (header, value) in headers {
-                print("\(header): \(value)")
-            }
-        } else {
-            print("No headers")
-        }
-
-        print("Body: ")
-        if let body = request.httpBody, let bodyString = String(data: body, encoding: .utf8) {
-            print(bodyString)
-        } else {
-            print("No body")
-        }
-        print("\n------------------\n")
     }
 }

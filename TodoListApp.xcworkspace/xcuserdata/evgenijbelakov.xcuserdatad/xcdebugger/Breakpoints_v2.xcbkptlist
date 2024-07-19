@@ -14,8 +14,8 @@
             filePath = "TodoListApp/Services/Networking/TodoListNetworkingHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "handleResponse(networkCall:onSuccess:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -39,22 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D7638270-4A2D-4AE5-978E-27BA8D4F971B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "load()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "256822F0-FD8B-4C08-AA17-2E00B257726F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -62,8 +46,8 @@
             filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "load()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +62,8 @@
             filePath = "TodoListApp/Services/Networking/TodoListNetworkingHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "handleResponse(networkCall:onSuccess:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,9 +94,25 @@
             filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "sort(_:with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B81B183-B239-4B85-9288-B906FD5B72FC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoListApp/Views/TodoList/TodoListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "isCompletedChange(for:newValue:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

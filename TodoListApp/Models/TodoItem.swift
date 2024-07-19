@@ -15,7 +15,7 @@ struct TodoItem: Identifiable, Equatable, Codable {
     let isCompleted: Bool
     let priority: Priority
     let deadline: Date?
-    let changeAt: Date?
+    let changeAt: Date
     let hexColor: String?
     let category: String?
     let lastUpdatedBy: String?
@@ -26,7 +26,7 @@ struct TodoItem: Identifiable, Equatable, Codable {
          deadline: Date? = nil,
          isCompleted: Bool = false,
          createdAt: Date = Date.now,
-         changeAt: Date? = nil,
+         changeAt: Date = Date.now,
          hexColor: String? = nil,
          category: String? = nil,
          lastUpdatedBy: String? = UIDevice.current.identifierForVendor?.uuidString) {
@@ -70,15 +70,14 @@ extension TodoItem {
         var dictionary = [String: Any]()
         dictionary[CodingKeys.id.rawValue] = self.id
         dictionary[CodingKeys.text.rawValue] = self.text
+        dictionary[CodingKeys.changeAt.rawValue] = Int(changeAt.timeIntervalSince1970)
         if self.priority != .basic {
             dictionary[CodingKeys.priority.rawValue] = self.priority.rawValue
         }
         if let deadline = self.deadline {
             dictionary[CodingKeys.deadline.rawValue] = Int(deadline.timeIntervalSince1970)
         }
-        if let changeAt = self.changeAt {
-            dictionary[CodingKeys.changeAt.rawValue] = Int(changeAt.timeIntervalSince1970)
-        }
+
         if let hexColor = self.hexColor {
             dictionary[CodingKeys.hexColor.rawValue] = hexColor
         }
@@ -99,7 +98,8 @@ extension TodoItem {
               let id = json[CodingKeys.id.rawValue] as? String,
               let text = json[CodingKeys.text.rawValue] as? String,
               let isCompleted = json[CodingKeys.isCompleted.rawValue] as? Bool,
-              let creationDateTimeStamp = json[CodingKeys.createdAt.rawValue] as? Int
+              let creationDateTimeStamp = json[CodingKeys.createdAt.rawValue] as? Int,
+              let changeAtTimeStamp = json[CodingKeys.changeAt.rawValue] as? Int
         else {
             Logger.log("TodoItem parse error json: \(json)", level: .warning)
 
@@ -114,12 +114,7 @@ extension TodoItem {
             deadline = nil
         }
 
-        let changeAt: Date?
-        if let changeAtTimeInterval = json[CodingKeys.changeAt.rawValue] as? Int {
-            changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
-        } else {
-            changeAt = nil
-        }
+        let changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeStamp))
 
         let hexColor = json[CodingKeys.hexColor.rawValue] as? String
 
@@ -176,12 +171,8 @@ extension TodoItem {
         } else {
             csvString += ","
         }
-        if let changeAt = self.changeAt {
-            csvString += "\(Int(changeAt.timeIntervalSince1970)),"
-        } else {
-            csvString += ","
-        }
 
+        csvString += "\(Int(changeAt.timeIntervalSince1970)),"
         csvString += "\(self.isCompleted)"
         return csvString
     }
@@ -232,12 +223,10 @@ extension TodoItem {
             category = nil
         }
 
-        let changeAt: Date?
-        if let changeAtTimeInterval = Int(csvDataArray[7]) {
-            changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtTimeInterval))
-        } else {
-            changeAt = nil
+        guard let changeAtDateTimeStamp = Int(csvDataArray[7]) else {
+            return nil
         }
+        let changeAt = Date(timeIntervalSince1970: TimeInterval(changeAtDateTimeStamp))
 
         guard let isCompleted = Bool(csvDataArray[8]) else {
             return nil

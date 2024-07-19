@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-class TodoDetailViewModel: ObservableObject {
+final class TodoDetailViewModel: ObservableObject {
 
     // MARK: Public properties
+
+    let isNew: Bool
 
     @Published var text: String
     @Published var deadline: Date
@@ -33,7 +35,7 @@ class TodoDetailViewModel: ObservableObject {
     let isCompleted: Bool
 
     // MARK: Initializer
-    init(todoItem: TodoItem, collectionManager: CollectionManaging) {
+    init(todoItem: TodoItem, isNew: Bool, collectionManager: CollectionManaging) {
         self.collectionManager = collectionManager
 
         self.id = todoItem.id
@@ -54,6 +56,8 @@ class TodoDetailViewModel: ObservableObject {
         }
 
         self.category = todoItem.category ?? Category.defaultItem.id
+
+        self.isNew = isNew
     }
 
     // MARK: Public Methods
@@ -73,7 +77,11 @@ class TodoDetailViewModel: ObservableObject {
             category: category
         )
 
-        collectionManager.add(item: item)
+        if isNew {
+            collectionManager.add(item: item)
+        } else {
+            collectionManager.update(item: item)
+        }
     }
 
     func delete() {

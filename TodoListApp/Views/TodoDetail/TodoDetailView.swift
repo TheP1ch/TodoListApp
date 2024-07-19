@@ -260,6 +260,7 @@ struct TodoDetailView: View {
     TodoDetailView(
         viewModel: TodoDetailViewModel(
             todoItem: TodoItem.new(),
+            isNew: false,
             collectionManager: TodoListViewModel()
         ), categoryViewModel: CategoryViewModel()
     )

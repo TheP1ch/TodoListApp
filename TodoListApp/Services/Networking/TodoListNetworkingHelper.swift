@@ -5,10 +5,12 @@
 //  Created by Евгений Беляков on 19.07.2024.
 //
 
+import Combine
 import Foundation
 
 protocol TodoNetworkingHelper: Actor {
     var todoItems: [TodoItem] { get }
+    var isItemUpdate: PassthroughSubject<Bool, Never> { get }
 
     func fetchTodoList() async
     func updateTodoList(_ items: [TodoItem]) async
@@ -19,6 +21,8 @@ protocol TodoNetworkingHelper: Actor {
 }
 
 actor TodoListNetworkingHelper: TodoNetworkingHelper {
+    private(set) var isItemUpdate = PassthroughSubject<Bool, Never>()
+
     private(set) var todoItems: [TodoItem] = []
 
     private var revision: Int32 = 0
@@ -56,8 +60,12 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
     func addTodoItem(_ item: TodoItem) {
         self.add(item: item)
         Task {
-            await handleResponse {
-                return try await self.networkingService.postTodoItem(item, revision: self.revision)
+            if !isDirty {
+                await handleResponse {
+                    return try await self.networkingService.postTodoItem(item, revision: self.revision)
+                }
+            } else {
+                await updateTodoList(self.todoItems)
             }
         }
     }
@@ -65,8 +73,12 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
     func updateTodoItem(with id: String, _ item: TodoItem) {
         self.add(item: item)
         Task {
-            await handleResponse {
-                return try await self.networkingService.updateTodoItem(with: id, item, revision: self.revision)
+            if !isDirty {
+                await handleResponse {
+                    return try await self.networkingService.updateTodoItem(with: id, item, revision: self.revision)
+                }
+            } else {
+                await updateTodoList(self.todoItems)
             }
         }
     }
@@ -74,8 +86,12 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
     func deleteTodoItem(with id: String) {
         self.removeItem(by: id)
         Task {
-            await handleResponse {
-                return try await self.networkingService.deleteTodoItem(with: id, revision: self.revision)
+            if !isDirty {
+                await handleResponse {
+                    return try await self.networkingService.deleteTodoItem(with: id, revision: self.revision)
+                }
+            } else {
+                await updateTodoList(self.todoItems)
             }
         }
     }
@@ -91,12 +107,17 @@ extension TodoListNetworkingHelper {
             self.revision = response.revision
 
             onSuccess(response.result)
+            isDirty = false
         } catch let error as NetworkingError {
             Logger.log("HandleResponseFunc networking Error: \(error)", level: .error)
-
+            if case .httpError(statusCode: 400) = error {
+                await updateTodoList(self.todoItems)
+                return
+            }
+            isDirty = true
         } catch {
             Logger.log("Error handleResponse \(error)", level: .error)
-
+            isDirty = true
         }
     }
 }
@@ -128,6 +149,8 @@ extension TodoListNetworkingHelper {
 
     private func update(items: [TodoItem]) {
         todoItems = items
+
+        isItemUpdate.send(true)
 
         Logger.log("NetworkHelper List updated", level: .debug)
     }

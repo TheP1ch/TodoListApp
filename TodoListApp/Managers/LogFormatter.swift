@@ -20,7 +20,6 @@ final class LogFormatter: NSObject, DDLogFormatter {
 
     func format(message logMessage: DDLogMessage) -> String? {
         let timestamp = dateFormatter.string(from: logMessage.timestamp)
-        let logLevel = logMessage.level
         let logText = logMessage.message
 
         return "\(timestamp) - \(logText)"

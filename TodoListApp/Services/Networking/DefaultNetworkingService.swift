@@ -70,7 +70,10 @@ final class DefaultNetworkingService {
         let (data, response) = try await session.dataTask(for: request)
         try checkResponse(response)
 
-        let object = try JSONDecoder().decode(T.self, from: data)
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.dateDecodingStrategy = .secondsSince1970
+
+        let object = try jsonDecoder.decode(T.self, from: data)
 
         return object
     }

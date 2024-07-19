@@ -5,10 +5,12 @@
 //  Created by Евгений Беляков on 29.06.2024.
 //
 
+import Combine
 import Foundation
 
 protocol CollectionManaging: AnyObject {
     func add(item: TodoItem)
+    func update(item: TodoItem)
     func remove(by id: String)
 }
 
@@ -35,6 +37,10 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         items.reduce(0) { value, item in
             value + (item.isCompleted ? 1 : 0)
         }
+    }
+
+    init() {
+        bind()
     }
 
     // MARK: private properties
@@ -71,17 +77,25 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
             }
         }
     }
+    var cancellables: [AnyCancellable] = []
 }
 
 // MARK: Networking
 extension TodoListViewModel {
+
+    private func bind() {
+        Task {
+            cancellables.append(await networkHelper.isItemUpdate.sink { _ in
+                self.updateItems()
+            })
+        }
+    }
+
     func load() {
         Task {
             await networkHelper.fetchTodoList()
 
-            Logger.log("Task loaded", level: .debug)
-
-            updateItems()
+            Logger.log("Load task method", level: .debug)
         }
     }
 
@@ -92,7 +106,7 @@ extension TodoListViewModel {
             priority: item.priority,
             deadline: item.deadline,
             isCompleted: newValue,
-            createdAt: item.createdAt,
+            createdAt: Date.now,
             changeAt: item.changeAt,
             hexColor: item.hexColor,
             category: item.category
@@ -110,6 +124,15 @@ extension TodoListViewModel {
         }
     }
 
+    func update(item: TodoItem) {
+        Task {
+            await networkHelper.updateTodoItem(with: item.id, item)
+            Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+
+            updateItems()
+        }
+    }
+
     func add(item: TodoItem) {
         Task {
             await networkHelper.addTodoItem(item)
@@ -117,7 +140,6 @@ extension TodoListViewModel {
 
             updateItems()
         }
-
     }
 
     func remove(by id: String) {
