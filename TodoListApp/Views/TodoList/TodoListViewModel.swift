@@ -21,6 +21,8 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         return sort(filteredItems, with: sortOption)
     }
 
+    @Published var hasUnCompletedNetwork: Bool = false
+
     @Published var filterOption: FilterOption = .hideDone {
         didSet {
             Logger.log("Items will be filtered by option: \(filterOption)", level: .debug)
@@ -77,7 +79,7 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
             }
         }
     }
-    var cancellables: [AnyCancellable] = []
+    var subscribers: [AnyCancellable] = []
 }
 
 // MARK: Networking
@@ -85,9 +87,14 @@ extension TodoListViewModel {
 
     private func bind() {
         Task {
-            cancellables.append(await networkHelper.isItemUpdate.sink { _ in
+            await networkHelper.isItemUpdate.sink { _ in
                 self.updateItems()
-            })
+            }.store(in: &subscribers)
+
+            await networkHelper.hasRunningNetworkCall
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.hasUnCompletedNetwork, on: self)
+                .store(in: &subscribers)
         }
     }
 

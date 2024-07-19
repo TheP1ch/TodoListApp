@@ -147,6 +147,9 @@ struct TodoListView: View {
 
     @ToolbarContentBuilder
     private var toolBarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            ActivityIndicator(shouldAnimate: $viewModel.hasUnCompletedNetwork)
+        }
         ToolbarItem(placement: .topBarTrailing) {
             NavigationLink {
                 UICalendarViewControllerRepresentable(listViewModel: viewModel, categoryViewModel: categoryViewModel)

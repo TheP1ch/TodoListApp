@@ -11,6 +11,7 @@ import Foundation
 protocol TodoNetworkingHelper: Actor {
     var todoItems: [TodoItem] { get }
     var isItemUpdate: PassthroughSubject<Bool, Never> { get }
+    var hasRunningNetworkCall: PassthroughSubject<Bool, Never> { get }
 
     func fetchTodoList() async
     func updateTodoList(_ items: [TodoItem]) async
@@ -21,8 +22,6 @@ protocol TodoNetworkingHelper: Actor {
 }
 
 actor TodoListNetworkingHelper: TodoNetworkingHelper {
-    private(set) var isItemUpdate = PassthroughSubject<Bool, Never>()
-
     private(set) var todoItems: [TodoItem] = []
 
     private var revision: Int32 = 0
@@ -30,6 +29,10 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
     private var isDirty: Bool = false
 
     private let networkingService = DefaultNetworkingService()
+
+    private(set) var isItemUpdate = PassthroughSubject<Bool, Never>()
+
+    private(set) var hasRunningNetworkCall = PassthroughSubject<Bool, Never>()
 
     private let minDelay = 2.0
     private let maxDelay = 2.0 * 60
@@ -111,12 +114,14 @@ extension TodoListNetworkingHelper {
         var delay = minDelay
 
         for i in 0...5 {
+            hasRunningNetworkCall.send(true)
             do {
                 let response = try await networkCall()
                 self.revision = response.revision
 
                 onSuccess(response.result)
                 isDirty = false
+                hasRunningNetworkCall.send(false)
                 break
             } catch {
                 delay = calculateDelay(attemp: i, prevDelay: delay)
@@ -138,6 +143,7 @@ extension TodoListNetworkingHelper {
                     }
                     continue
                 } else {
+                    hasRunningNetworkCall.send(false)
                     isDirty = true
                 }
             }
