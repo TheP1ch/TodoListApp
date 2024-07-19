@@ -31,6 +31,12 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
 
     private let networkingService = DefaultNetworkingService()
 
+    private let minDelay = 2.0
+    private let maxDelay = 2.0 * 60
+    private let factor = 1.5
+    private let jitter = 0.05
+    private let maxAttempts = 5
+
     init() {
         Logger.log("NetworkingHelper init", level: .debug)
     }
@@ -102,23 +108,49 @@ extension TodoListNetworkingHelper {
         networkCall: @escaping () async throws -> T,
         onSuccess: @escaping (T.ResponseResult) -> Void = {_ in }
     ) async {
-        do {
-            let response = try await networkCall()
-            self.revision = response.revision
+        var delay = minDelay
 
-            onSuccess(response.result)
-            isDirty = false
-        } catch let error as NetworkingError {
-            Logger.log("HandleResponseFunc networking Error: \(error)", level: .error)
-            if case .httpError(statusCode: 400) = error {
-                await updateTodoList(self.todoItems)
-                return
+        for i in 0...5 {
+            do {
+                let response = try await networkCall()
+                self.revision = response.revision
+
+                onSuccess(response.result)
+                isDirty = false
+                break
+            } catch {
+                delay = calculateDelay(attemp: i, prevDelay: delay)
+                if let error = error as? NetworkingError {
+                    Logger.log("HandleResponseFunc networking Error: \(error)", level: .error)
+                    if case .httpError(statusCode: 400) = error {
+                        await updateTodoList(self.todoItems)
+                        return
+                    }
+                } else {
+                    Logger.log("Error handleResponse \(error)", level: .error)
+                }
+
+                if i < 5 {
+                    do {
+                        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+                    } catch {
+                        Logger.log("Task sleep error", level: .error)
+                    }
+                    continue
+                } else {
+                    isDirty = true
+                }
             }
-            isDirty = true
-        } catch {
-            Logger.log("Error handleResponse \(error)", level: .error)
-            isDirty = true
         }
+    }
+}
+
+// MARK: Calculation Delay
+extension TodoListNetworkingHelper {
+    func calculateDelay(attemp: Int, prevDelay: Double) -> Double {
+        let delay = min(prevDelay * pow(factor, Double(attemp)), maxDelay)
+
+        return delay * (1 + Double.random(in: -jitter...jitter))
     }
 }
 
