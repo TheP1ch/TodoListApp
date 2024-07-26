@@ -79,7 +79,7 @@ struct TodoListView: View {
     private var itemsList: some View {
         List {
             Section {
-                ForEach(viewModel.sortedItems) {todoItem in
+                ForEach(viewModel.items) {todoItem in
                     TodoItemCell(todoItem: todoItem) {
                         viewModel.isCompletedChange(for: todoItem, newValue: $0)
                     }
@@ -125,7 +125,7 @@ struct TodoListView: View {
         .scrollContentBackground(.hidden)
         .background(ColorTheme.Back.backPrimary.color)
         .environment(\.defaultMinListRowHeight, 56)
-        .animation(.easeInOut, value: viewModel.sortedItems)
+        .animation(.easeInOut, value: viewModel.items)
 
     }
 

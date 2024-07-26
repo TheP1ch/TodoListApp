@@ -19,6 +19,7 @@ protocol TodoNetworkingHelper: Actor {
     func addTodoItem(_ item: TodoItem)
     func updateTodoItem(with id: String, _ item: TodoItem)
     func deleteTodoItem(with id: String)
+    func updateItems(_ items: [TodoItem])
 }
 
 actor TodoListNetworkingHelper: TodoNetworkingHelper {
@@ -48,7 +49,8 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
         await handleResponse {
             try await self.networkingService.fetchTodoList()
         } onSuccess: { result in
-            self.update(items: result)
+            self.updateItems(result)
+            self.isItemUpdate.send(true)
         }
     }
 
@@ -56,7 +58,8 @@ actor TodoListNetworkingHelper: TodoNetworkingHelper {
         await handleResponse {
             return try await self.networkingService.patchTodoList(items, revision: self.revision)
         } onSuccess: { result in
-            self.update(items: result)
+            self.updateItems(result)
+            self.isItemUpdate.send(true)
         }
     }
 
@@ -135,6 +138,14 @@ extension TodoListNetworkingHelper {
                     Logger.log("Error handleResponse \(error)", level: .error)
                 }
 
+                if let error = error as? URLError {
+                    if error.code == .notConnectedToInternet {
+                        hasRunningNetworkCall.send(false)
+                        isDirty = true
+                        break
+                    }
+                }
+
                 if i < 5 {
                     do {
                         try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
@@ -185,10 +196,8 @@ extension TodoListNetworkingHelper {
         Logger.log("NetworkHelper Item removed", level: .debug)
     }
 
-    private func update(items: [TodoItem]) {
+    func updateItems(_ items: [TodoItem]) {
         todoItems = items
-
-        isItemUpdate.send(true)
 
         Logger.log("NetworkHelper List updated", level: .debug)
     }

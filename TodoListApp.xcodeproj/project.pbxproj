@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		95D7E08CA108E3F96A6C88AB /* Pods_TodoListAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9C51FB4D153CF6F49E8C4C /* Pods_TodoListAppTests.framework */; };
 		9C0C36212C35C2780049798F /* Color + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C36202C35C2780049798F /* Color + Extensions.swift */; };
+		9C10AA0F2C53DE82003B8FBF /* TodoListStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C10AA0E2C53DE82003B8FBF /* TodoListStorageHelper.swift */; };
+		9C10AA112C53DEBA003B8FBF /* TodoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C10AA102C53DEBA003B8FBF /* TodoItemModel.swift */; };
+		9C10AA132C53E04C003B8FBF /* TodoItemModel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C10AA122C53E04C003B8FBF /* TodoItemModel+Extensions.swift */; };
+		9C10AA152C53E442003B8FBF /* TodoItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C10AA142C53E442003B8FBF /* TodoItem+Extensions.swift */; };
 		9C243D942C35882A009B3EF8 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C243D932C35882A009B3EF8 /* ColorCell.swift */; };
 		9C243D962C3592C6009B3EF8 /* Gradient + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C243D952C3592C6009B3EF8 /* Gradient + Extensions.swift */; };
 		9C243D992C35B730009B3EF8 /* HueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C243D982C35B730009B3EF8 /* HueSlider.swift */; };
@@ -103,6 +107,10 @@
 		6DAD977DFC63D9122EE00560 /* Pods-TodoListApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoListApp.debug.xcconfig"; path = "Target Support Files/Pods-TodoListApp/Pods-TodoListApp.debug.xcconfig"; sourceTree = "<group>"; };
 		7C9C51FB4D153CF6F49E8C4C /* Pods_TodoListAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoListAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0C36202C35C2780049798F /* Color + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + Extensions.swift"; sourceTree = "<group>"; };
+		9C10AA0E2C53DE82003B8FBF /* TodoListStorageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListStorageHelper.swift; sourceTree = "<group>"; };
+		9C10AA102C53DEBA003B8FBF /* TodoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemModel.swift; sourceTree = "<group>"; };
+		9C10AA122C53E04C003B8FBF /* TodoItemModel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel+Extensions.swift"; sourceTree = "<group>"; };
+		9C10AA142C53E442003B8FBF /* TodoItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItem+Extensions.swift"; sourceTree = "<group>"; };
 		9C243D932C35882A009B3EF8 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		9C243D952C3592C6009B3EF8 /* Gradient + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gradient + Extensions.swift"; sourceTree = "<group>"; };
 		9C243D982C35B730009B3EF8 /* HueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HueSlider.swift; sourceTree = "<group>"; };
@@ -221,6 +229,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9C10AA0C2C53DDBE003B8FBF /* FileStorage */ = {
+			isa = PBXGroup;
+			children = (
+				9C10AA0D2C53DDDA003B8FBF /* SwiftDataModel */,
+				9C10AA0E2C53DE82003B8FBF /* TodoListStorageHelper.swift */,
+			);
+			path = FileStorage;
+			sourceTree = "<group>";
+		};
+		9C10AA0D2C53DDDA003B8FBF /* SwiftDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				9C10AA102C53DEBA003B8FBF /* TodoItemModel.swift */,
+				9C10AA122C53E04C003B8FBF /* TodoItemModel+Extensions.swift */,
+			);
+			path = SwiftDataModel;
+			sourceTree = "<group>";
+		};
 		9C243D972C35B70F009B3EF8 /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +356,7 @@
 			children = (
 				9C441A362C2060C300CED704 /* TodoItem.swift */,
 				9CAC0D4E2C38CC3A004570E0 /* Category.swift */,
+				9C10AA142C53E442003B8FBF /* TodoItem+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +388,7 @@
 		9C5389FB2C4A65ED00AFB9DC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9C10AA0C2C53DDBE003B8FBF /* FileStorage */,
 				9C5389FC2C4A65F200AFB9DC /* Networking */,
 			);
 			path = Services;
@@ -780,6 +808,7 @@
 				9C441A0E2C205E3600CED704 /* TodoListView.swift in Sources */,
 				9C8F5DEF2C32DAC300DAE22C /* NewItemCell.swift in Sources */,
 				9C243D942C35882A009B3EF8 /* ColorCell.swift in Sources */,
+				9C10AA152C53E442003B8FBF /* TodoItem+Extensions.swift in Sources */,
 				9CF3A2602C348F5200813B69 /* SuccessSwipeButton.swift in Sources */,
 				9C243D9B2C35B808009B3EF8 /* ColorPicker.swift in Sources */,
 				9C538A282C4ADA2200AFB9DC /* TodoItemDTO.swift in Sources */,
@@ -795,6 +824,7 @@
 				9CF3A2642C34909500813B69 /* DetailsSwipeButton.swift in Sources */,
 				9C5A5F4F2C385B3100105632 /* VerticalCalendarView.swift in Sources */,
 				9C538A0A2C4A6EF400AFB9DC /* TodoListNetworkingHelper.swift in Sources */,
+				9C10AA132C53E04C003B8FBF /* TodoItemModel+Extensions.swift in Sources */,
 				9C6DA3962C303B0E002F2B6B /* Priority.swift in Sources */,
 				9C243D962C3592C6009B3EF8 /* Gradient + Extensions.swift in Sources */,
 				9C564E2E2C32E5B500E2EE78 /* FilterOption.swift in Sources */,
@@ -808,7 +838,9 @@
 				9CC2DEB62C34339400A70FE5 /* DeadlineCell.swift in Sources */,
 				9C4667C12C4002E500F4AC81 /* LogFormatter.swift in Sources */,
 				9CAC0D532C38D1EA004570E0 /* CategoryColorCircle.swift in Sources */,
+				9C10AA112C53DEBA003B8FBF /* TodoItemModel.swift in Sources */,
 				9C5A5F4D2C38435800105632 /* HorizontalCalendarView.swift in Sources */,
+				9C10AA0F2C53DE82003B8FBF /* TodoListStorageHelper.swift in Sources */,
 				9C4667C92C412D9900F4AC81 /* URLSession + Extensions.swift in Sources */,
 				9C538A032C4A663000AFB9DC /* DefaultNetworkingService.swift in Sources */,
 				9C441A3A2C20646D00CED704 /* FileCache.swift in Sources */,
