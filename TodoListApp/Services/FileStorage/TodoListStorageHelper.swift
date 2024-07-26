@@ -141,8 +141,8 @@ final actor TodoListStorageHelper: ModelActor, TodoStorageHelper {
         } catch {
             list = []
         }
-
-        Logger.log("Fetch filtered data from Storage", level: .debug)
+        
+        Logger.log("Fetch filtered data from storage", level: .debug)
 
         return list
     }
