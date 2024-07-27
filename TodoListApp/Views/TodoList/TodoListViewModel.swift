@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import SwiftData
 
 protocol CollectionManaging: AnyObject {
     func add(item: TodoItem)
@@ -16,11 +17,6 @@ protocol CollectionManaging: AnyObject {
 
 final class TodoListViewModel: ObservableObject, CollectionManaging {
     // MARK: public properties
-    var sortedItems: [TodoItem] {
-        let filteredItems = self.filter(with: filterOption)
-        return sort(filteredItems, with: sortOption)
-    }
-
     @Published var hasUnCompletedNetwork: Bool = false
 
     @Published var filterOption: FilterOption = .hideDone {
@@ -35,13 +31,19 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
         }
     }
 
-    var isDoneCount: Int {
-        items.reduce(0) { value, item in
-            value + (item.isCompleted ? 1 : 0)
-        }
-    }
+    private(set) var isDoneCount: Int = 0
 
     init() {
+        do {
+            let container = try ModelContainer.init(for: TodoItemModel.self)
+
+            self.storageHelper = TodoListStorageHelper(container: container)
+            Logger.log("Initialize TodoListViewModel", level: .debug)
+        } catch {
+            Logger.log("Fail initializing SwiftData Context", level: .error)
+            fatalError()
+        }
+
         bind()
     }
 
@@ -51,34 +53,14 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
 
     private let networkHelper: TodoNetworkingHelper = TodoListNetworkingHelper()
 
+    private let storageHelper: TodoStorageHelper
+
     private let fileCache: FileManaging = FileCache()
 
     private let fileName: String = FileCache.fileName
 
     private let format: FileFormat = FileCache.fileExtension
 
-    // MARK: private methods
-    private func filter(with filterOption: FilterOption) -> [TodoItem] {
-        switch filterOption {
-        case .all:
-            return self.items
-        case .hideDone:
-            return self.items.filter { $0.isCompleted == false }
-        }
-    }
-
-    private func sort(_ items: [TodoItem], with sortOption: SortOption) -> [TodoItem] {
-        switch sortOption {
-        case .createdAt:
-            return items.sorted {
-                $0.createdAt > $1.createdAt
-            }
-        case .priority:
-            return items.sorted {
-                $0.priority > $1.priority
-            }
-        }
-    }
     var subscribers: [AnyCancellable] = []
 }
 
@@ -86,9 +68,25 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
 extension TodoListViewModel {
 
     private func bind() {
+        $sortOption.combineLatest($filterOption).sink { sort, filter in
+            Task {[weak self] in
+                guard let self else { return }
+
+                await fetchFilteredItems(filter, sort)
+            }
+        }.store(in: &subscribers)
+
         Task {
             await networkHelper.isItemUpdate.sink { _ in
-                self.updateItems()
+                Task {[weak self] in
+                    guard let self else { return }
+
+                    let helperItems = await networkHelper.todoItems
+                    await storageHelper.updateAll(helperItems)
+
+                    await fetchFilteredItems(filterOption, sortOption)
+                }
+
             }.store(in: &subscribers)
 
             await networkHelper.hasRunningNetworkCall
@@ -99,10 +97,17 @@ extension TodoListViewModel {
     }
 
     func load() {
+        let fetchStored = Task {
+            await storageHelper.fetch()
+            await updateStorageItems()
+        }
+
         Task {
             await networkHelper.fetchTodoList()
 
-            Logger.log("Load task method", level: .debug)
+            fetchStored.cancel()
+
+            Logger.log("Network data load (fetch request)", level: .debug)
         }
     }
 
@@ -113,58 +118,118 @@ extension TodoListViewModel {
             priority: item.priority,
             deadline: item.deadline,
             isCompleted: newValue,
-            createdAt: Date.now,
-            changeAt: item.changeAt,
+            createdAt: item.createdAt,
+            changeAt: Date.now,
             hexColor: item.hexColor,
             category: item.category
         )
 
         Task {
-            await networkHelper.updateTodoItem(with: item.id, item)
+            await withDiscardingTaskGroup { [weak self] group in
+                guard let self else { return }
+
+                group.addTask {
+                    await self.networkHelper.updateTodoItem(with: item.id, item)
+                }
+
+                group.addTask {
+                    await self.storageHelper.update(item)
+                }
+            }
 
             Logger.log(
                 "isCompleted change to \(newValue.description) for TodoItem with text:'\(item.text)'",
                 level: .debug
             )
 
-            updateItems()
+            await fetchFilteredItems()
         }
     }
 
     func update(item: TodoItem) {
         Task {
-            await networkHelper.updateTodoItem(with: item.id, item)
-            Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
+            await withDiscardingTaskGroup { [weak self] group in
+                guard let self else { return }
 
-            updateItems()
+                group.addTask {
+                    await self.networkHelper.updateTodoItem(with: item.id, item)
+                }
+
+                group.addTask {
+                    await self.storageHelper.update(item)
+                }
+            }
+
+            Logger.log("TodoItem with id: '\(item.id)' updated", level: .debug)
+
+            await fetchFilteredItems()
         }
     }
 
     func add(item: TodoItem) {
         Task {
-            await networkHelper.addTodoItem(item)
+            await withDiscardingTaskGroup { [weak self] group in
+                guard let self else { return }
+
+                group.addTask {
+                    await self.networkHelper.addTodoItem(item)
+                }
+
+                group.addTask {
+                    await self.storageHelper.insert(item)
+                }
+            }
+
             Logger.log("TodoItem with id: '\(item.id)' added", level: .debug)
 
-            updateItems()
+            await fetchFilteredItems()
         }
     }
 
     func remove(by id: String) {
         Task {
-            await networkHelper.deleteTodoItem(with: id)
+            await withDiscardingTaskGroup { [weak self] group in
+                guard let self else { return }
+
+                group.addTask {
+                    await self.networkHelper.deleteTodoItem(with: id)
+                }
+
+                group.addTask {
+                    let item = self.items.first { $0.id == id }
+
+                    guard let item else { return }
+
+                    await self.storageHelper.delete(item)
+                }
+            }
+
             Logger.log("TodoItem with id: '\(id)' removed", level: .debug)
 
-            updateItems()
+            await fetchFilteredItems()
         }
     }
 
-    private func updateItems() {
+    private func updateStorageItems() async {
+        let storageItems = await storageHelper.items
+
+        Logger.log("Download storageItems by StorageItems", level: .debug)
+
+        await networkHelper.updateItems(storageItems)
+
+        await fetchFilteredItems()
+    }
+
+    private func fetchFilteredItems(_ filterOption: FilterOption? = nil, _ sortOption: SortOption? = nil) async {
         Task {
-            let helperItems = await networkHelper.todoItems
+            let filterOption = filterOption ?? self.filterOption
+            let sortOption = sortOption ?? self.sortOption
+            let filteredItems = await storageHelper.filteredFetch(filterOption: filterOption, sortOption: sortOption)
+            let isDoneCount = await storageHelper.isDoneCount()
 
             await MainActor.run {
-                self.items = helperItems
-                Logger.log("ViewModel List Updated", level: .debug)
+                self.items = filteredItems
+                self.isDoneCount = isDoneCount
             }
         }
     }
