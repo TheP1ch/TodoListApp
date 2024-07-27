@@ -17,11 +17,6 @@ protocol CollectionManaging: AnyObject {
 
 final class TodoListViewModel: ObservableObject, CollectionManaging {
     // MARK: public properties
-//    var sortedItems: [TodoItem] {
-//        let filteredItems = self.filter(with: filterOption)
-//        return sort(filteredItems, with: sortOption)
-//    }
-
     @Published var hasUnCompletedNetwork: Bool = false
 
     @Published var filterOption: FilterOption = .hideDone {
@@ -66,28 +61,6 @@ final class TodoListViewModel: ObservableObject, CollectionManaging {
 
     private let format: FileFormat = FileCache.fileExtension
 
-    // MARK: private methods
-//    private func filter(with filterOption: FilterOption) -> [TodoItem] {
-//        switch filterOption {
-//        case .all:
-//            return self.items
-//        case .hideDone:
-//            return self.items.filter { $0.isCompleted == false }
-//        }
-//    }
-//
-//    private func sort(_ items: [TodoItem], with sortOption: SortOption) -> [TodoItem] {
-//        switch sortOption {
-//        case .createdAt:
-//            return items.sorted {
-//                $0.createdAt > $1.createdAt
-//            }
-//        case .priority:
-//            return items.sorted {
-//                $0.priority > $1.priority
-//            }
-//        }
-//    }
     var subscribers: [AnyCancellable] = []
 }
 
@@ -109,7 +82,6 @@ extension TodoListViewModel {
                     guard let self else { return }
 
                     let helperItems = await networkHelper.todoItems
-                    print(helperItems)
                     await storageHelper.updateAll(helperItems)
 
                     await fetchFilteredItems(filterOption, sortOption)

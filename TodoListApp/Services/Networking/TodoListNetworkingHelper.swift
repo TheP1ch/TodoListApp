@@ -138,16 +138,9 @@ extension TodoListNetworkingHelper {
                     Logger.log("Error handleResponse \(error)", level: .error)
                 }
 
-                if let error = error as? URLError {
-                    if error.code == .notConnectedToInternet {
-                        hasRunningNetworkCall.send(false)
-                        isDirty = true
-                        break
-                    }
-                }
-
                 if i < 5 {
                     do {
+                        Logger.log("Task sleep seconds: \(delay)", level: .error)
                         try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
                     } catch {
                         Logger.log("Task sleep error", level: .error)

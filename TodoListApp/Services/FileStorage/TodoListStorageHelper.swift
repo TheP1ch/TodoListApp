@@ -77,11 +77,10 @@ final actor TodoListStorageHelper: ModelActor, TodoStorageHelper {
         do {
             try modelContext.delete(model: TodoItemModel.self, where: deletePredicate)
             try modelContext.save()
+            Logger.log("Delete item id: '\(todoItem.id)', text: \(todoItem.text) in Storage", level: .debug)
         } catch {
-            print("Can't")
+            Logger.log("can't delete item id: '\(todoItem.id)', text: \(todoItem.text) in Storage", level: .debug)
         }
-
-        Logger.log("Delete item id: '\(todoItem.id)', text: \(todoItem.text) in Storage", level: .debug)
     }
 
     func update(_ todoItem: TodoItem) {
@@ -141,7 +140,7 @@ final actor TodoListStorageHelper: ModelActor, TodoStorageHelper {
         } catch {
             list = []
         }
-        
+
         Logger.log("Fetch filtered data from storage", level: .debug)
 
         return list
